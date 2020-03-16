@@ -1,0 +1,23 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#topHeader
+{
+    color: white;
+    background-color: blue;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 40px;
+}
+
+#subHeader
+{
+    margin-top: 40px;
+    text-align: center;
+    text-decoration: underline;
+}
