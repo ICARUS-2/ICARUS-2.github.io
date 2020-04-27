@@ -15,7 +15,6 @@
     background-size: cover;
 }
 
-
 /*TOP SECTION*/
 nav ul
 {
@@ -52,6 +51,11 @@ nav ul
 {
     background-color: darkblue;
     color:  rgb(0, 191, 255);
+}
+
+.hamburgerMenu
+{
+    display: none;
 }
 
 /*DESCRIPTION*/
@@ -129,6 +133,11 @@ nav ul
 }
 
 /*INSPIRING PROJECTS*/
+
+.mobileLayoutDesc
+{
+    display: none;
+}
 
 #projectGrid
 {
@@ -230,4 +239,101 @@ textarea
 {
     padding-left: 10px;
     color: rgb
+}
+
+/*MEDIA QUERIES*/
+
+@media screen and (min-width: 600px) and (max-width: 1000px)
+{
+
+nav ul
+{
+    height: 100%;
+    flex-direction: column;
+    padding: unset;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navLinks
+{
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+main
+{
+    display: flex;
+}
+
+.url 
+{
+    margin: unset;
+    padding: unset;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.navLinks ul :nth-child(1) a 
+{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.navLinks ul :nth-child(2) a 
+{
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.navLinks ul :nth-child(3) a 
+{
+    padding-left: 73px;
+    padding-right: 73px;
+}
+
+.navLinks ul :nth-child(4) a 
+{
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+.navLinks ul :nth-child(5) a 
+{
+    padding-left: 92px;
+    padding-right: 92px;
+}
+
+}
+
+@media screen and (max-width: 599px)
+{
+    .url
+    {
+        display: none;
+    }
+
+
+    .hamburgerMenu
+    {
+        display: inline;
+        fill: white;
+    }
+
+    #projectGrid
+    {
+        grid-template-columns: 70%;
+    }
+
+    .rtxDesc, .overwatchDesc, .seratoDesc, .watercoolingDesc
+    {
+        display: none;
+    }
+
+    .mobileLayoutDesc
+    {
+        display: inline
+    }
 }
