@@ -3,13 +3,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: x-large;
+    font-size: large;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 /*BACKGROUNDS*/
 
-.homepage
+.homepage, .contactMe, .assignmentDownloads
 {
     background-image: linear-gradient(rgba(0, 7, 46, 0.6), rgba(0, 7, 46, 0.6)), url(./assets/pc-inside.jpg);
     background-size: cover;
@@ -19,6 +19,7 @@
 {
     background-color: rgb(4, 0, 32);
 }
+
 
 /*TOP SECTION*/
 nav ul
@@ -38,6 +39,8 @@ nav ul
 .name
 {
     font-size: 2rem;
+    font-family: Fixed, monospace;
+    font-weight: 100;
 }
 
 .url
@@ -106,6 +109,7 @@ nav ul
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .mainList
@@ -117,6 +121,11 @@ nav ul
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.mainList li a
+{
+    color: rgb(0, 191, 255);
 }
 
 .listHeader
@@ -135,7 +144,7 @@ nav ul
     grid-template-columns: repeat(2, 50%);
     max-width: 1700px;
     margin: 0 auto;
-    color: white;
+    color: rgb(0, 191, 255);
 }
 
 #projectGrid img
@@ -147,4 +156,79 @@ nav ul
 #projectGrid p
 {
     display: block;
+}
+
+/*CONTACT PAGE*/
+
+#contactHeader
+{
+    text-align: center;
+    font-size: 100px;
+    font-weight: normal;
+}
+
+hr
+{
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.contactMe
+{
+    color: white;
+}
+
+#contactForm
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+#contactForm p
+{
+    display: inline;
+}
+
+.formItem
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+input[type=radio]
+{
+    height: 20px;
+    width: 20px;
+}
+
+input[type="submit"]
+{
+    background-color: rgb(0, 85, 165);
+    color: white;
+}
+
+.bar
+{
+    height: 50px;
+    width: 500px;
+    border: solid 3px black;
+    border-radius: 12px;
+}
+
+textarea
+{
+    width: 500px;
+    height: 200px;
+    border: solid 3px black;
+    border-radius: 12px;
+    color: black;
+}
+
+::placeholder
+{
+    padding-left: 10px;
 }
