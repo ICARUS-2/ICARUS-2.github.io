@@ -53,9 +53,36 @@ nav ul
     color:  rgb(0, 191, 255);
 }
 
+/*HAMBURGER MENU*/
+
 .hamburgerMenu
 {
     display: none;
+}
+
+.hamburgerMenu :hover
+{
+    fill: #00BFFF;
+}
+
+.hm-dropdown
+{
+    display: none;
+    flex-direction: column;
+}
+
+.hm-dropdown h1
+{
+    margin-top: 15px;
+    z-index: 1;
+}
+
+.hm-dropdown h1 a
+{
+    color: #00BFFF;
+    background-color: #0055A5;
+    text-decoration: none;
+    padding: 5px;
 }
 
 /*DESCRIPTION*/
@@ -108,25 +135,47 @@ nav ul
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #00BFFF;
+    list-style-type: none;
+    text-align: center;
 }
 
-.mainList
+.lists li
 {
-    position: relative;
-    list-style-type: none;
-    line-height: 2;
+    margin-top: 50px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 60%;
 }
 
-.mainList li a
+.lists li a 
 {
-    color: rgb(0, 191, 255);
+    color: #00BFFF;
 }
 
+
+.compsciProject
+{
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #040020;
+    border-radius: 25px;
+    border: 5px solid black;
+}
+
+.lists li :hover
+{
+    background-color: rgb(0, 63, 122);
+}
+
+.compsciProject img
+{
+    width: 100%;
+    height: 100%;
+}
 .listHeader
 {
     text-decoration: underline;
@@ -243,7 +292,7 @@ textarea
 
 /*MEDIA QUERIES*/
 
-@media screen and (min-width: 600px) and (max-width: 1000px)
+@media screen and (min-width: 800px) and (max-width: 1000px)
 {
 
 nav ul
@@ -308,7 +357,7 @@ main
 
 }
 
-@media screen and (max-width: 599px)
+@media screen and (max-width: 799px)
 {
     .url
     {

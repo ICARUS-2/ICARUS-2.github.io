@@ -4,6 +4,7 @@
     <title>JAC Comp/Sci Downloads</title>
     <link rel="stylesheet" href="styles.css">
     <meta charset="utf-8">
+    <script src="script.js"></script>
 </head>
 
 <body class="assignmentDownloads">
@@ -14,54 +15,68 @@
             <div class="navLinks">
                 <ul>
                     <li><a href="index.html" class="url">Home</a></li>
-                    <li><a href="jac.html" class="url">JAC C/S Downloads</a></li>
+                    <li><a href="jac.html" class="url">My Projects</a></li>
                     <li><a href="https://github.com/ICARUS-2" class="url" target="_blank">GitHub Page</a></li>
-                    <li><a href="inspiring-projects.html" class="url">Inspiring Projects</a></li>
+                    <li><a href="inspiring-projects.html" class="url">My Inspirations</a></li>
                     <li><a href="contact.html" class="url">Contact</a></li>
-                    <li class="hamburgerMenu">                
+                    <li class="hamburgerMenu" onclick=UpdateMenu()>                
                         <svg viewBox="0 0 100 80" width="40" height="40">
                         <rect width="100" height="20"></rect>
                         <rect y="30" width="100" height="20"></rect>
                         <rect y="60" width="100" height="20"></rect>
                       </svg>
+                      <div class="hm-dropdown">
+                        <h1><a href="index.html">Home</a></h1>
+                        <h1><a href="jac.html">My Projects</a></h1>
+                        <h1><a href="https://github.com/ICARUS-2">GitHub Page</a></h1>
+                        <h1><a href="inspiring-projects.html">My Inspirations</a></h1>
+                        <h1><a href="contact.html">Contact</a></h1>
+                    </div>
                     </li>
                 </ul>
             </div>
         </ul>
     </nav>
-    <div class="lists">
-        <ul class="mainList">
-            
-            <li><h2 class="listHeader">Fall 2019 Semester</h2><br></li>			
-            <li><h2>Programming I</h2></li>
-            <li><a href="./Downloads/f2019/Programming I/Lab 1.zip" download>Lab 1</a></li>
-            <li><a href="./Downloads/f2019/Programming I/Lab 2.zip" download>Lab 2</a></li>
-            <li><a href="./Downloads/f2019/Programming I/Lab 3.zip" download>Lab 3</a></li>
-                    
-            <li><a href="./Downloads/f2019/Programming I/WaveDodger-1.0.zip" download>WaveDodger 1.0</a></li>
-            <li><a href="./Downloads/f2019/Programming I/WaveDodger-1.1.zip" download>WaveDodger 1.1</a></li>					
-            <li><a href="./Downloads/f2019/Programming I/WaveDodger-1.12.zip" download>WaveDodger 1.12 (LATEST VERSION)</a></li>
+    <div class="lists">			        	
+        <li>
+            <div class="compsciProject">
+                <p>WaveDodger - My first game in c#. Collect coins while
+                    dodging waves of enemies coming down the screen
+                </p>
+                <img src="./assets/wavedodger.PNG">
+                <a href="./Downloads/WaveDodger-1.12.zip" download>WaveDodger 1.12 zip file download</a>
+            </div>    
+        </li>
 
-            <li><h2 class="listHeader">Winter 2020 Semester</h2><br></li>			
-            <li><h2>Programming II</h2></li>
-            <li><a href="./Downloads/w2020/programming ii/Assignment 1.zip" download>Assignment 1</a></li>
-            <li><a href="./Downloads/w2020/programming ii/Assignment 2-p1.zip" download>Assignment 2 Part 1</a></li>
-            <li><a href="./Downloads/w2020/programming ii/Calories.zip" download>Calories</a></li>	
-            <li><a href="./Downloads/w2020/programming ii/Prime Numbers.zip" download>Prime Numbers</a></li>
-            <li><a href="./Downloads/w2020/programming ii/Unique Numbers List.zip" download>Unique Numbers</a></li>
-        
-            <li><h2>Information Technology</h2></li>
-            <li><a href="./Downloads/w2020/infotech/Assignment 1 - Office.zip" download>Assignment 1 - Office</a></li>
-            <li><a href="./Downloads/w2020/infotech/Assignment 2 - Intro to JavaScript.zip" download>Assignment 2 - Intro to JavaScript</a></li>
-            <li><a href="./Downloads/w2020/infotech/1824429_ModernSolutions.ps1" download>Assignment 3 - Intro to PowerShell/Modern Solutions</a></li>
+        <li>
+            <div class="compsciProject">
+                <p>WaveDodger II - The sequel to the original that features
+                    random enemy placement, a dual-mode level editor, and full code
+                    documentation
+                </p>
+                <img src="./assets/wavedodger2.PNG">
+                <a href="https://github.com/ICARUS-2/wavedodger2">Download from GitHub (Version 1.0.2)</a>
+            </div>
+        </li>
 
-            <li><h2>User Interfaces</h2></li>
-            <li><a href="./Downloads/w2020/interface/Assignment 1 - Club Website.zip" download>Assignment 1 - Club Website</a></li>
+        <li>
+            <div class="compsciProject">
+                <p>PrimeRGB - A Prime Number calculator that outputs a user-defined amount of
+                    prime numbers in all that <span style="color:red">R</span><span style="color:rgb(0, 255, 0)">G</span><span style="color:rgb(0, 0, 255)">B</span> goodness
+                </p>
+                <img src="./assets/primenumbers.png">
+                <a href="./Downloads/primergb.exe">Download Executable File</a>
+            </div>
+        </li>
 
-            <li><h2>Networking</h2></li>
-            <li><a href="./Downloads/w2020/networking/Assignment 2.zip" download>Assignment 2</a></li>
-            <li><a href="./Downloads/w2020/networking/Assignment 3.zip" download>Assignment 3</a></li>
-        </ul>
+        <li>
+            <div class="compsciProject">
+                <p>Video Poker - A gambling game that is sure to cause an addiction to the real thing
+                </p>
+                <img src="./assets/videopoker.png">
+                <a href="./Downloads/VideoPoker.zip">Download zip file (Documentation included)</a>
+            </div>
+        </li>
     </div>
 </main>
 </body>
