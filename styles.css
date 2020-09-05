@@ -358,7 +358,7 @@ main
 
 }
 */
-@media screen and (max-width: 799px)
+@media only screen and (max-width: 500px)
 {
     .url
     {
