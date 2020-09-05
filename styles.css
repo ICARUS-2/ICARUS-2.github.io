@@ -292,7 +292,8 @@ textarea
 
 /*MEDIA QUERIES*/
 
-@media screen and (min-width: 900px) and (max-width: 1000px)
+/*
+@media screen and (min-width: 800px) and (max-width: 1000px)
 {
 
 nav ul
@@ -356,8 +357,8 @@ main
 }
 
 }
-
-@media screen and (max-width: 899px)
+*/
+@media screen and (max-width: 799px)
 {
     .url
     {
