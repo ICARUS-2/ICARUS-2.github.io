@@ -293,7 +293,7 @@ textarea
 /*MEDIA QUERIES*/
 
 /*
-@media screen and (min-width: 800px) and (max-width: 1000px)
+@media only screen and (max-width: 1000px)
 {
 
 nav ul
@@ -358,7 +358,7 @@ main
 
 }
 */
-@media only screen and (max-width: 500px)
+@media only screen and (max-width: 480px)
 {
     .url
     {
@@ -384,6 +384,6 @@ main
 
     .mobileLayoutDesc
     {
-        display: inline
+        display: inline;
     }
 }
