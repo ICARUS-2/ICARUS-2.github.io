@@ -126,3 +126,45 @@ body
 {
     background-color: rgb(20, 0, 100);
 }
+
+/*CONTACT PAGE*/
+.contactboxheader
+{
+    margin-top: 30px;
+    margin-bottom: 70px;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+    font-size: 50px;
+    font-weight:bold;
+}
+
+.contactboxlink
+{
+    margin: 300px;
+    text-decoration: none;
+    background-color: rgb(20, 0, 100);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    height: 50px;
+    text-decoration: none;
+    padding: 20px;
+    font-size: 150%;
+}
+
+.contactboxlink:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.contactmain
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
