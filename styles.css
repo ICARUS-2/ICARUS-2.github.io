@@ -9,6 +9,7 @@
 	vertical-align: baseline;
     font-family: Helvetica;
     box-sizing: border-box;
+    font-size: 100%;
 }
 
 a:visited
@@ -36,9 +37,10 @@ a
     align-items: center;
     padding-left: 5%;
     padding-right: 5%;
-    height: 200;
+    height: 75px;
     padding-top: 10px;
     padding-bottom: 10px;
+    font-size: 150%;
 }
 
 .navbar
@@ -87,6 +89,7 @@ body
     margin-top: 30px;
     background-color: rgb(15, 0, 105);
     border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
     padding: 25px;
     border-radius: 5px;
     color: white;
@@ -106,6 +109,7 @@ body
     padding-right: 10%;
     line-height: 1.5;
     font-weight: lighter;
+    font-size: 150%;
 }
 
 .biobuttons
