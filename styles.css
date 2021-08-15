@@ -168,3 +168,89 @@ body
     align-items: center;
     flex-direction: column;
 }
+
+/*PROJECTS PAGE*/
+.projectsheader
+{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 70px;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+    font-size: 50px;
+    font-weight:bold;
+    width: 30%;
+}
+
+.projectsmain
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.projectsgrid
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    width: 70%;
+    gap: 20px;
+}
+
+.projItem
+{
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+    font-size: 50px;
+    font-weight:bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.projHeader
+{
+    font-size: 65%;
+    margin-bottom: 10%;
+}
+
+.tnnfHeader
+{
+    margin-bottom: unset;
+}
+
+.projImg
+{
+    width: 70%;
+}
+
+.projButton
+{
+    text-decoration: none;
+    margin-right: 5%;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    padding: 2%;
+    border-radius: 5px;
+    color: white;
+    font-size: 45%;
+    font-weight: lighter;
+    margin-top: 5%;
+}
+
+.projButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
