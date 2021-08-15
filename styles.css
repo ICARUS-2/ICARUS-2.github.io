@@ -142,16 +142,25 @@ body
     font-weight:bold;
 }
 
+.contactlinkdiv
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .contactboxlink
 {
-    margin: 300px;
+    margin-left: 20%;
+    margin-right: 20%;
     text-decoration: none;
     background-color: rgb(20, 0, 100);
     border: solid rgb(77, 0, 255) 2px;
     border-radius: 5px;
     height: 50px;
-    text-decoration: none;
     padding: 20px;
+    padding-bottom: 50px;
     font-size: 150%;
 }
 
@@ -253,4 +262,39 @@ body
 .projButton:hover
 {
     background-color: rgb(77, 0, 255);
+}
+
+/*MEDIA QUERIES*/
+@media only screen and (max-width: 500px) 
+{
+    /*GENERAL AND HOMEPAGE*/
+    *
+    {
+        font-size: 100%;
+    }
+
+    .navtag
+    {
+        flex-direction: column;
+        height: 120px;
+    }
+
+    .biobuttonsdiv
+    {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .aboutparagraph
+    {
+        width: 90%;
+    }
+
+    /*CONTACT*/
+    .contactboxlink
+    {
+        margin-top: 0px;
+        height: 100px;
+    }
 }
