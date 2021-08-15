@@ -245,6 +245,14 @@ body
     width: 70%;
 }
 
+.projDesc
+{
+    margin-top: 20px;
+    font-weight: lighter;
+    font-size: 20px;
+    display: none;
+}
+
 .projButton
 {
     text-decoration: none;
@@ -296,5 +304,16 @@ body
     {
         margin-top: 0px;
         height: 100px;
+    }
+
+    /*PROJECTS*/
+    .projectsgrid
+    {
+        grid: auto/auto;
+    }
+
+    .projectsheader
+    {
+        width: 70%;
     }
 }
