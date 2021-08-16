@@ -282,17 +282,18 @@ body
 
     html, body 
     {
-        width: 500px;
-        /*max-width: 100%;*/
+        width: 100%;
         overflow-x: hidden;
     }
 
     .navtag
     {
         flex-direction: column;
-        align-items: center;
+        justify-content: center;
         height: 120px;
         width: 500px;
+        float: none;
+        vertical-align: top;
     }
 
     .navbar
