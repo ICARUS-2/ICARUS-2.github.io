@@ -282,13 +282,15 @@ body
 
     html, body 
     {
-        max-width: 100%;
+        width: 500px;
+        /*max-width: 100%;*/
         overflow-x: hidden;
     }
 
     .navtag
     {
         flex-direction: column;
+        align-items: center;
         height: 120px;
         width: 500px;
     }
@@ -296,6 +298,7 @@ body
     .navbar
     {
         width: 100%;
+        align-items: center;
     }
 
     .navlink
