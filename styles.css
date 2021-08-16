@@ -291,9 +291,11 @@ body
         flex-direction: column;
         justify-content: center;
         height: 120px;
-        width: 500px;
-        float: none;
-        vertical-align: top;
+        width: 100%;
+        max-width: 500px;
+        padding: 0px;
+        margin: 0px;
+        font-size: 150%;
     }
 
     .navbar
