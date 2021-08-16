@@ -33,7 +33,6 @@ a
     display: flex;
     background-color: rgb(30, 30, 30);
     justify-content: space-between;
-    height: 50px;
     align-items: center;
     padding-left: 5%;
     padding-right: 5%;
@@ -275,16 +274,33 @@ body
 /*MEDIA QUERIES*/
 @media only screen and (max-width: 500px) 
 {
-    /*GENERAL AND HOMEPAGE*/
+    /*GENERAL AND HOMEPAGE/NAV*/
     *
     {
         font-size: 100%;
+    }
+
+    html, body 
+    {
+        max-width: 100%;
+        overflow-x: hidden;
     }
 
     .navtag
     {
         flex-direction: column;
         height: 120px;
+        width: 500px;
+    }
+
+    .navbar
+    {
+        width: 100%;
+    }
+
+    .navlink
+    {
+        padding: 10px;
     }
 
     .biobuttonsdiv
@@ -321,4 +337,5 @@ body
     {
         display: none;
     }
+
 }
