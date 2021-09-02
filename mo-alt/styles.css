@@ -186,3 +186,46 @@ body
 {
     margin-top: 30px;
 }
+
+@media only screen and (max-width: 500px) 
+{
+    /*GENERAL AND HOMEPAGE/NAV*/
+    *
+    {
+        font-size: 100%;
+    }
+
+    html, body 
+    {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .navtag
+    {
+        flex-direction: column;
+        justify-content: center;
+        height: 120px;
+        width: 100%;
+        max-width: 500px;
+        padding: 0px;
+        margin: 0px;
+        font-size: 150%;
+    }
+
+    .navbar
+    {
+        width: 100%;
+        align-items: center;
+    }
+
+    .placeholder
+    {
+        width: 100%;
+    }
+
+    .circleImg
+    {
+    display: none;
+    }
+}
