@@ -196,6 +196,85 @@ body
     margin-top: 30px;
 }
 
+/*DASHBOARD*/
+.dashboardPageMain
+{
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.topItems
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.topStatHeader
+{
+    justify-self: flex-start;
+}
+
+.topStat
+{
+    width: 19%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardItem
+{
+    margin-top: 20px;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+}
+
+.middleItems
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.leftSection, .rightSection
+{
+    width: 50%;
+}
+
+.rightSection
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hashrateAndActiveMiners
+{
+    display: flex;
+    height: 200px;
+    justify-content: space-between;
+}
+
+.minerHashrates, .connectedMiners
+{
+    width: 47%;
+}
+
+.blockData
+{
+    width: 95%;
+}
+
+.balances, .exchangeRates
+{
+    height: 200px;
+}
+
 @media only screen and (max-width: 500px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/

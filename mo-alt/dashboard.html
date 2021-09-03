@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <title>MoneroOcean Mining Pool</title>
-    <script src="./script.js"></script>
+    <script src="./dash-script.js"></script>
 </head>
 <body>
     <nav class="navtag">
@@ -27,7 +27,60 @@
     </nav>
 
     <main class="dashboardPageMain">
-        Dashboard
+        <div class="dashboard">
+            <div class="topItems">
+                <div class="dashboardItem topStat">
+                    <h1 class="topStatHeader">Network Hashrate</h1>
+                    <br>
+                    <p class="networkHashrate">Pending</p>
+                </div> 
+
+                <div class="dashboardItem topStat">
+                    <h1 class="topStatHeader">Pool Hashrate</h1>
+                    <br>
+                    <p class="poolHashrate">Pending</p>
+                </div>
+
+                <div class="dashboardItem topStat">
+                    <h1 class="topStatHeader">Blocks Found</h1>
+                    <br>
+                    <p class="poolBlocksFound">Pending</p>
+                </div>
+
+                <div class="dashboardItem topStat">
+                    <h1 class="topStatHeader">Block Effort</h1>
+                    <br>
+                    <p class="blockEffort">Pending</p>
+                </div>
+
+                <div class="dashboardItem topStat">
+                    <h1 class="topStatHeader">Blockchain Height</h1>
+                    <br>
+                    <p class="blockchainHeight">Pending</p>
+                </div>
+            </div>
+
+            <div class="middleItems">
+                <div class="leftSection">
+                    <div class="hashrateAndActiveMiners">
+                        <div class="minerHashrates dashboardItem">
+
+                        </div>
+
+                        <div class="connectedMiners dashboardItem"></div>
+                    </div>
+
+                    <div class="balances dashboardItem">
+
+                    </div>
+
+                    <div class="exchangeRates dashboardItem"></div>
+                </div>
+                <div class="rightSection">
+                    <div class="blockData dashboardItem"></div>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>
