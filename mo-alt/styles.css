@@ -143,11 +143,20 @@ body
     border-radius: 5px;
     color:white;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
 }
 
 .placeholder:hover
 {
     background-color: rgb(77, 0, 255);
+}
+
+.loginForm
+{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
 }
 
 .loginBox
@@ -221,11 +230,16 @@ body
 
     .placeholder
     {
-        width: 100%;
+        width: 50%;
     }
 
     .circleImg
     {
-    display: none;
+        display: none;
+    }
+
+    .loginButton
+    {
+        width: 150px;
     }
 }
