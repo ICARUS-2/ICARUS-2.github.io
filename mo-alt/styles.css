@@ -321,4 +321,45 @@ body
     {
         width: 150px;
     }
+
+    /*DASHBOARD*/
+    .topItems
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topStat
+    {
+        flex-direction: row;
+        padding: 0px;
+        width: 100%;
+        margin: 5px;
+        justify-content: space-between;
+    }
+
+    .middleItems
+    {
+        flex-direction: column;
+    }
+
+    .leftSection, .rightSection
+    {
+        width: 100%;
+    }
+
+    .rightSection
+    {
+        justify-content: center;
+    }
+
+    .blockData
+    {
+        width: 100%;
+    }
+
+    .minerHashrates, .connectedMiners
+    {
+        width: 48%;
+    }
 }
