@@ -326,7 +326,7 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
     poolMinerCountDisplay.innerHTML = poolObj.pool_statistics.miners;
     
     let count = Object.keys(minerStatsAllWorkersObj).length;
-    addressMinerCountDisplay.innerHTML = count;
+    addressMinerCountDisplay.innerHTML = count - 1;
 }
 
 function UpdateBalances(minerStatsObj)
