@@ -38,6 +38,13 @@ function PreparePage()
     CheckAddress();
     GetDisplays();
 
+    let displays = document.getElementsByClassName("display");
+    for (let d of displays)
+    {
+        d.style.color = "lightgreen";
+    }
+
+    RefreshStats();
     window.setInterval(RefreshStats, refreshInterval)
 }
 
@@ -99,21 +106,28 @@ async function RefreshStats()
     let minerStatsUrl = baseUrl;
     minerStatsUrl += "miner/" + addr + "/stats";
     let poolStatsUrl = "https://api.moneroocean.stream/pool/stats";
+    let networkStatsUrl = "https://api.moneroocean.stream/network/stats";
 
+    let networkStatsObj = await FetchJson(networkStatsUrl);
     let minerStatsObj = await FetchJson(minerStatsUrl);
     let poolStatsObj = await FetchJson(poolStatsUrl);
 
+    UpdateTopStats(networkStatsObj, poolStatsObj)
+    UpdateMinerHashrates(minerStatsObj);
     //ParseHashrate(minerStatsObj.hash2)
 }
 
-function UpdateTopStats()
+function UpdateTopStats(netObj, poolObj)
 {
-
+    poolHashrateDisplay.innerHTML = ParseHashrate(poolObj.pool_statistics.hashRate);
+    poolBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalAltBlocksFound;
 }
 
-function UpdateMinerHashrates()
+function UpdateMinerHashrates(obj)
 {
+    payHashrateDisplay.innerHTML = ParseHashrate(obj.hash2);
 
+    rawHashrateDisplay.innerHTML = ParseHashrate(obj.hash)
 }
 
 function UpdateBalances()
@@ -140,4 +154,24 @@ function ParseHashrate(hashrateStr)
     let gh = 1000000000;
 
     let hashrate = Number(hashrateStr);
+
+    if (hashrate >= gh)
+    {
+        let temp = hashrate / gh;
+        temp = temp.toFixed(2);
+        return temp + " GH/s";
+    }
+    else if (hashrate >= mh)
+    {
+        let temp = hashrate / mh;
+        temp = temp.toFixed(2);
+        return temp + " MH/s";
+    }
+    else if (hashrate >= kh)
+    {
+        let temp = hashrate / kh
+        temp = temp.toFixed(2);
+        return temp + " KH/s";
+    }
+    else return hashrate + " H/s";
 }
