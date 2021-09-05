@@ -213,6 +213,7 @@ body
 .topStatHeader
 {
     justify-self: flex-start;
+    font-weight: bolder;
 }
 
 .topStat
@@ -242,6 +243,11 @@ body
     margin-top: 2px;
 }
 
+.middleStatHeader
+{
+    font-weight: bolder;
+}
+
 .leftSection, .rightSection
 {
     width: 50%;
@@ -263,6 +269,9 @@ body
 .minerHashrates, .connectedMiners
 {
     width: 47%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .blockData
@@ -273,8 +282,28 @@ body
 .balances, .exchangeRates
 {
     height: 200px;
+    display: flex;
+    flex-direction: column;
 }
 
+.horizontalStatPair
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.balanceStatsDiv, .exchangeRatesStatsDiv
+{
+    display: flex;
+    justify-content: space-between;
+}
+.verticalStatPair
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 @media only screen and (max-width: 500px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/
