@@ -190,6 +190,8 @@ let usdERDisplay;
 let bitcoinERDisplay;
 let eurERDisplay;
 
+const TABLE_SIZE = 10;
+
 let addr;
 
 let refreshInterval = 5000;
@@ -293,6 +295,7 @@ async function RefreshStats()
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
     UpdateBalances(minerStatsObj);
     UpdateExchangeRates(poolStatsObj);
+    UpdateBlockData(xmrBlocksObj, altBlocksObj)
 }
 
 function UpdateTopStats(netObj, poolObj, worldApiObj)
@@ -335,13 +338,61 @@ function UpdateExchangeRates(poolObj)
 
 function UpdateBlockData(xmrBlocksObj, altBlocksObj)
 {
+    let table = document.getElementsByClassName("blockTable")[0];
+    table.innerHTML = "";
+    let header = table.insertRow(0);
+    let coinHeader = header.insertCell(0);
+    let heightHeader = header.insertCell(1);
+    let foundHeader = header.insertCell(2);
+    let rewardHeader = header.insertCell(3);
+    let hashHeader = header.insertCell(4); 
+
+    coinHeader.innerHTML = "Coin";
+    heightHeader.innerHTML = "Height";
+    foundHeader.innerHTML = "Found";
+    rewardHeader.innerHTML = "Reward";
+    hashHeader.innerHTML = "Hash";
+
     if (blockDataButton.innerHTML == "See XMR") //populate table with alt blocks
     {
+        for(let i = 0; i < TABLE_SIZE; i++)
+        {
+            let row = table.insertRow(i + 1);
+            let port = altBlocksObj[i].port;
 
+            let coinData = COINS[port];
+
+            let coinCell = row.insertCell(0);
+            let heightCell = row.insertCell(1);
+            let foundCell = row.insertCell(2);
+            let rewardCell = row.insertCell(3);
+            let hashCell = row.insertCell(4);
+
+            coinCell.innerHTML = coinData.name;
+            heightCell.innerHTML = altBlocksObj[i].height;
+            foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
+            rewardCell.innerHTML = (altBlocksObj[i].value / 1000000000000).toString().substr(0,7);
+            hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
+        }
     }
     else //populate table with XMR blocks
     {
+        for(let i = 0; i < TABLE_SIZE; i++)
+        {
+            let row = table.insertRow(i + 1);
 
+            let coinCell = row.insertCell(0);
+            let heightCell = row.insertCell(1);
+            let foundCell = row.insertCell(2);
+            let rewardCell = row.insertCell(3);
+            let hashCell = row.insertCell(4);
+
+            coinCell.innerHTML = "XMR";
+            heightCell.innerHTML = xmrBlocksObj[i].height;
+            foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
+            rewardCell.innerHTML = (xmrBlocksObj[i].value / 1000000000000).toString().substr(0,7);
+            hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,12) + "..."
+        }
     }
 }
 
@@ -399,4 +450,11 @@ function ParseHashrate(hashrateStr)
         hashrate = hashrate.toFixed(2);
         return hashrate + " H/s";
     }
+}
+
+function UnixTSToDate(unix_timestamp)
+{
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let date = new Date(unix_timestamp).toLocaleTimeString("en-us", options)
+    return date;
 }
