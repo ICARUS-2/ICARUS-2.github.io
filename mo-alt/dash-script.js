@@ -190,6 +190,9 @@ let usdERDisplay;
 let bitcoinERDisplay;
 let eurERDisplay;
 
+//miner data
+let sharesDisplay;
+
 const TABLE_SIZE = 10;
 
 let addr;
@@ -268,6 +271,9 @@ function GetDisplays()
     usdERDisplay = document.getElementsByClassName("usdExchangeRateDisplay")[0];
     bitcoinERDisplay = document.getElementsByClassName("btcExchangeRateDisplay")[0];
     eurERDisplay = document.getElementsByClassName("eurExchangeRateDisplay")[0];
+
+    //Miner data
+    sharesDisplay = document.getElementsByClassName("sharesDisplay")[0];
 }
 
 
@@ -295,6 +301,7 @@ async function RefreshStats()
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
     UpdateBalances(minerStatsObj);
     UpdateExchangeRates(poolStatsObj);
+    UpdateMinerData(minerStatsAllWorkersObj)
     UpdateBlockData(xmrBlocksObj, altBlocksObj)
 }
 
@@ -319,7 +326,7 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
     poolMinerCountDisplay.innerHTML = poolObj.pool_statistics.miners;
     
     let count = Object.keys(minerStatsAllWorkersObj).length;
-    addressMinerCountDisplay.innerHTML = count + "  (" + minerStatsAllWorkersObj.global.validShares + "/" + minerStatsAllWorkersObj.global.invalidShares + ")";
+    addressMinerCountDisplay.innerHTML = count;
 }
 
 function UpdateBalances(minerStatsObj)
@@ -334,6 +341,15 @@ function UpdateExchangeRates(poolObj)
     usdERDisplay.innerHTML = "$"+poolObj.pool_statistics.price.usd.toFixed(2);
     eurERDisplay.innerHTML = "€"+poolObj.pool_statistics.price.eur.toFixed(2);
     bitcoinERDisplay.innerHTML = "₿"+poolObj.pool_statistics.price.btc.toFixed(5);
+}
+
+function UpdateMinerData(workersObj)
+{
+    //https://stackoverflow.com/questions/14528385/how-to-convert-json-object-to-javascript-array
+    let arr = Object.keys(workersObj).map(function(_){return workersObj[_]});
+    
+    sharesDisplay.innerHTML = "Total Shares : " + arr[0].validShares + " / " + arr[0].invalidShares;
+
 }
 
 function UpdateBlockData(xmrBlocksObj, altBlocksObj)
@@ -370,7 +386,7 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
 
             coinCell.innerHTML = coinData.name;
             heightCell.innerHTML = altBlocksObj[i].height;
-            foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
+            foundCell.innerHTML = UnixTSToDate(altBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
             rewardCell.innerHTML = (altBlocksObj[i].value / 1000000000000).toString().substr(0,7);
             hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
         }
