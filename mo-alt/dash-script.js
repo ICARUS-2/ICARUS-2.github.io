@@ -193,7 +193,7 @@ let eurERDisplay;
 //miner data
 let sharesDisplay;
 
-const TABLE_SIZE = 10;
+const BLOCK_TABLE_SIZE = 10;
 
 let addr;
 
@@ -331,8 +331,8 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
 
 function UpdateBalances(minerStatsObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + " XMR";
-    totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6) + " XMR";
+    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6);
+    totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
 
@@ -350,6 +350,32 @@ function UpdateMinerData(workersObj)
     
     sharesDisplay.innerHTML = "Total Shares : " + arr[0].validShares + " / " + arr[0].invalidShares;
 
+    let table = document.getElementsByClassName("minerTable")[0];
+    table.innerHTML = "";
+    let header = table.insertRow(0);
+    let minerIdHeader = header.insertCell(0);
+    let minerHashrateHeader = header.insertCell(1);
+    let minerSharesHeader = header.insertCell(2);
+
+    minerIdHeader.innerHTML = "Miner ID";
+    minerHashrateHeader.innerHTML = "Hashrate";
+    minerSharesHeader.innerHTML = "Shares";
+
+    header.style.color = "white";
+
+    for (let i = 1; i < arr.length; i++)
+    {
+        console.log(arr[i])
+        let row = table.insertRow(i);
+
+        let minerId = row.insertCell(0);
+        let minerHashrate = row.insertCell(1);
+        let minerShares = row.insertCell(2);
+
+        minerId.innerHTML = arr[i].identifer;
+        minerHashrate.innerHTML = ParseHashrate(arr[i].hash2);
+        minerShares.innerHTML = arr[i].validShares + " / " + arr[i].invalidShares;
+    }
 }
 
 function UpdateBlockData(xmrBlocksObj, altBlocksObj)
@@ -371,7 +397,7 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
 
     if (blockDataButton.innerHTML == "See XMR") //populate table with alt blocks
     {
-        for(let i = 0; i < TABLE_SIZE; i++)
+        for(let i = 0; i < BLOCK_TABLE_SIZE; i++)
         {
             let row = table.insertRow(i + 1);
             let port = altBlocksObj[i].port;
@@ -393,7 +419,7 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
     }
     else //populate table with XMR blocks
     {
-        for(let i = 0; i < TABLE_SIZE; i++)
+        for(let i = 0; i < BLOCK_TABLE_SIZE; i++)
         {
             let row = table.insertRow(i + 1);
 

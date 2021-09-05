@@ -39,6 +39,16 @@
     margin-right: 10px;
 }
 
+.MoneroOceanText a
+{
+    text-decoration: none;
+}
+
+.MoneroOceanText a:visited
+{
+    color: white;
+}
+
 .navtag
 {
     display: flex;
@@ -339,6 +349,18 @@ body
 {
     display: flex;
     flex-direction: column;
+}
+
+.minerTable
+{
+    color: lightgreen;
+    width: 100%;
+}
+
+.minerTable td
+{
+    width: 33%;
+    padding-bottom: 15px;
 }
 
 @media only screen and (max-width: 800px) 
