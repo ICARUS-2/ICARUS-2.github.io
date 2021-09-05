@@ -433,7 +433,7 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
             heightCell.innerHTML = xmrBlocksObj[i].height;
             foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
             rewardCell.innerHTML = (xmrBlocksObj[i].value / 1000000000000).toString().substr(0,7);
-            hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,12) + "..."
+            hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,6) + "..."
         }
     }
 }
