@@ -435,4 +435,10 @@ body
     {
         width: 100%;
     }
+    
+    .blockTable
+    {
+        font-size: 15px;
+    }
+
 }
