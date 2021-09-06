@@ -193,7 +193,7 @@ let eurERDisplay;
 //miner data
 let sharesDisplay;
 
-const BLOCK_TABLE_SIZE = 10;
+const BLOCK_TABLE_SIZE = 25;
 
 let addr;
 

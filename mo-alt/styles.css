@@ -49,6 +49,11 @@
     color: white;
 }
 
+.MoneroOceanText a:hover
+{
+    color: rgb(210, 210, 210);
+}
+
 .navtag
 {
     display: flex;
