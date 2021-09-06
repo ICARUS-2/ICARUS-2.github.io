@@ -413,7 +413,7 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
             coinCell.innerHTML = coinData.name;
             heightCell.innerHTML = altBlocksObj[i].height;
             foundCell.innerHTML = UnixTSToDate(altBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
-            rewardCell.innerHTML = (altBlocksObj[i].value / 1000000000000).toString().substr(0,7);
+            rewardCell.innerHTML = (altBlocksObj[i].value / coinData.divisor).toString().substr(0,7);
             hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
         }
     }
