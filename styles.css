@@ -272,7 +272,7 @@ body
 }
 
 /*MEDIA QUERIES*/
-@media only screen and (max-width: 500px) 
+@media only screen and (max-width: 1000px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/
     *
