@@ -111,6 +111,12 @@ body
     font-size: 150%;
 }
 
+.biobuttonsdiv
+{
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .biobuttons
 {
     text-decoration: none;
@@ -321,7 +327,6 @@ body
         display: flex;
         flex-direction: column;
         text-align: center;
-        flex-wrap: wrap;
     }
 
     .aboutparagraph
