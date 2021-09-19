@@ -434,6 +434,12 @@ body
         width: 150px;
     }
 
+    .indexPageMain
+    {
+        max-width: 1000px;
+        height: 400px
+    }
+
     /*DASHBOARD*/
     .signInControls
     {
