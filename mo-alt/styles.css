@@ -223,6 +223,15 @@ body
 }
 
 /*DASHBOARD*/
+.errorReturnButton
+{
+    display: none;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+}
+
 .dashboardPageMain
 {
     color: white;

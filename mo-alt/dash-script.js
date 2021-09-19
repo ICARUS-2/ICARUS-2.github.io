@@ -223,20 +223,18 @@ function PreparePage()
 
 function CheckAddress()
 {        
-    let main = document.getElementsByClassName("dashboardPageMain")[0]
+
 
     addr = window.localStorage.getItem(LOGIN_KEY);
 
     if (!addr)
     {
-        main.innerHTML = "Client-side error has occured: No address provided";
-        throw new Error();
+        LoginError("Client-side error has occured: No address provided");
     }
 
     if ((addr.length != MONERO_ADDR_LENGTH && addr.length != MONERO_INTEGR_ADDR_LENGTH) || (!addr.startsWith('4') && !addr.startsWith('8')))
     {
-        main.innerHTML = "Client-side error has occured: Invalid address format";
-        throw new Error();
+        LoginError("Client-side error has occured: Invalid address format");
     }
     else
     {
@@ -528,4 +526,12 @@ function UnixTSToDate(unix_timestamp)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     let date = new Date(unix_timestamp).toLocaleTimeString("en-us", options)
     return date;
+}
+
+function LoginError(msg)
+{
+    let main = document.getElementsByClassName("dashboardPageMain")[0];
+    main.innerHTML = msg;
+    document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
+    throw new Error();
 }
