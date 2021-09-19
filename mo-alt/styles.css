@@ -368,7 +368,7 @@ body
     padding-bottom: 15px;
 }
 
-@media only screen and (max-width: 800px) 
+@media only screen and (max-width: 1000px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/
     *
@@ -388,7 +388,6 @@ body
         justify-content: center;
         height: 120px;
         width: 100%;
-        max-width: 800px;
         padding: 0px;
         margin: 0px;
         font-size: 150%;
@@ -466,5 +465,13 @@ body
     .blockTable
     {
         font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 1000px) 
+{
+    .navtag
+    {
+        max-width: 800px;
     }
 }

@@ -111,6 +111,12 @@ body
     font-size: 150%;
 }
 
+.biobuttonsdiv
+{
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .biobuttons
 {
     text-decoration: none;
@@ -272,7 +278,7 @@ body
 }
 
 /*MEDIA QUERIES*/
-@media only screen and (max-width: 500px) 
+@media only screen and (max-width: 1000px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/
     *
@@ -299,7 +305,7 @@ body
         justify-content: center;
         height: 120px;
         width: 100%;
-        max-width: 500px;
+        /*max-width: 500px;*/
         padding: 0px;
         margin: 0px;
         font-size: 150%;
@@ -352,3 +358,12 @@ body
     }
 
 }
+
+
+@media only screen and (max-width: 500px)
+{
+    .navtag
+    {
+        max-width: 500px;
+    }
+} 
