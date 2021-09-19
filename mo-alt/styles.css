@@ -78,9 +78,19 @@
     justify-content: center;
 }
 
-.placeholder
+.signInControls
 {
     width: 20%;
+}
+
+.signOutButton
+{
+    display: none;
+}
+
+.placeholder
+{
+    width: 100%;
 }
 
 .navlink
@@ -152,7 +162,7 @@ body
     text-align: center;
 }
 
-.placeholder
+.placeholder, .signOutButton
 {
     background-color: rgb(15, 0, 105);
     border: solid rgb(77, 0, 255) 3px;
@@ -162,7 +172,7 @@ body
     text-align: center;
 }
 
-.placeholder:hover
+.placeholder:hover, .signOutButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -399,7 +409,7 @@ body
         align-items: center;
     }
 
-    .placeholder
+    .signInControls
     {
         width: 50%;
     }
@@ -472,6 +482,6 @@ body
 {
     .navtag
     {
-        max-width: 800px;
+        max-width: 1000px;
     }
 }

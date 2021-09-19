@@ -208,10 +208,8 @@ let baseUrl = "https://api.moneroocean.stream/"
 function PreparePage()
 {
     CheckAddress();
+    SetEventListeners();
     GetDisplays();
-
-    blockDataButton = document.getElementsByClassName("blockButton")[0];
-    blockDataButton.addEventListener("click", HandleBlockButtonPress);
 
     let displays = document.getElementsByClassName("display");
     for (let d of displays)
@@ -228,9 +226,16 @@ function CheckAddress()
     let main = document.getElementsByClassName("dashboardPageMain")[0]
 
     addr = window.localStorage.getItem(LOGIN_KEY);
+
+    if (!addr)
+    {
+        main.innerHTML = "Client-side error has occured: No address provided";
+        throw new Error();
+    }
+
     if ((addr.length != MONERO_ADDR_LENGTH && addr.length != MONERO_INTEGR_ADDR_LENGTH) || (!addr.startsWith('4') && !addr.startsWith('8')))
     {
-        main.innerHTML = "Client-side error has occured: Invalid login";
+        main.innerHTML = "Client-side error has occured: Invalid address format";
         throw new Error();
     }
     else
@@ -238,6 +243,36 @@ function CheckAddress()
         let signedInAs = document.getElementsByClassName('placeholder')[0];
         signedInAs.innerHTML = "Signed in as " + addr.substr(0,5) + "...";
     }
+}
+
+function SetEventListeners()
+{
+    //Sign out
+    let signedInAs = document.getElementsByClassName('placeholder')[0];
+    let signOutButton = document.getElementsByClassName('signOutButton')[0];
+    signOutButton.style.display = "none";
+    signedInAs.addEventListener("click", () => 
+    {
+        console.log(signOutButton.style.display);
+        if(signOutButton.style.display == "none")
+        {
+            signOutButton.style.display = "block";
+        }
+        else
+        {
+            signOutButton.style.display = "none";
+        }
+    })
+
+    signOutButton.addEventListener("click", () =>
+    {
+        window.localStorage.removeItem(LOGIN_KEY);
+        window.location.href = "./login.html"
+    })
+
+    //Block data table button
+    blockDataButton = document.getElementsByClassName("blockButton")[0];
+    blockDataButton.addEventListener("click", HandleBlockButtonPress);
 }
 
 function GetDisplays()
