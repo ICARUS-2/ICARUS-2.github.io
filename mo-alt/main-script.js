@@ -1,5 +1,14 @@
 const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
+const LOGIN_KEY = 'MO_ALT_LOGIN';
+
+document.addEventListener('DOMContentLoaded', () =>
+{
+    if (localStorage.getItem(LOGIN_KEY))
+    {
+        window.location.href = "./dashboard.html";
+    }
+})
 
 function ValidateInput()
 {
@@ -10,8 +19,6 @@ function ValidateInput()
     let inputAddr = loginBox.value;
     if ((inputAddr.length != MONERO_ADDR_LENGTH && inputAddr.length != MONERO_INTEGR_ADDR_LENGTH) || (!inputAddr.startsWith('4') && !inputAddr.startsWith('8')))
     {
-        //loginInfoBox.style.color = "red";
-        //loginInfoBox.innerHTML = "That's not a valid address!"
         alert("That's not a valid Monero address!");
         return false;
     }
@@ -19,6 +26,8 @@ function ValidateInput()
     {
         loginInfoBox.style.color = "lightgreen"
         loginInfoBox.innerHTML = "Loading dashboard..."
+        window.localStorage.setItem(LOGIN_KEY, inputAddr);
+        window.location.href = "./dashboard.html";
         return true;
     }
 }

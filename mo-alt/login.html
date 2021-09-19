@@ -28,11 +28,9 @@
 
     <main class="loginpageMain">
         <h1 class="signInHeader">Sign in to access the pool</h1>
-        <form class="loginForm" method="GET" onsubmit="return ValidateInput()" action="./dashboard.html">
-            <input type="text" name="addr" class="loginBox"> 
-            <button class="loginButton" type="submit" value="submit">Sign In</button>
-            <p class="loginInfoBox"></p>
-        </form>
+        <input type="text" name="addr" class="loginBox"> 
+        <button class="loginButton" onclick="ValidateInput()">Sign In</button>
+        <p class="loginInfoBox"></p>
     </main>
 </body>
 </html>
