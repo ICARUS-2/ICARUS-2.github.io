@@ -401,6 +401,7 @@ body
         padding: 0px;
         margin: 0px;
         font-size: 150%;
+        max-width: 1000px;
     }
 
     .navbar
@@ -425,6 +426,18 @@ body
     }
 
     /*DASHBOARD*/
+    .signInControls
+    {
+        display: flex;
+        flex-direction: row;
+        width: 60%;
+    }
+
+    .signOutButton
+    {
+        width: 55%;
+    }
+
     .topItems
     {
         flex-direction: column;
@@ -475,13 +488,5 @@ body
     .blockTable
     {
         font-size: 15px;
-    }
-}
-
-@media only screen and (max-width: 1000px) 
-{
-    .navtag
-    {
-        max-width: 1000px;
     }
 }
