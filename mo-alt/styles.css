@@ -419,11 +419,6 @@ body
         align-items: center;
     }
 
-    .signInControls
-    {
-        width: 50%;
-    }
-
     .circleImg
     {
         display: none;
@@ -445,7 +440,7 @@ body
     {
         display: flex;
         flex-direction: row;
-        width: 60%;
+        width: 75%;
     }
 
     .signOutButton
