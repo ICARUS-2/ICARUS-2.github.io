@@ -1,6 +1,7 @@
 const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 const LOGIN_KEY = 'MO_ALT_LOGIN';
+const THEME_KEY = 'MO_ALT_COLOR_THEME'
 
 document.addEventListener('DOMContentLoaded', () =>
 {
@@ -27,6 +28,7 @@ function ValidateInput()
         loginInfoBox.style.color = "lightgreen"
         loginInfoBox.innerHTML = "Loading dashboard..."
         window.localStorage.setItem(LOGIN_KEY, inputAddr);
+        window.localStorage.setItem(THEME_KEY, 0)
         window.location.href = "./dashboard.html";
         return true;
     }

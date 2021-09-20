@@ -387,6 +387,27 @@ body
     padding-bottom: 15px;
 }
 
+.selectThemeDiv
+{
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.themeButton
+{
+    width: 30px;
+    height: 30px;
+}
+
 @media only screen and (max-width: 1000px) 
 {
     /*GENERAL AND HOMEPAGE/NAV*/
@@ -498,5 +519,11 @@ body
     .blockTable
     {
         font-size: 15px;
+    }
+
+    .selectThemeInner
+    {
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -1,4 +1,5 @@
 const LOGIN_KEY = 'MO_ALT_LOGIN';
+const THEME_KEY = 'MO_ALT_COLOR_THEME'
 
 //https://github.com/MoneroOcean/nodejs-pool/blob/master/lib/api.js#L171
 
@@ -208,6 +209,7 @@ let baseUrl = "https://api.moneroocean.stream/"
 function PreparePage()
 {
     CheckAddress();
+    InitializeTheme();
     SetEventListeners();
     GetDisplays();
 
@@ -223,8 +225,6 @@ function PreparePage()
 
 function CheckAddress()
 {        
-
-
     addr = window.localStorage.getItem(LOGIN_KEY);
 
     if (!addr)
@@ -241,6 +241,14 @@ function CheckAddress()
         let signedInAs = document.getElementsByClassName('placeholder')[0];
         signedInAs.innerHTML = "Signed in as " + addr.substr(0,5) + "...";
     }
+}
+
+function InitializeTheme()
+{
+    let idx = window.localStorage.getItem(THEME_KEY)
+
+    document.getElementsByClassName('themeButton')[idx].checked = true;
+    ChangeTheme();
 }
 
 function SetEventListeners()
@@ -265,12 +273,19 @@ function SetEventListeners()
     signOutButton.addEventListener("click", () =>
     {
         window.localStorage.removeItem(LOGIN_KEY);
+        window.localStorage.removeItem(THEME_KEY);
         window.location.href = "./login.html"
     })
 
     //Block data table button
     blockDataButton = document.getElementsByClassName("blockButton")[0];
     blockDataButton.addEventListener("click", HandleBlockButtonPress);
+
+    //theme buttons
+    let themeButtons = document.getElementsByClassName("themeButton");
+
+    for (let btn of themeButtons)
+        btn.addEventListener('change', ChangeTheme)
 }
 
 function GetDisplays()
@@ -528,10 +543,51 @@ function UnixTSToDate(unix_timestamp)
     return date;
 }
 
+function ChangeTheme()
+{
+    let selectedIdx;
+    
+    let radioButtons = document.getElementsByClassName("themeButton");
+
+    for(let i = 0; i < radioButtons.length; i++)
+    {
+        if (radioButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+    
+    window.localStorage.setItem(THEME_KEY, selectedIdx)
+
+    switch(selectedIdx)
+    {
+        //default/purple theme
+        case 0:
+            document.body.style.backgroundColor = "";
+            break;
+
+        //dark theme
+        case 1:
+            document.body.style.backgroundColor = "black";
+            break;
+
+        //blue theme
+        case 2:
+            document.body.style.backgroundColor = "rgb(4, 0, 32)"
+            break;
+
+        //pink theme
+        case 3:
+            document.body.style.backgroundColor = "rgb(30, 0, 30)"
+            break;
+    }
+}
+
 function LoginError(msg)
 {
     let main = document.getElementsByClassName("dashboardPageMain")[0];
     main.innerHTML = msg;
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
+    document.getElementsByClassName("selectThemeDiv")[0].style.display = "none";
     throw new Error();
 }
