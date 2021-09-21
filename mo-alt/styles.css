@@ -526,4 +526,10 @@ body
         display: flex;
         flex-direction: column;
     }
+
+    .selectThemeDiv
+    {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
 }

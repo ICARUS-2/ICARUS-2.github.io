@@ -559,26 +559,48 @@ function ChangeTheme()
     
     window.localStorage.setItem(THEME_KEY, selectedIdx)
 
+    let allDashboardItems = document.getElementsByClassName('dashboardItem')
+
     switch(selectedIdx)
     {
         //default/purple theme
         case 0:
             document.body.style.backgroundColor = "";
+            for (let dbi of allDashboardItems)
+            {
+                dbi.style.backgroundColor = "";
+                dbi.style.borderColor = ""
+            }
             break;
 
         //dark theme
         case 1:
             document.body.style.backgroundColor = "black";
+            for (let dbi of allDashboardItems)
+            {
+                dbi.style.backgroundColor = "black";
+                dbi.style.borderColor = "blue"
+            }
             break;
 
         //blue theme
         case 2:
             document.body.style.backgroundColor = "rgb(4, 0, 32)"
+            for (let dbi of allDashboardItems)
+            {
+                dbi.style.backgroundColor = "rgb(4,0,50)"
+                dbi.style.borderColor = "rgb(0,85,165)"
+            }
             break;
 
         //pink theme
         case 3:
             document.body.style.backgroundColor = "rgb(30, 0, 30)"
+            for (let dbi of allDashboardItems)
+            {
+                dbi.style.backgroundColor = "rgb(85, 0, 85)"
+                dbi.style.borderColor = "rgb(255, 0, 255)"
+            }
             break;
     }
 }
