@@ -560,47 +560,347 @@ function ChangeTheme()
     window.localStorage.setItem(THEME_KEY, selectedIdx)
 
     let allDashboardItems = document.getElementsByClassName('dashboardItem')
+    let placeholder = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+    let optionButton = document.getElementsByClassName("optionButton")[0];
+    let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
+
+    placeholder.removeEventListener("mouseover", ButtonHoverInTheme);
+    placeholder.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    signOutButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    signOutButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    optionButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    optionButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     switch(selectedIdx)
     {
         //default/purple theme
         case 0:
-            document.body.style.backgroundColor = "";
-            for (let dbi of allDashboardItems)
             {
-                dbi.style.backgroundColor = "";
-                dbi.style.borderColor = ""
+                //background
+                document.body.style.backgroundColor = "";
+
+                //dashboard items
+                for (let dbi of allDashboardItems)
+                {
+                    dbi.style.backgroundColor = "";
+                    dbi.style.borderColor = ""
+                }
+
+                //signed in as
+                placeholder.style.backgroundColor = "";
+                placeholder.style.borderColor = "";
+
+                //sign out button
+                signOutButton.style.backgroundColor = "";
+                signOutButton.style.borderColor = "";
+
+
+                //option button
+                optionButton.style.backgroundColor = "";
+                optionButton.style.borderColor = "";
+
+                //select theme section
+                selectThemeSection.style.backgroundColor = "";
+                selectThemeSection.style.borderColor = "";
             }
             break;
 
         //dark theme
         case 1:
-            document.body.style.backgroundColor = "black";
-            for (let dbi of allDashboardItems)
             {
-                dbi.style.backgroundColor = "black";
-                dbi.style.borderColor = "blue"
+                let bgColor = "black";
+                let bordColor = "blue"
+
+                //background
+                document.body.style.backgroundColor = bgColor;
+
+                //dashboard items
+                for (let dbi of allDashboardItems)
+                {
+                    dbi.style.backgroundColor = bgColor;
+                    dbi.style.borderColor = bordColor;
+                }
+
+                //signed in as
+                placeholder.style.backgroundColor = bgColor;
+                placeholder.style.borderColor = bordColor;
+                placeholder.addEventListener("mouseover", ButtonHoverInTheme);
+                placeholder.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //sign out button
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //option button
+                optionButton.style.backgroundColor = bgColor;
+                optionButton.style.borderColor = bordColor;
+                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
+                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //select theme section
+                selectThemeSection.style.backgroundColor = bgColor;
+                selectThemeSection.style.borderColor = bordColor;
+
             }
             break;
 
         //blue theme
         case 2:
-            document.body.style.backgroundColor = "rgb(4, 0, 32)"
-            for (let dbi of allDashboardItems)
             {
-                dbi.style.backgroundColor = "rgb(4,0,50)"
-                dbi.style.borderColor = "rgb(0,85,165)"
+                let bodyColor = "rgb(4, 0, 32)";
+                let bgColor = "rgb(4,0,50)";
+                let bordColor = "rgb(0,85,165)"
+
+                //background
+                document.body.style.backgroundColor = bodyColor;
+
+                //dashboard items
+                for (let dbi of allDashboardItems)
+                {
+                    dbi.style.backgroundColor = bgColor;
+                    dbi.style.borderColor = bordColor;
+                }
+
+                //signed in as
+                placeholder.style.backgroundColor = bgColor;
+                placeholder.style.borderColor = bordColor;
+                placeholder.addEventListener("mouseover", ButtonHoverInTheme);
+                placeholder.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //sign out button
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //option button
+                optionButton.style.backgroundColor = bgColor;
+                optionButton.style.borderColor = bordColor;
+                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
+                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //select theme section
+                selectThemeSection.style.backgroundColor = bgColor;
+                selectThemeSection.style.borderColor = bordColor;
             }
             break;
 
         //pink theme
         case 3:
-            document.body.style.backgroundColor = "rgb(30, 0, 30)"
-            for (let dbi of allDashboardItems)
             {
-                dbi.style.backgroundColor = "rgb(85, 0, 85)"
-                dbi.style.borderColor = "rgb(255, 0, 255)"
+                let bodyColor = "rgb(30, 0, 30)";
+                let bgColor = "rgb(85, 0, 85)";
+                let bordColor = "rgb(255, 0, 255)";
+
+                //background
+                document.body.style.backgroundColor = bodyColor;
+
+                //dashboard items
+                for (let dbi of allDashboardItems)
+                {
+                    dbi.style.backgroundColor = bgColor
+                    dbi.style.borderColor = bordColor;
+                }
+
+                //signed in as
+                placeholder.style.backgroundColor = bgColor;
+                placeholder.style.borderColor = bordColor;
+                placeholder.addEventListener("mouseover", ButtonHoverInTheme);
+                placeholder.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //sign out button
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //option button
+                optionButton.style.backgroundColor = bgColor;
+                optionButton.style.borderColor = bordColor;
+                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
+                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //select theme section
+                selectThemeSection.style.backgroundColor = bgColor;
+                selectThemeSection.style.borderColor = bordColor;
             }
+            break;
+    }
+}
+
+function ButtonHoverInTheme(event)
+{
+    let optionButton = document.getElementsByClassName("optionButton")[0];
+    let placeholder = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let selectedIdx;
+    
+    let radioButtons = document.getElementsByClassName("themeButton");
+
+    for(let i = 0; i < radioButtons.length; i++)
+    {
+        if (radioButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+
+    switch(selectedIdx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "blue";
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "blue";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "blue";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "rgb(0,85,165)"
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+
+            break;
+    }
+}
+
+function ButtonHoverOutTheme(event)
+{
+    let optionButton = document.getElementsByClassName("optionButton")[0];
+    let placeholder = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let selectedIdx;
+    
+    let radioButtons = document.getElementsByClassName("themeButton");
+
+    for(let i = 0; i < radioButtons.length; i++)
+    {
+        if (radioButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+
+    switch(selectedIdx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "black";
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "black";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "black";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "optionButton blockButton":
+                    optionButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "placeholder":
+                    placeholder.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                default:
+                    //
+                    break;
+            }
+
             break;
     }
 }
