@@ -387,7 +387,7 @@ body
     padding-bottom: 15px;
 }
 
-.selectThemeDiv
+.selectThemeDiv, .selectRefreshDiv
 {
     background-color: rgb(15, 0, 50);
     border: solid rgb(77, 0, 255) 2px;
@@ -402,7 +402,7 @@ body
     margin-right: 30%;
 }
 
-.themeButton
+.themeButton, .refreshRateButton
 {
     width: 30px;
     height: 30px;

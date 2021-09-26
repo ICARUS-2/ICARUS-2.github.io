@@ -1,5 +1,6 @@
 const LOGIN_KEY = 'MO_ALT_LOGIN';
-const THEME_KEY = 'MO_ALT_COLOR_THEME'
+const THEME_KEY = 'MO_ALT_COLOR_THEME';
+const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 
 //https://github.com/MoneroOcean/nodejs-pool/blob/master/lib/api.js#L171
 
@@ -200,7 +201,9 @@ const BLOCK_TABLE_SIZE = 25;
 
 let addr;
 
-let refreshInterval = 5000;
+let refreshInterval;
+
+let clearRefreshId; 
 
 let blockDataButton;
 
@@ -209,6 +212,7 @@ let baseUrl = "https://api.moneroocean.stream/"
 function PreparePage()
 {
     CheckAddress();
+    InitializeRefreshRate();
     InitializeTheme();
     SetEventListeners();
     GetDisplays();
@@ -220,7 +224,6 @@ function PreparePage()
     }
 
     RefreshStats();
-    window.setInterval(RefreshStats, refreshInterval)
 }
 
 function CheckAddress()
@@ -229,12 +232,12 @@ function CheckAddress()
 
     if (!addr)
     {
-        LoginError("Client-side error has occured: No address provided");
+        LogError("Client-side error has occured: No address provided");
     }
 
     if ((addr.length != MONERO_ADDR_LENGTH && addr.length != MONERO_INTEGR_ADDR_LENGTH) || (!addr.startsWith('4') && !addr.startsWith('8')))
     {
-        LoginError("Client-side error has occured: Invalid address format");
+        LogError("Client-side error has occured: Invalid address format");
     }
     else
     {
@@ -249,6 +252,60 @@ function InitializeTheme()
 
     document.getElementsByClassName('themeButton')[idx].checked = true;
     ChangeTheme();
+}
+
+function InitializeRefreshRate()
+{
+    let idx = window.localStorage.getItem(REFRESH_KEY)
+
+    document.getElementsByClassName('refreshRateButton')[idx].checked = true;
+    SetRefreshRate();
+}
+
+function SetRefreshRate()
+{
+    let selectedIdx;
+    
+    let radioButtons = document.getElementsByClassName("refreshRateButton");
+
+    for(let i = 0; i < radioButtons.length; i++)
+    {
+        if (radioButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+
+    switch(selectedIdx)
+    {
+        case 0:
+            refreshInterval = 5000;
+            break;
+
+        case 1:
+            refreshInterval = 15000;
+            break;
+
+        case 2:
+            refreshInterval = 30000;
+            break;
+
+        case 3:
+            refreshInterval = 60000;
+            break;
+
+        default:
+            LogError("Refresh rate not defined, try clearing browser data");
+            break;
+    }
+
+    if (clearRefreshId)
+        window.clearInterval(clearRefreshId)
+
+    clearRefreshId = window.setInterval(RefreshStats, refreshInterval);
+
+    window.localStorage.setItem(REFRESH_KEY, selectedIdx);
+
 }
 
 function SetEventListeners()
@@ -274,6 +331,7 @@ function SetEventListeners()
     {
         window.localStorage.removeItem(LOGIN_KEY);
         window.localStorage.removeItem(THEME_KEY);
+        window.localStorage.removeItem(REFRESH_KEY);
         window.location.href = "./login.html"
     })
 
@@ -285,7 +343,14 @@ function SetEventListeners()
     let themeButtons = document.getElementsByClassName("themeButton");
 
     for (let btn of themeButtons)
-        btn.addEventListener('change', ChangeTheme)
+        btn.addEventListener('change', ChangeTheme);
+
+    //refresh rate buttons
+    let refreshRateButtons = document.getElementsByClassName("refreshRateButton");
+
+    for (let btn of refreshRateButtons)
+        btn.addEventListener('change', SetRefreshRate);
+    
 }
 
 function GetDisplays()
@@ -322,6 +387,7 @@ function GetDisplays()
 
 async function RefreshStats()
 {
+    //alert("Stats refreshed");
     let minerStatsUrl = baseUrl;
     minerStatsUrl += "miner/" + addr + "/stats";
     let minerStatsAllWorkersUrl = minerStatsUrl + "/allWorkers"
@@ -564,6 +630,7 @@ function ChangeTheme()
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let optionButton = document.getElementsByClassName("optionButton")[0];
     let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
+    let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
 
     placeholder.removeEventListener("mouseover", ButtonHoverInTheme);
     placeholder.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -605,6 +672,10 @@ function ChangeTheme()
                 //select theme section
                 selectThemeSection.style.backgroundColor = "";
                 selectThemeSection.style.borderColor = "";
+
+                //refresh rate section
+                selectRefreshSection.style.backgroundColor = "";
+                selectRefreshSection.style.borderColor = "";
             }
             break;
 
@@ -646,6 +717,9 @@ function ChangeTheme()
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
 
+                //refresh rate section
+                selectRefreshSection.style.backgroundColor = bgColor;
+                selectRefreshSection.style.borderColor = bordColor;
             }
             break;
 
@@ -687,6 +761,10 @@ function ChangeTheme()
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
+
+                //refresh rate section
+                selectRefreshSection.style.backgroundColor = bgColor;
+                selectRefreshSection.style.borderColor = bordColor;
             }
             break;
 
@@ -728,6 +806,10 @@ function ChangeTheme()
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
+
+                //refresh rate section
+                selectRefreshSection.style.backgroundColor = bgColor;
+                selectRefreshSection.style.borderColor = bordColor;
             }
             break;
     }
@@ -769,7 +851,7 @@ function ButtonHoverInTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
             break;
@@ -790,7 +872,7 @@ function ButtonHoverInTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
             break;
@@ -811,7 +893,7 @@ function ButtonHoverInTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
 
@@ -855,7 +937,7 @@ function ButtonHoverOutTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
             break;
@@ -876,7 +958,7 @@ function ButtonHoverOutTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
             break;
@@ -897,7 +979,7 @@ function ButtonHoverOutTheme(event)
                     break;
 
                 default:
-                    //
+                    LogError("Button not defined, try clearing browser data");
                     break;
             }
 
@@ -905,11 +987,12 @@ function ButtonHoverOutTheme(event)
     }
 }
 
-function LoginError(msg)
+function LogError(msg)
 {
     let main = document.getElementsByClassName("dashboardPageMain")[0];
     main.innerHTML = msg;
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
     document.getElementsByClassName("selectThemeDiv")[0].style.display = "none";
+    document.getElementsByClassName("selectRefreshDiv")[0].style.display = "none";
     throw new Error();
 }
