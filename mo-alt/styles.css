@@ -360,6 +360,7 @@ body
 .blockTable
 {
     font-size: 20px;
+    table-layout: fixed;
 }
 
 .blockTable td
@@ -367,6 +368,7 @@ body
     padding-right: 10px;
     padding-bottom: 20px;
     color: lightgreen;
+    width: 20%;
 }
 
 .blockDataOptions
