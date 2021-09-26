@@ -521,13 +521,13 @@ body
         font-size: 15px;
     }
 
-    .selectThemeInner
+    .selectThemeInner, .selectRefreshInner
     {
         display: flex;
         flex-direction: column;
     }
 
-    .selectThemeDiv
+    .selectThemeDiv, .selectRefreshDiv
     {
         margin-left: 25%;
         margin-right: 25%;
