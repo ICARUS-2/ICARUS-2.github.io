@@ -283,6 +283,27 @@ body
     font-weight: bolder;
 }
 
+.balanceHeader
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.transactionReportButton
+{
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    padding: 15px;
+}
+
+.transactionReportButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
 .leftSection, .rightSection
 {
     width: 50%;
