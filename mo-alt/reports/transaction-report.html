@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <title>MoneroOcean Mining Pool</title>
-    <!--<script src="../dash-script.js"></script>-->
+    <script src="./tx-report-script.js"></script>
 </head>
 <body>
     <nav class="navtag">
@@ -32,12 +32,23 @@
         </div>
     </nav>
 
-    <main style="font-size: 40px; color: white;">
-        SITE UNDER CONSTRUCTION
+    <main class="txReportMain">
         <br>
+        <h1 class="totalTXInfo">DATA PENDING</h1>
         <br>
-        <div><a href="../dashboard.html" style="text-decoration: none; color: white;"><--Return</a>
+        <div class="txReportTopButtons">
+            <div class="txReportBackButton">Back</div>
+            <div class="txReportRefreshButton">Fetch</div>
+        </div>
+        <br>
+        <table class="txReportTable">
+
+        </table>
     </main>
+
+    <a href="../../index.html" class="errorReturnButton">
+        <-- Return
+    </a>
 
 </body>
 </html>

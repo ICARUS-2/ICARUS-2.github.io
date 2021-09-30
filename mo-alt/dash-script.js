@@ -316,7 +316,6 @@ function SetEventListeners()
     signOutButton.style.display = "none";
     signedInAs.addEventListener("click", () => 
     {
-        console.log(signOutButton.style.display);
         if(signOutButton.style.display == "none")
         {
             signOutButton.style.display = "block";
@@ -507,6 +506,8 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
     rewardHeader.innerHTML = "Reward";
     hashHeader.innerHTML = "Hash";
 
+    let mediaQueryWidth = 1600;
+
     if (blockDataButton.innerHTML == "See XMR") //populate table with alt blocks
     {
         for(let i = 0; i < BLOCK_TABLE_SIZE; i++)
@@ -526,7 +527,11 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
             heightCell.innerHTML = altBlocksObj[i].height;
             foundCell.innerHTML = UnixTSToDate(altBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
             rewardCell.innerHTML = (altBlocksObj[i].value / coinData.divisor).toString().substr(0,7);
-            hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
+            
+            if (window.innerWidth <= mediaQueryWidth) 
+                hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
+            else
+                hashCell.innerHTML = altBlocksObj[i].hash.substr(0,20) + "..."
         }
     }
     else //populate table with XMR blocks
@@ -545,7 +550,11 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
             heightCell.innerHTML = xmrBlocksObj[i].height;
             foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
             rewardCell.innerHTML = (xmrBlocksObj[i].value / 1000000000000).toString().substr(0,7);
-            hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,6) + "..."
+            
+            if(window.innerWidth <= mediaQueryWidth)
+                hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,6) + "..."
+            else
+                hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,20) + "..."
         }
     }
 }
