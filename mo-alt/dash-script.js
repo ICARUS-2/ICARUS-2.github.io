@@ -704,7 +704,7 @@ function ChangeTheme()
         case 1:
             {
                 let bgColor = "black";
-                let bordColor = "blue"
+                let bordColor = "blue";
 
                 //background
                 document.body.style.backgroundColor = bgColor;

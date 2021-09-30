@@ -12,6 +12,7 @@ function PreparePage()
 {
     CheckAddress();
     SetEventListeners();
+    InitializeTheme();
     RetrieveAndSetTransactionData();
 }
 
@@ -45,7 +46,85 @@ function LogError(msg)
 
 function InitializeTheme()
 {
-    let idx = window.localStorage.getItem(THEME_KEY);
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    let backButton = document.getElementsByClassName("txReportBackButton")[0];
+    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let txTable = document.getElementsByClassName("txReportTable")[0];
+
+    switch (idx)
+    {
+        case 0:
+            {
+                document.body.style.backgroundColor = "";
+
+                backButton.style.backgroundColor = "";
+                backButton.style.borderColor = "";
+            
+                refreshButton.style.backgroundColor = "";
+                refreshButton.style.borderColor = "";
+
+                txTable.style.backgroundColor = "";
+                txTable.style.borderColor = "";
+            }
+            break;
+
+        case 1:
+            {
+                let bgColor = "black";
+                let bordColor = "blue";
+
+                document.body.style.backgroundColor = bgColor;
+                
+                backButton.style.backgroundColor = bgColor;
+                backButton.style.borderColor = bordColor;
+            
+                refreshButton.style.backgroundColor = bgColor;
+                refreshButton.style.borderColor = bordColor;
+
+                txTable.style.backgroundColor = bgColor;
+                txTable.style.borderColor = bordColor;
+            }
+            break;
+
+        case 2: 
+            {
+                let bodyColor = "rgb(4, 0, 32)";
+                let bgColor = "rgb(4,0,50)";
+                let bordColor = "rgb(0,85,165)";
+
+                document.body.style.backgroundColor = bodyColor;
+                    
+                backButton.style.backgroundColor = bgColor;
+                backButton.style.borderColor = bordColor;
+            
+                refreshButton.style.backgroundColor = bgColor;
+                refreshButton.style.borderColor = bordColor;
+
+                txTable.style.backgroundColor = bgColor;
+                txTable.style.borderColor = bordColor;
+            }
+            break;
+
+        case 3:          
+        {  
+            let bodyColor = "rgb(30, 0, 30)";
+            let bgColor = "rgb(85, 0, 85)";
+            let bordColor = "rgb(255, 0, 255)";
+
+            document.body.style.backgroundColor = bodyColor;
+                
+            backButton.style.backgroundColor = bgColor;
+            backButton.style.borderColor = bordColor;
+        
+            refreshButton.style.backgroundColor = bgColor;
+            refreshButton.style.borderColor = bordColor;
+
+            txTable.style.backgroundColor = bgColor;
+            txTable.style.borderColor = bordColor;
+        }
+        break;
+    }
 }
 
 function SetEventListeners()
@@ -117,7 +196,7 @@ async function RetrieveAndSetTransactionData()
         timestampCell.innerHTML = (UnixTSToDate(txData[i].ts)).split("y, ")[1].replace(',', '').replace(',', '');;
         amountCell.innerHTML = (txData[i].amount / 1000000000000).toString().substr(0,7);
         
-        hashCell.innerHTML = txData[i].txnHash.toString().substr(0, 17) + "...";
+        hashCell.innerHTML = txData[i].txnHash.toString().substr(0, 14) + "...";
 
         totalPaid += txData[i].amount / 1000000000000
     }
