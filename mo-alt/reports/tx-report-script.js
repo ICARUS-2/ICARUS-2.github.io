@@ -51,12 +51,20 @@ function InitializeTheme()
     let backButton = document.getElementsByClassName("txReportBackButton")[0];
     let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
     let txTable = document.getElementsByClassName("txReportTable")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
     switch (idx)
     {
         case 0:
             {
                 document.body.style.backgroundColor = "";
+
+                signInButton.style.backgroundColor = "";
+                signInButton.style.borderColor = "";
+
+                signOutButton.style.backgroundColor = "";
+                signOutButton.style.borderColor = "";
 
                 backButton.style.backgroundColor = "";
                 backButton.style.borderColor = "";
@@ -76,6 +84,12 @@ function InitializeTheme()
 
                 document.body.style.backgroundColor = bgColor;
                 
+                signInButton.style.backgroundColor = bgColor;
+                signInButton.style.borderColor = bordColor;
+
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
             
@@ -94,7 +108,13 @@ function InitializeTheme()
                 let bordColor = "rgb(0,85,165)";
 
                 document.body.style.backgroundColor = bodyColor;
+
+                signInButton.style.backgroundColor = bgColor;
+                signInButton.style.borderColor = bordColor;
                     
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
             
@@ -113,7 +133,13 @@ function InitializeTheme()
             let bordColor = "rgb(255, 0, 255)";
 
             document.body.style.backgroundColor = bodyColor;
+
+            signInButton.style.backgroundColor = bgColor;
+            signInButton.style.borderColor = bordColor;
                 
+            signOutButton.style.backgroundColor = bgColor;
+            signOutButton.style.borderColor = bordColor;
+
             backButton.style.backgroundColor = bgColor;
             backButton.style.borderColor = bordColor;
         
