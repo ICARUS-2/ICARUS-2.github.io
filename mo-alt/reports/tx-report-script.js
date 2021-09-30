@@ -54,6 +54,18 @@ function InitializeTheme()
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
+    signInButton.removeEventListener("mouseover", ButtonHoverInTheme)
+    signInButton.removeEventListener("mouseout", ButtonHoverOutTheme)
+
+    signOutButton.removeEventListener("mouseover", ButtonHoverInTheme)
+    signOutButton.removeEventListener("mouseout", ButtonHoverOutTheme)
+
+    backButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    refreshButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    refreshButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
     switch (idx)
     {
         case 0:
@@ -82,6 +94,18 @@ function InitializeTheme()
                 let bgColor = "black";
                 let bordColor = "blue";
 
+                signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                backButton.addEventListener("mouseover", ButtonHoverInTheme);
+                backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+            
+                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 document.body.style.backgroundColor = bgColor;
                 
                 signInButton.style.backgroundColor = bgColor;
@@ -107,6 +131,17 @@ function InitializeTheme()
                 let bgColor = "rgb(4,0,50)";
                 let bordColor = "rgb(0,85,165)";
 
+                signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                backButton.addEventListener("mouseover", ButtonHoverInTheme);
+                backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+            
+                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
                 document.body.style.backgroundColor = bodyColor;
 
                 signInButton.style.backgroundColor = bgColor;
@@ -132,6 +167,18 @@ function InitializeTheme()
             let bgColor = "rgb(85, 0, 85)";
             let bordColor = "rgb(255, 0, 255)";
 
+            signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+            signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+        
+            signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+            signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+        
+            backButton.addEventListener("mouseover", ButtonHoverInTheme);
+            backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+        
+            refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+            refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
             document.body.style.backgroundColor = bodyColor;
 
             signInButton.style.backgroundColor = bgColor;
@@ -150,6 +197,166 @@ function InitializeTheme()
             txTable.style.borderColor = bordColor;
         }
         break;
+    }
+}
+
+function ButtonHoverInTheme(event)
+{
+    let backButton = document.getElementsByClassName("txReportBackButton")[0];
+    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    switch(idx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "blue";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "blue";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "blue";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "blue";
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+            }
+            break;
+
+        default:
+            //
+            break;
+    }
+}
+
+function ButtonHoverOutTheme(event)
+{
+    let backButton = document.getElementsByClassName("txReportBackButton")[0];
+    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    switch(idx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "black";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "black";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "black";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "black";
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "txReportBackButton":
+                    backButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "txReportRefreshButton":
+                    refreshButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+            }
+            break;
+
+        default:
+            //
+            break;
     }
 }
 
@@ -229,6 +436,13 @@ async function RetrieveAndSetTransactionData()
 
     document.getElementsByClassName("totalTXInfo")[0].innerHTML = `Payout Count: ${txData.length} -> Total XMR Paid: ${totalPaid.toFixed(6)}`
 }
+
+  let backButton = document.getElementsByClassName("txReportBackButton")[0];
+    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+    let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
+
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
 
 async function FetchJson(url)
 {
