@@ -419,7 +419,8 @@ async function RefreshStats()
 
 function UpdateTopStats(netObj, poolObj, worldApiObj)
 {
-    poolHashrateDisplay.innerHTML = ParseHashrate(poolObj.pool_statistics.hashRate);
+    poolHashrateDisplay.innerHTML = ParseHashrate(poolObj.pool_statistics.portHash[18081]) + "&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp" + ParseHashrate(poolObj.pool_statistics.hashRate);
+    console.log(poolObj.pool_statistics.portHash[18081])
     poolBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalAltBlocksFound;
     poolXMRBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalBlocksFound;
     blockchainHeightDisplay.innerHTML = netObj.main_height;
