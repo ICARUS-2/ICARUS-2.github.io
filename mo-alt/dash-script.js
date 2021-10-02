@@ -446,7 +446,7 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
 
 function UpdateBalances(minerStatsObj, userObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + "/" + (userObj.payout_threshold / 1000000000000).toFixed(6);
+    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + "/" + (userObj.payout_threshold / 1000000000000).toFixed(3);
     totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
