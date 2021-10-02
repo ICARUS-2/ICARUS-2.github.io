@@ -354,6 +354,7 @@ body
     display: flex;
     justify-content: space-between;
 }
+
 .verticalStatPair
 {
     display: flex;
@@ -575,17 +576,7 @@ body
     .rightSection
     {
         justify-content: center;
-    }
-
-    .balances
-    {
-        height: 230px;
-    }    
-
-    .transactionCountDisplay
-    {
-        text-align: center;
-    }
+    } 
 
     .blockData
     {
@@ -626,5 +617,24 @@ body
     {
         width: 100%;
         font-size: 16px;
+    }
+}
+
+@media only screen and (max-width: 800px) 
+{
+    .balanceStatsDiv
+    {
+        flex-direction: column;
+    }
+
+    .balances
+    {
+        height: 200px;
+    }   
+
+    .bDiv
+    {
+        flex-direction: row;
+        justify-content: space-between;
     }
 }
