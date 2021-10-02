@@ -399,6 +399,7 @@ async function RefreshStats()
     let worldUrl = "https://localmonero.co/blocks/api/get_stats";
     let xmrBlocksUrl = "https://api.moneroocean.stream/pool/blocks";
     let altBlocksUrl = "https://api.moneroocean.stream/pool/altblocks";
+    let userUrl = baseUrl += "user/" + addr;
 
     let worldApiObj = await FetchJson(worldUrl);
     let networkStatsObj = await FetchJson(networkStatsUrl);
@@ -407,11 +408,12 @@ async function RefreshStats()
     let poolStatsObj = await FetchJson(poolStatsUrl);
     let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
     let altBlocksObj = await FetchJson(altBlocksUrl);
+    let userObj = await FetchJson(userUrl);
 
     UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
     UpdateMinerHashrates(minerStatsObj);
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
-    UpdateBalances(minerStatsObj);
+    UpdateBalances(minerStatsObj, userObj);
     UpdateExchangeRates(poolStatsObj);
     UpdateMinerData(minerStatsAllWorkersObj)
     UpdateBlockData(xmrBlocksObj, altBlocksObj)
@@ -420,7 +422,6 @@ async function RefreshStats()
 function UpdateTopStats(netObj, poolObj, worldApiObj)
 {
     poolHashrateDisplay.innerHTML = ParseHashrate(poolObj.pool_statistics.portHash[18081]) + "&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp" + ParseHashrate(poolObj.pool_statistics.hashRate);
-    console.log(poolObj.pool_statistics.portHash[18081])
     poolBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalAltBlocksFound;
     poolXMRBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalBlocksFound;
     blockchainHeightDisplay.innerHTML = netObj.main_height;
@@ -442,9 +443,9 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
     addressMinerCountDisplay.innerHTML = count - 1;
 }
 
-function UpdateBalances(minerStatsObj)
+function UpdateBalances(minerStatsObj, userObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6);
+    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6);
     totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
