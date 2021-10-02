@@ -577,6 +577,16 @@ body
         justify-content: center;
     }
 
+    .balances
+    {
+        height: 230px;
+    }    
+
+    .transactionCountDisplay
+    {
+        text-align: center;
+    }
+
     .blockData
     {
         width: 100%;

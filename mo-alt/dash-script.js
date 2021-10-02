@@ -399,7 +399,8 @@ async function RefreshStats()
     let worldUrl = "https://localmonero.co/blocks/api/get_stats";
     let xmrBlocksUrl = "https://api.moneroocean.stream/pool/blocks";
     let altBlocksUrl = "https://api.moneroocean.stream/pool/altblocks";
-    let userUrl = baseUrl += "user/" + addr;
+    let userUrl = baseUrl;
+    userUrl += "user/" + addr;
 
     let worldApiObj = await FetchJson(worldUrl);
     let networkStatsObj = await FetchJson(networkStatsUrl);
@@ -445,7 +446,7 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
 
 function UpdateBalances(minerStatsObj, userObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6);
+    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + "/" + (userObj.payout_threshold / 1000000000000).toFixed(6);
     totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
