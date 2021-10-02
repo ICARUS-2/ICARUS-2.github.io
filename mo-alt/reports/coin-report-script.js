@@ -179,7 +179,12 @@ function PreparePage()
 function CheckAddress()
 {        
     addr = window.localStorage.getItem(LOGIN_KEY);
-    
+
+    if (!addr)
+    {
+        LogError("Client-side error has occured: No address provided");
+    }
+
     if ((addr.length != MONERO_ADDR_LENGTH && addr.length != MONERO_INTEGR_ADDR_LENGTH) || (!addr.startsWith('4') && !addr.startsWith('8')))
     {
         LogError("Client-side error has occured: Invalid address format");
