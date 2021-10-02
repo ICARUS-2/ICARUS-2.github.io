@@ -259,6 +259,11 @@ body
     flex-direction: column;
 }
 
+.coinReportLink
+{
+    color: white;
+}
+
 .dashboardItem
 {
     margin-top: 20px;
@@ -433,7 +438,7 @@ body
 }
 
 /*TRANSACTION REPORT*/
-.txReportMain
+.txReportMain, .coinReportMain
 {
     color: white;
     display: flex;
@@ -443,12 +448,12 @@ body
     font-size: 20px;
 }
 
-.txReportTopButtons
+.txReportTopButtons, .coinReportTopButtons
 {
     display: flex;
 }
 
-.txReportBackButton, .txReportRefreshButton
+.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, .coinReportRefreshButton
 {
     text-decoration: none;
     color: white;
@@ -459,7 +464,7 @@ body
     margin: 10px;
 }
 
-.txReportBackButton:hover, .txReportRefreshButton:hover
+.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover, .coinReportRefreshButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -614,6 +619,20 @@ body
     }
 
     .txReportTable
+    {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /*COIN REPORT*/
+    .coinReportMain
+    {
+        color: white;
+        width: 97%;
+        margin: 0 auto;
+    }
+
+    .coinReportTable
     {
         width: 100%;
         font-size: 16px;
