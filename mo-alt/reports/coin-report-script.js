@@ -166,12 +166,16 @@ var COINS = {
 
 let baseUrl = "https://api.moneroocean.stream/";
 
+let refreshInterval;
+let clearRefreshId;
+
 document.addEventListener("DOMContentLoaded", PreparePage)
 
 function PreparePage()
 {
     CheckAddress();
     SetEventListeners();
+    SetRefreshRate();
     InitializeTheme();
     RetrieveAndSetCoinData();
 }
@@ -204,6 +208,39 @@ function LogError(msg)
     throw new Error();
 }
 
+function SetRefreshRate()
+{
+    let selectedIdx = window.localStorage.getItem(REFRESH_KEY);
+
+    switch(Number(selectedIdx))
+    {
+        case 0:
+            refreshInterval = 5000;
+            break;
+
+        case 1:
+            refreshInterval = 15000;
+            break;
+
+        case 2:
+            refreshInterval = 30000;
+            break;
+
+        case 3:
+            refreshInterval = 60000;
+            break;
+
+        default:
+            LogError("Refresh rate not defined, try clearing browser data");
+            break;
+    }
+
+    if (clearRefreshId)
+        window.clearInterval(clearRefreshId);
+
+    clearRefreshId = window.setInterval(RetrieveAndSetCoinData, refreshInterval);
+}
+
 function InitializeTheme()
 {
     let idx = Number(window.localStorage.getItem(THEME_KEY));
@@ -223,9 +260,6 @@ function InitializeTheme()
     backButton.removeEventListener("mouseover", ButtonHoverInTheme);
     backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
-    refreshButton.removeEventListener("mouseover", ButtonHoverInTheme);
-    refreshButton.removeEventListener("mouseout", ButtonHoverOutTheme);
-
     switch (idx)
     {
         case 0:
@@ -240,9 +274,6 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = "";
                 backButton.style.borderColor = "";
-            
-                refreshButton.style.backgroundColor = "";
-                refreshButton.style.borderColor = "";
 
                 txTable.style.backgroundColor = "";
                 txTable.style.borderColor = "";
@@ -263,9 +294,6 @@ function InitializeTheme()
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
             
-                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
                 document.body.style.backgroundColor = bgColor;
                 
                 signInButton.style.backgroundColor = bgColor;
@@ -276,9 +304,6 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
-            
-                refreshButton.style.backgroundColor = bgColor;
-                refreshButton.style.borderColor = bordColor;
 
                 txTable.style.backgroundColor = bgColor;
                 txTable.style.borderColor = bordColor;
@@ -299,9 +324,7 @@ function InitializeTheme()
             
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
-            
-                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 document.body.style.backgroundColor = bodyColor;
 
                 signInButton.style.backgroundColor = bgColor;
@@ -312,9 +335,6 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
-            
-                refreshButton.style.backgroundColor = bgColor;
-                refreshButton.style.borderColor = bordColor;
 
                 txTable.style.backgroundColor = bgColor;
                 txTable.style.borderColor = bordColor;
@@ -335,9 +355,6 @@ function InitializeTheme()
         
             backButton.addEventListener("mouseover", ButtonHoverInTheme);
             backButton.addEventListener("mouseout", ButtonHoverOutTheme);
-        
-            refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-            refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
             document.body.style.backgroundColor = bodyColor;
 
@@ -349,9 +366,6 @@ function InitializeTheme()
 
             backButton.style.backgroundColor = bgColor;
             backButton.style.borderColor = bordColor;
-        
-            refreshButton.style.backgroundColor = bgColor;
-            refreshButton.style.borderColor = bordColor;
 
             txTable.style.backgroundColor = bgColor;
             txTable.style.borderColor = bordColor;
@@ -363,7 +377,6 @@ function InitializeTheme()
 function ButtonHoverInTheme(event)
 {
     let backButton = document.getElementsByClassName("coinReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("coinReportRefreshButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
@@ -385,10 +398,6 @@ function ButtonHoverInTheme(event)
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "blue";
                     break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "blue";
-                    break;
             }
             break;
 
@@ -406,10 +415,6 @@ function ButtonHoverInTheme(event)
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(0,85,165)";
-                    break;
             }
             break;
 
@@ -426,10 +431,6 @@ function ButtonHoverInTheme(event)
 
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "rgb(255,0,255)";
-                    break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
             }
             break;
@@ -465,10 +466,6 @@ function ButtonHoverOutTheme(event)
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "black";
                     break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "black";
-                    break;
             }
             break;
 
@@ -486,10 +483,6 @@ function ButtonHoverOutTheme(event)
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(4,0,50)";
-                    break;
             }
             break;
 
@@ -506,10 +499,6 @@ function ButtonHoverOutTheme(event)
 
                 case "coinReportBackButton":
                     backButton.style.backgroundColor = "rgb(85, 0, 85)";
-                    break;
-
-                case "coinReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
             }
             break;
@@ -550,26 +539,81 @@ function SetEventListeners()
     {
         window.location.href = "../dashboard.html";
     })
-
-    let refreshButton = document.getElementsByClassName("coinReportRefreshButton")[0];
-    refreshButton.addEventListener("click", ()=>
-    {
-        RetrieveAndSetCoinData();
-    })
 }
 
 async function RetrieveAndSetCoinData()
 {
-    let apiPath = baseUrl + "pool/stats";
-    let statData = await FetchJson(apiPath);
+    let table = document.getElementsByClassName("coinReportTable")[0];
+
+    let statsApiPath = baseUrl + "pool/stats";
+    let netStatsPath = baseUrl + "network/stats";
+    let statData = await FetchJson(statsApiPath);
+    let netData = await FetchJson(netStatsPath);
+
+    let blocksFound = statData.pool_statistics["altBlocksFound"];
+    blocksFound["18081"] = statData.pool_statistics["totalBlocksFound"]
+
+    let ports = Object.keys(COINS).map((a)=>{return a})
+    let algos = statData.pool_statistics["portCoinAlgo"];
+    let hashrates = statData.pool_statistics["portHash"];
+    let minerCounts = statData.pool_statistics["portMinerCount"]
+
+    table.innerHTML = "";
+
+    let header = table.insertRow(0);
+
+    let coinNameHeader = header.insertCell(0);
+    let coinAlgoHeader = header.insertCell(1);
+    let coinPoolHashrateHeader = header.insertCell(2);
+    let coinWorldHashrateHeader = header.insertCell(3)
+    let coinBlocksFoundHeader = header.insertCell(4);
+    let coinMinersConnectedHeader = header.insertCell(5);
+
+    coinNameHeader.innerHTML = "<u>Coin</u>";
+    coinAlgoHeader.innerHTML = "<u>Algorithm</u>";
+    coinPoolHashrateHeader.innerHTML = "<u>Pool Hashrate</u>";
+    coinWorldHashrateHeader.innerHTML = "<u>World Hashrate</u>"
+    coinBlocksFoundHeader.innerHTML = "<u>Blocks Found</u>";
+    coinMinersConnectedHeader.innerHTML = "<u>Active Miners</u>"
+
+    for(let i = 1; i < ports.length; i++)
+    {
+        let portId = ports[i];
+        
+        let row = table.insertRow(i);
+        
+        let coinNameCell = row.insertCell(0);
+        let coinAlgoCell = row.insertCell(1);
+        let coinPoolHashrateCell = row.insertCell(2);
+        let coinWorldHashrateCell = row.insertCell(3);
+        let coinBlocksFoundCell = row.insertCell(4);
+        let coinMinersConnectedCell = row.insertCell(5);
+
+        coinNameCell.innerHTML = COINS[portId].name;
+        coinAlgoCell.innerHTML = algos[portId];
+        coinPoolHashrateCell.innerHTML = ParseHashrate(hashrates[portId] * (COINS[portId].factor ? COINS[portId].factor : 1));
+
+        if(coinPoolHashrateCell.innerHTML == "0H/S")
+            coinPoolHashrateCell.style.color = "red"
+        else
+            coinPoolHashrateCell.style.color = "green"
+
+        coinWorldHashrateCell.innerHTML = ParseHashrate(netData[portId].difficulty / COINS[portId].time * (COINS[portId].factor ? COINS[portId].factor : 1));
+
+
+        coinBlocksFoundCell.innerHTML = blocksFound[portId];
+    
+    
+        coinMinersConnectedCell.innerHTML = minerCounts[portId] ? minerCounts[portId] : 0;
+    
+        if (coinMinersConnectedCell.innerHTML == "0")
+            coinMinersConnectedCell.style.color = "red";
+        else
+            coinMinersConnectedCell.style.color = "green";
+    }
+
+    document.getElementsByClassName("coinInfoHeader")[0].innerHTML = `Tracking ${table.rows.length - 1} pool coins`
 }
-
-  let backButton = document.getElementsByClassName("txReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
-    let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
-
-    let idx = Number(window.localStorage.getItem(THEME_KEY));
 
 async function FetchJson(url)
 {
@@ -584,4 +628,47 @@ function UnixTSToDate(unix_timestamp)
     let d = new Date(0);
     d.setUTCSeconds(unix_timestamp);
     return d.toLocaleTimeString("en-us",options)
+}
+
+function ParseHashrate(hashrateStr)
+{
+    let kh = 1000;
+    let mh = 1000000;
+    let gh = 1000000000;
+    let th = 1000000000000;
+
+    let hashrate = Number(hashrateStr);
+
+    if (isNaN(hashrate) || hashrate < 1)
+        return "0H/S"
+
+    if (hashrate >= th)
+    {
+        let temp = hashrate / th;
+        temp = temp.toFixed(2);
+        return temp + " TH/s";
+    }
+    else if (hashrate >= gh)
+    {
+        let temp = hashrate / gh;
+        temp = temp.toFixed(2);
+        return temp + " GH/s";
+    }
+    else if (hashrate >= mh)
+    {
+        let temp = hashrate / mh;
+        temp = temp.toFixed(2);
+        return temp + " MH/s";
+    }
+    else if (hashrate >= kh)
+    {
+        let temp = hashrate / kh
+        temp = temp.toFixed(2);
+        return temp + " KH/s";
+    }
+    else 
+    {
+        hashrate = hashrate.toFixed(2);
+        return hashrate + " H/s";
+    }
 }

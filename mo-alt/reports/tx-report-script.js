@@ -437,13 +437,6 @@ async function RetrieveAndSetTransactionData()
     document.getElementsByClassName("totalTXInfo")[0].innerHTML = `Payout Count: ${txData.length} -> Total XMR Paid: ${totalPaid.toFixed(6)}`
 }
 
-  let backButton = document.getElementsByClassName("txReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
-    let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
-
-    let idx = Number(window.localStorage.getItem(THEME_KEY));
-
 async function FetchJson(url)
 {
     let res = await fetch(url);

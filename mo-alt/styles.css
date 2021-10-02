@@ -469,7 +469,7 @@ body
     background-color: rgb(77, 0, 255);
 }
 
-.txReportTable
+.txReportTable, .coinReportTable
 {
     color: lightgreen;
     background-color: rgb(15, 0, 105);
@@ -483,6 +483,18 @@ body
 .txReportTable td
 {
     width: 33%;
+    padding-bottom: 15px;
+}
+
+.coinReportTable td
+{
+    width: 30%;
+    padding-bottom: 15px;
+}
+
+.coinReportTable td:nth-child(1)
+{
+    width: 10%;
     padding-bottom: 15px;
 }
 
