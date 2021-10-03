@@ -488,7 +488,6 @@ body
 
 .coinReportTable td
 {
-    width: 30%;
     padding-bottom: 15px;
 }
 
@@ -649,10 +648,20 @@ body
         width: 100%;
         font-size: 16px;
     }
+
 }
+
+@media only screen and (max-width: 850px)
+{
+    .coinReportTable td:nth-child(6)
+    {
+        display: none;
+    }
+} 
 
 @media only screen and (max-width: 800px) 
 {
+    /*DASHBOARD*/
     .balanceStatsDiv
     {
         flex-direction: column;
@@ -667,5 +676,20 @@ body
     {
         flex-direction: row;
         justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 700px)
+{
+    /*COIN REPORT*/
+
+    .coinReportTable td:nth-child(1)
+    {
+        width: 13%;
+    }
+
+    .coinReportTable td:nth-child(5)
+    {
+        display: none;
     }
 }
