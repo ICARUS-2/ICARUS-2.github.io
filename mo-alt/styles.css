@@ -688,6 +688,11 @@ body
         width: 13%;
     }
 
+    .coinReportTable td:nth-child(2)
+    {
+        width: 30%;
+    }
+
     .coinReportTable td:nth-child(5)
     {
         display: none;
