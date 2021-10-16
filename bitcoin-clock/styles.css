@@ -56,3 +56,25 @@ main
 {
     height: 100px;
 }
+
+/*MEDIA QUERIES*/
+@media only screen and (max-width: 1000px) 
+{
+
+    .halvingTimerContainer
+    {
+        margin-right: 25px;
+        margin-left: 25px;
+    }
+
+    .estimatedHalvingDateContainer
+    {
+        max-width: 90%;
+    }
+    .etaContainer
+    {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+}
