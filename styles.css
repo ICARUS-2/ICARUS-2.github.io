@@ -262,7 +262,6 @@ body
 .projButton
 {
     text-decoration: none;
-    margin-right: 5%;
     background-color: rgb(15, 0, 50);
     border: solid rgb(77, 0, 255) 2px;
     padding: 2%;
@@ -271,6 +270,7 @@ body
     font-size: 45%;
     font-weight: lighter;
     margin-top: 5%;
+    text-align: center;
 }
 
 .projButton:hover
