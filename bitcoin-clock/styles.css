@@ -1,0 +1,58 @@
+/*CSS reset*/
+*
+{
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    font-family: Helvetica;
+    box-sizing: border-box;
+    font-size: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+main
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.halvingTimers, .estimatedHalvingDateContainer
+{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.halvingTimers div
+{
+    height: 100px;
+}
+
+
+.blockchainHeightContainer, .blocksTillHalvingContainer
+{
+    margin-top: 100px;
+    max-width: 70%;
+}
+
+.etaHeader
+{
+    margin-top: 100px;
+}
+
+.estimatedHalvingDateContainer
+{
+    max-width: 70%;
+}
+
+.blockchainHeight, .blocksTillHalving, .etaDisplay
+{
+    height: 100px;
+}

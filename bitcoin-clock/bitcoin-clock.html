@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Halving Clock</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+    <script src="sevenSeg.js"></script>
+    <script src="bc-script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>TIME UNTIL HALVING</h1>
+        <br>
+        <div class="halvingTimers">
+            <div class="halvingTimerContainer">
+                <h1>Days</h1>
+                <div class="halvingDays sevenSegmentDisplay halvingTimerDiv"></div>
+            </div>
+
+            <div class="halvingTimerContainer">
+                <h1>Hours</h1>
+                <div class="halvingHours sevenSegmentDisplay halvingTimerDiv"></div>
+            </div>
+
+            <div class="halvingTimerContainer">
+                <h1>Minutes</h1>
+                <div class="halvingMinutes sevenSegmentDisplay halvingTimerDiv"></div>
+            </div>
+
+            <div class="halvingTimerContainer">
+                <h1>Seconds</h1>
+                <div class="halvingSeconds sevenSegmentDisplay halvingTimerDiv"></div>
+            </div>
+        </div>
+
+        <h1 class="etaHeader">Estimated Bitcoin Halving Date</h1>
+        <br>
+        <div class="estimatedHalvingDateContainer">
+            <div class="etaContainer">
+                <h1>Year</h1>
+                <div class="etaYears sevenSegmentDisplay etaDisplay"></div>
+            </div>
+
+            <div class="etaMonthContainer">
+                <h1>Month</h1>
+                <div class="etaMonth sevenSegmentDisplay etaDisplay"></div>
+            </div>
+
+            <div class="etaTimerContainer">
+                <h1>Day</h1>
+                <div class="etaDay sevenSegmentDisplay etaDisplay"></div>
+            </div>
+        </div>
+
+        <div class="blocksTillHalvingContainer">
+            <h1>Blocks Till Halving</h1>
+            <div class="blocksTillHalving sevenSegmentDisplay">
+
+            </div>
+        </div>
+
+        <div class="blockchainHeightContainer">
+            <h1>Blockchain Height</h1>
+            <div class="blockchainHeight sevenSegmentDisplay">
+
+            </div>
+        </div>
+    </main>
+</body>
+</html>
