@@ -222,6 +222,22 @@ body
     margin-top: 30px;
 }
 
+.needAWallet
+{
+    color: white;
+    font-size: 20px;
+}
+
+.moneroDownloadLink
+{
+    color: white;
+}
+
+.moneroDownloadLink:hover
+{
+    color: lightgreen
+}
+
 /*DASHBOARD*/
 .errorReturnButton
 {
