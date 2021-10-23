@@ -55,6 +55,8 @@ a
 .placeholder
 {
     width: 20%;
+    font-size: smaller;
+    padding-left: 100px;
 }
 
 .navlink
@@ -63,7 +65,7 @@ a
     padding: 20px;
 }
 
-.navlinkitem :hover
+.navlinkitem :hover, .placeholder a:hover
 {
     color: rgb(210, 210, 210);
 }
@@ -321,6 +323,12 @@ body
     .navlink
     {
         padding: 7px;
+    }
+
+    .placeholder
+    {
+        padding-left: unset;
+        margin-top: 17px;
     }
 
     .biobuttonsdiv
