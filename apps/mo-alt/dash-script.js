@@ -331,7 +331,7 @@ function SetEventListeners()
         window.localStorage.removeItem(LOGIN_KEY);
         window.localStorage.removeItem(THEME_KEY);
         window.localStorage.removeItem(REFRESH_KEY);
-        window.location.href = "../"
+        window.location.href = "../login/"
     })
 
     //Block data table button
