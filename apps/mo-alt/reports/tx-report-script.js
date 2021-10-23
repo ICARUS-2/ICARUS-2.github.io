@@ -388,7 +388,7 @@ function SetEventListeners()
     let backButton = document.getElementsByClassName("txReportBackButton")[0];
     backButton.addEventListener("click", ()=>
     {
-        window.location.href = "../../";
+        window.location.href = "../../dashboard";
     })
 
     let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
