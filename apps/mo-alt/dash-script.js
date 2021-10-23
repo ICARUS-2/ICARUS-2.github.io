@@ -331,7 +331,7 @@ function SetEventListeners()
         window.localStorage.removeItem(LOGIN_KEY);
         window.localStorage.removeItem(THEME_KEY);
         window.localStorage.removeItem(REFRESH_KEY);
-        window.location.href = "./login.html"
+        window.location.href = "../"
     })
 
     //Block data table button
@@ -353,7 +353,7 @@ function SetEventListeners()
     
     //transaction report button
     let txReportButton = document.getElementsByClassName('transactionReportButton')[0];
-    txReportButton.addEventListener("click", () => window.location.href = "./reports/transaction-report.html")
+    txReportButton.addEventListener("click", () => window.location.href = "../reports/transaction-report")
 }
 
 function GetDisplays()

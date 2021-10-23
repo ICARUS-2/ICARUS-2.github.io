@@ -531,13 +531,13 @@ function SetEventListeners()
         window.localStorage.removeItem(LOGIN_KEY);
         window.localStorage.removeItem(THEME_KEY);
         window.localStorage.removeItem(REFRESH_KEY);
-        window.location.href = "../login.html"
+        window.location.href = "../../"
     })
 
     let backButton = document.getElementsByClassName("coinReportBackButton")[0];
     backButton.addEventListener("click", ()=>
     {
-        window.location.href = "../dashboard.html";
+        window.location.href = "../../dashboard";
     })
 }
 
