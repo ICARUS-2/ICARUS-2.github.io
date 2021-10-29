@@ -1,17 +1,22 @@
-const blockInterval = 210000;
+const BLOCK_INTERVAL = 210000;
 
-const blockchainRefreshInterval = 30000;
+const API_REFRESH_RATE  = 30000;
 
-const blockTime = 600000;
+const BLOCK_TIME = 600000;
 
-const msInHalvingPeriod = 126000000000;
-const msInDay = 86400000;
-const msInHour = 3600000;
-const msInMinute = 60000;
-const msInSecond = 1000;
+const MS_IN_HALVING_PERIOD = 126000000000;
+const MS_IN_DAY = 86400000;
+const MS_IN_HOUR = 3600000;
+const MS_IN_MINUTE = 60000;
+const MS_IN_SECOND = 1000;
 
-const timerInterval = 1000;
+const TIMER_INTERVAL = 1000;
 
+const BASE_BLOCK_REWARD = 50;
+
+const MAX_HALVING_COUNT = 33;
+
+const MAX_BLOCKCHAIN_HEIGHT = BLOCK_INTERVAL * MAX_HALVING_COUNT;
 
 let currentBlockchainHeight = 0;
 let globalMsToNextHalving = 0;
@@ -44,8 +49,8 @@ document.addEventListener("DOMContentLoaded", async () =>
     currentBlockchainHeight = await getBlockchainHeight(); 
     initialize();
     getHalvingTimeStamp();
-    window.setInterval(updateBlockchainHeight, blockchainRefreshInterval)
-    window.setInterval(updateTimer, timerInterval);
+    window.setInterval(updateBlockchainHeight, API_REFRESH_RATE)
+    window.setInterval(updateTimer, TIMER_INTERVAL);
 })
 
 async function getBlockchainHeight()
@@ -74,12 +79,12 @@ function getHalvingDate()
 
 function getBlocksTillNextHalving()
 {
-    return blockInterval -(currentBlockchainHeight % blockInterval);
+    return BLOCK_INTERVAL -(currentBlockchainHeight % BLOCK_INTERVAL);
 }
 
 function getMillisecondsTillNextHalving()
 {
-    return getBlocksTillNextHalving() * blockTime;
+    return getBlocksTillNextHalving() * BLOCK_TIME;
 }
 
 function updateTimer()
@@ -99,7 +104,7 @@ function updateTimer()
     $(".halvingMinutes").sevenSeg({value: timeStamp.minutes.toString(), colorOn: DISPLAY_COLORS.OnColors.Red, colorOff: DISPLAY_COLORS.OffColors.Red, digits: timeStamp.minutes.toString().length})
     $(".halvingSeconds").sevenSeg({value: timeStamp.seconds.toString(), colorOn: DISPLAY_COLORS.OnColors.Red, colorOff: DISPLAY_COLORS.OffColors.Red, digits: timeStamp.seconds.toString().length})
 
-    globalMsToNextHalving -= timerInterval;
+    globalMsToNextHalving -= TIMER_INTERVAL;
 }
 
 function getHalvingTimeStamp()
@@ -112,17 +117,17 @@ function getHalvingTimeStamp()
 
     let totalMilliseconds = globalMsToNextHalving;
 
-    days = (totalMilliseconds - (totalMilliseconds % msInDay)) / msInDay;
-    totalMilliseconds -= days * msInDay;
+    days = (totalMilliseconds - (totalMilliseconds % MS_IN_DAY)) / MS_IN_DAY;
+    totalMilliseconds -= days * MS_IN_DAY;
 
-    hours = (totalMilliseconds - (totalMilliseconds % msInHour)) / msInHour;
-    totalMilliseconds -= hours * msInHour;
+    hours = (totalMilliseconds - (totalMilliseconds % MS_IN_HOUR)) / MS_IN_HOUR;
+    totalMilliseconds -= hours * MS_IN_HOUR;
 
-    minutes = (totalMilliseconds - (totalMilliseconds % msInMinute)) / msInMinute;
-    totalMilliseconds -= minutes * msInMinute;
+    minutes = (totalMilliseconds - (totalMilliseconds % MS_IN_MINUTE)) / MS_IN_MINUTE;
+    totalMilliseconds -= minutes * MS_IN_MINUTE;
 
-    seconds = (totalMilliseconds - (totalMilliseconds % msInSecond)) / msInSecond;
-    totalMilliseconds -= seconds * msInSecond;
+    seconds = (totalMilliseconds - (totalMilliseconds % MS_IN_SECOND)) / MS_IN_SECOND;
+    totalMilliseconds -= seconds * MS_IN_SECOND;
 
     milliseconds = totalMilliseconds;
 
@@ -158,4 +163,29 @@ function destroyDisplays()
 function destroyTimers()
 {
     $(".halvingTimerDiv").sevenSeg("destroy");
+}
+
+function getHalvingCount(height = currentBlockchainHeight)
+{
+    if (height < BLOCK_INTERVAL)
+        return 0;
+
+    let remainder = height % BLOCK_INTERVAL;
+    return (height - remainder) / BLOCK_INTERVAL;
+}
+
+function getBlockReward(height = currentBlockchainHeight)
+{
+    let halvings = getHalvingCount(height);
+
+    if (halvings > 33)
+        return 0;
+
+    let subsidy = BASE_BLOCK_REWARD;
+    
+    for (let i = 0; i < halvings; i++)
+    {
+        subsidy /= 2;
+    }
+    return subsidy;
 }
