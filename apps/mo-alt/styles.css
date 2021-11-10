@@ -453,6 +453,11 @@ body
     height: 30px;
 }
 
+.spaceBetweenBalanceHeaders
+{
+    display: none;
+}
+
 /*TRANSACTION REPORT*/
 .txReportMain, .coinReportMain
 {
@@ -712,5 +717,32 @@ body
     .coinReportTable td:nth-child(5)
     {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 600px)
+{
+
+    /*BALANCES*/
+
+    .spaceBetweenBalances
+    {
+        display: none;
+    }
+
+    .spaceBetweenBalanceHeaders
+    {
+        display: inline;
+    }
+
+    .balances
+    {
+        height: unset;
+    }   
+
+    .bDiv
+    {
+        flex-direction: column;
+        align-items: left;
     }
 }
