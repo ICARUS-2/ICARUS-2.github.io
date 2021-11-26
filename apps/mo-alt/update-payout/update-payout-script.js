@@ -89,9 +89,9 @@ function HandleInputChanged()
 
     if (CheckValidPayoutThreshold(input))
     {
-            let fees = getFeeFromThreshold(input)
-            additionalInfoField.style.color = "lightgreen"
-            additionalInfoField.innerHTML = `Payout fee: ${fees.fee} XMR (${fees.percentage.toFixed(4)} %)`;
+        let fees = getFeeFromThreshold(input)
+        additionalInfoField.style.color = "lightgreen"
+        additionalInfoField.innerHTML = `Payout fee: ${fees.fee} XMR (${fees.percentage.toFixed(4)} %)`;
     }
     else
     {
