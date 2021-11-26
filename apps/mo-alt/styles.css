@@ -310,7 +310,13 @@ body
     justify-content: space-between;
 }
 
-.transactionReportButton, .updateThresholdButton
+.exchangeRatesHeader
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.transactionReportButton, .updateThresholdButton, .seeExchangeRatesButton
 {
     text-decoration: none;
     color: white;
@@ -320,7 +326,7 @@ body
     padding: 15px;
 }
 
-.transactionReportButton:hover, .updateThresholdButton:hover
+.transactionReportButton:hover, .updateThresholdButton:hover, .seeExchangeRatesButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
