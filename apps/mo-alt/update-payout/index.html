@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../styles.css">
     <title>MoneroOcean Mining Pool</title>
-    <script src="./main-script.js"></script>
+    <script src="update-payout-script.js"></script>
 </head>
 <body>
     <nav class="navtag">
@@ -25,16 +25,25 @@
             <div class="placeholder">
                 Not signed in
             </div>
+            <div class="signOutButton">
+                <-- Sign Out 
+            </div>
         </div>
     </nav>
 
-    <main class="loginpageMain">
-        <h1 class="signInHeader">Sign in to access the pool</h1>
-        <input type="text" name="addr" class="loginBox"> 
-        <button class="loginButton" onclick="ValidateInput()">Sign In</button>
+    <main class="updatePayoutMain">
+        <button class="updatePayoutBackButton"><-- Back</button>
+
+        <h1 class="currentPayoutThreshold">Current Threshold: </h1>
+        <p class="thresholdHeader">Enter new threshold</p>
+        <input type="text" name="addr" class="loginBox thresholdBox"> 
         <br>
-        <p class="needAWallet">Don't have a wallet? Download one <a class="moneroDownloadLink" href="https://www.getmonero.org/downloads/" target="blank">here</a></p>
-        <p class="loginInfoBox"></p>
+        <button class="updateThresholdButton">Update</button>
+        <br>
+        <p class="payoutInputAdditionalInfo"></p>
+        <br>
     </main>
+
+    <a href="../login/" class="errorReturnButton"><--Return</a>
 </body>
 </html>
