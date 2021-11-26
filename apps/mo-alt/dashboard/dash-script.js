@@ -354,6 +354,9 @@ function SetEventListeners()
     //transaction report button
     let txReportButton = document.getElementsByClassName('transactionReportButton')[0];
     txReportButton.addEventListener("click", () => window.location.href = "../reports/transaction-report")
+
+    let changeThresholdButton = document.getElementsByClassName('updateThresholdButton')[0];
+    changeThresholdButton.addEventListener("click", () => window.location.href = "../update-payout")
 }
 
 function GetDisplays()

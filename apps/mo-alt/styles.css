@@ -310,7 +310,7 @@ body
     justify-content: space-between;
 }
 
-.transactionReportButton
+.transactionReportButton, .updateThresholdButton
 {
     text-decoration: none;
     color: white;
@@ -320,7 +320,7 @@ body
     padding: 15px;
 }
 
-.transactionReportButton:hover
+.transactionReportButton:hover, .updateThresholdButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -474,7 +474,7 @@ body
     display: flex;
 }
 
-.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, .coinReportRefreshButton
+.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, .coinReportRefreshButton, .updatePayoutBackButton
 {
     text-decoration: none;
     color: white;
@@ -485,7 +485,7 @@ body
     margin: 10px;
 }
 
-.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover, .coinReportRefreshButton:hover
+.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover, .coinReportRefreshButton:hover, .updatePayoutBackButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -516,6 +516,29 @@ body
 {
     width: 10%;
     padding-bottom: 15px;
+}
+
+/*UPDATE PAYOUT*/
+.updatePayoutMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+}
+
+.currentPayoutThreshold
+{
+    font-size: 35px;
+}
+
+.thresholdHeader
+{
+    margin-top: 50px;
 }
 
 @media only screen and (max-width: 1000px) 
@@ -640,6 +663,11 @@ body
     {
         margin-left: 25%;
         margin-right: 25%;
+    }
+
+    .balanceHeader
+    {
+        flex-direction: column;
     }
 
     /*TRANSACTION REPORT*/
