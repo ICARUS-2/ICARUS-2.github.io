@@ -1,7 +1,0 @@
-fetch("https://api.moneroocean.stream/user/updateThreshold", {
-  "headers": {
-    "content-type": "application/json",
-  },
-  "body": "{\"username\":\"   <ADDRESS HERE>   \",\"threshold\": <AMOUNT HERE IN XMR>  }",
-  "method": "POST",
-});
