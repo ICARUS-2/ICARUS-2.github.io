@@ -7,6 +7,9 @@ const MONERO_INTEGR_ADDR_LENGTH = 106;
 const MIN_THRESHOLD = 0.0030;
 const MAX_THRESHOLD = 1000;
 
+const TX_FEES = [0.0004, 0.0003, 0.0002, 0.0001]
+const THRESHOLDS = [0.5026, 1.5018, 2.5011, 3.5003]
+
 const API_URL = "https://api.moneroocean.stream/"
 
 let addr
@@ -64,21 +67,37 @@ async function DisplayCurrentThreshold()
     document.getElementsByClassName("currentPayoutThreshold")[0].innerHTML = "Current Threshold: " + userObj.payout_threshold / 1000000000000 + " XMR"
 }
 
+function getFeeFromThreshold(threshold)
+{
+    if (threshold > THRESHOLDS[THRESHOLDS.length - 1])
+        return {fee : 0, percentage : 0}
+
+    for (let i = 0; i < THRESHOLDS.length; i++)
+    {
+        if (threshold > THRESHOLDS[i])
+            continue;
+        else
+        {
+            return {fee : TX_FEES[i], percentage : TX_FEES[i] / threshold * 100}
+        }
+    }
+}
+
 function HandleInputChanged()
 {
     let input = inputField.value;
 
     if (CheckValidPayoutThreshold(input))
     {
-        additionalInfoField.innerHTML = "";
+            let fees = getFeeFromThreshold(input)
+            additionalInfoField.style.color = "lightgreen"
+            additionalInfoField.innerHTML = `Payout fee: ${fees.fee} XMR (${fees.percentage.toFixed(4)} %)`;
     }
     else
     {
         additionalInfoField.style.color = "red"
         additionalInfoField.innerText = `Please enter a number between ${MIN_THRESHOLD} and ${MAX_THRESHOLD}`;
     }
-
-    console.log(input);
 }
 
 async function HandleUpdateButtonPressed()
@@ -87,6 +106,13 @@ async function HandleUpdateButtonPressed()
 
     if (!CheckValidPayoutThreshold(input))
         return;
+
+    if (Number(input) * 1000000000000 == userObj.payout_threshold)
+    {
+        additionalInfoField.style.color = "red";
+        additionalInfoField.innerHTML = "New threshold can't be the same as the old one!"
+        return;
+    }
 
     let result = await fetch("https://api.moneroocean.stream/user/updateThreshold", {
         "headers": {
@@ -121,7 +147,7 @@ function CheckValidPayoutThreshold(payout)
     if (!StringIsNumeric(payout))
         return false;
 
-    return payout >= MIN_THRESHOLD;
+    return payout >= MIN_THRESHOLD && payout <= MAX_THRESHOLD;
 }
 
 async function FetchJson(url)
@@ -323,7 +349,6 @@ function ButtonHoverInTheme(event)
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let updateButton = document.getElementsByClassName("updateThresholdButton")[0];
 
-    console.log(event.target.className)
 
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
