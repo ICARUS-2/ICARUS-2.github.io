@@ -488,9 +488,11 @@ body
     display: flex;
 }
 
+/*BACK AND FETCH BUTTONS*/
 .txReportBackButton, .txReportRefreshButton, .coinReportBackButton, 
 .coinReportRefreshButton, .updatePayoutBackButton, .exchangeRatesBackButton,
-.connectedMinerChartBackButton, .connectedMinerChartFetchButton
+.connectedMinerChartBackButton, .connectedMinerChartFetchButton, .minerHashratesChartBackButton,
+.minerHashratesChartFetchButton
 {
     text-decoration: none;
     color: white;
@@ -503,7 +505,8 @@ body
 
 .txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover,
 .coinReportRefreshButton:hover, .updatePayoutBackButton:hover, .exchangeRatesBackButton:hover,
-.connectedMinerChartBackButton:hover, .connectedMinerChartFetchButton:hover
+.connectedMinerChartBackButton:hover, .connectedMinerChartFetchButton:hover, .minerHashratesChartBackButton:hover,
+.minerHashratesChartFetchButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -591,8 +594,8 @@ body
     background-color: #FFFFFF;
 }
 
-/*CONNECTED MINER CHART*/
-.connectedMinerChartPageMain
+/*CONNECTED MINER CHART / MINER HASHRATE CHART*/
+.connectedMinerChartPageMain, .minerHashratesChartPageMain
 {
     width: 100%;
     display: flex;
@@ -605,7 +608,7 @@ body
     text-align: center;
 }
 
-.connectedMinerChartCanvas
+.connectedMinerChartCanvas, .minerHashratesChartCanvas
 {
     color: lightgreen;
     background-color: rgb(15, 0, 105);
@@ -615,12 +618,12 @@ body
     height: 500px;
 }
 
-.connectedMinerChartHeaderContainer
+.connectedMinerChartHeaderContainer, .minerHashratesChartHeaderContainer
 {
     display: flex;
 }
 
-.connectedMinerChartTopButtons
+.connectedMinerChartTopButtons, .minerHashratesChartTopButtons
 {
     display: flex;
 }

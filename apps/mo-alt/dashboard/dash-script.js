@@ -366,6 +366,10 @@ function SetEventListeners()
     //connected miners chart button
     let connectedMinersChartButton = document.getElementsByClassName("connectedMinersChartButton")[0];
     connectedMinersChartButton.addEventListener("click", ()=> window.location.href = "../charts/connected-miners")
+
+    //miner hashrates chart button
+    let minerHashratesChartButton = document.getElementsByClassName("minerHashratesChartButton")[0];
+    minerHashratesChartButton.addEventListener("click", () => window.location.href = "../charts/miner-hashrate")
 }
 
 function GetDisplays()
