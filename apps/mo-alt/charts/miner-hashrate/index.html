@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../styles.css">
+    <title>MoneroOcean Mining Pool</title>
+    <script src="./miner-hashrate-chart-script.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js'></script>
+</head>
+<body>
+    <nav class="navtag">
+        <div class="circleImgDiv">
+            <img src="../../assets/mo-logo.png" class="circleImg">
+            <p class="MoneroOceanText"><a href="../../login" style="color: white;">Monero Ocean</a></p>
+        </div>
+
+        <ul class="navbar">
+           <li class="navlinkitem"><a href="" class="navlink"></a></li>
+           <li class="navlinkitem"><a href="" class="navlink" target="blank"></a></li>
+           <li class="navlinkitem"><a href="" class="navlink"></a></li>
+           <li class="navlinkitem"><a href="" class="navlink"></a></li>
+        </ul>
+        
+        <div class="signInControls">
+            <div class="placeholder">
+                Not signed in
+            </div>
+            <div class="signOutButton">
+                <-- Sign Out 
+            </div>
+        </div>
+    </nav>
+
+    <main class="minerHashratesChartPageMain">
+        <div class="minerHashratesChartTopButtons">
+            <div class="minerHashratesChartBackButton"><-- Back</div>
+            <div class="minerHashratesChartFetchButton">Fetch</div>
+        </div>
+        <br>
+        <div class="minerHashratesChartHeaderContainer">
+            <h1 class="minerHashratesChartHeader">PENDING</h1>
+            <p class="minerHashratesChartDiff"></p>
+        </div>
+        <br>
+        <br>
+        <canvas class="minerHashratesChartCanvas">
+
+        </canvas>
+    </main>
+
+    <a href="../../" class="errorReturnButton">
+        <-- Return
+    </a>
+
+</body>
+</html>

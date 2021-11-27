@@ -362,6 +362,14 @@ function SetEventListeners()
     //exchange rates button
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
     exchangeRatesButton.addEventListener("click", () => window.location.href = "../exchange-rates")
+
+    //connected miners chart button
+    let connectedMinersChartButton = document.getElementsByClassName("connectedMinersChartButton")[0];
+    connectedMinersChartButton.addEventListener("click", ()=> window.location.href = "../charts/connected-miners")
+
+    //miner hashrates chart button
+    let minerHashratesChartButton = document.getElementsByClassName("minerHashratesChartButton")[0];
+    minerHashratesChartButton.addEventListener("click", () => window.location.href = "../charts/miner-hashrate")
 }
 
 function GetDisplays()
@@ -658,6 +666,8 @@ function ChangeTheme()
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let payoutThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
+    let connectedMinersChartButton = document.getElementsByClassName("connectedMinersChartButton")[0];
+    let minerHashratesChartButton = document.getElementsByClassName("minerHashratesChartButton")[0];
 
     placeholder.removeEventListener("mouseover", ButtonHoverInTheme);
     placeholder.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -673,6 +683,12 @@ function ChangeTheme()
 
     payoutThresholdButton.removeEventListener("mouseover", ButtonHoverInTheme);
     payoutThresholdButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    connectedMinersChartButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    connectedMinersChartButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    minerHashratesChartButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    minerHashratesChartButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     exchangeRatesButton.removeEventListener("mouseover", ButtonHoverInTheme);
     exchangeRatesButton.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -715,6 +731,14 @@ function ChangeTheme()
                 //transaction report button
                 txReportButton.style.backgroundColor = "";
                 txReportButton.style.borderColor = "";
+
+                //connected miners chart button
+                connectedMinersChartButton.style.backgroundColor = "";
+                connectedMinersChartButton.style.borderColor = ""
+
+                //miner hashrates chart button
+                minerHashratesChartButton.style.backgroundColor = "";
+                minerHashratesChartButton.style.borderColor = "";
 
                 //change payout button
                 payoutThresholdButton.style.backgroundColor = "";
@@ -777,6 +801,18 @@ function ChangeTheme()
                 exchangeRatesButton.style.borderColor = bordColor;
                 exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
                 exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //connected miners chart button
+                connectedMinersChartButton.style.backgroundColor = bgColor;
+                connectedMinersChartButton.style.borderColor = bordColor;
+                connectedMinersChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                connectedMinersChartButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //miner hashrate chart button
+                minerHashratesChartButton.style.backgroundColor = bgColor;
+                minerHashratesChartButton.style.borderColor = bordColor;
+                minerHashratesChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                minerHashratesChartButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
@@ -841,6 +877,18 @@ function ChangeTheme()
                 exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
                 exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //connected miners chart button
+                connectedMinersChartButton.style.backgroundColor = bgColor;
+                connectedMinersChartButton.style.borderColor = bordColor;
+                connectedMinersChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                connectedMinersChartButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //miner hashrate chart button
+                minerHashratesChartButton.style.backgroundColor = bgColor;
+                minerHashratesChartButton.style.borderColor = bordColor;
+                minerHashratesChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                minerHashratesChartButton.addEventListener("mouseout", ButtonHoverOutTheme);
+                
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
@@ -904,6 +952,18 @@ function ChangeTheme()
                 exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
                 exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //connected miners chart button
+                connectedMinersChartButton.style.backgroundColor = bgColor;
+                connectedMinersChartButton.style.borderColor = bordColor;
+                connectedMinersChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                connectedMinersChartButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //miner hashrate chart button
+                minerHashratesChartButton.style.backgroundColor = bgColor;
+                minerHashratesChartButton.style.borderColor = bordColor;
+                minerHashratesChartButton.addEventListener("mouseover", ButtonHoverInTheme);
+                minerHashratesChartButton.addEventListener("mouseout", ButtonHoverOutTheme);                
+
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
@@ -924,6 +984,8 @@ function ButtonHoverInTheme(event)
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let updateThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
+    let connectedMinersChartButton = document.getElementsByClassName("connectedMinersChartButton")[0];
+    let minerHashratesChartButton = document.getElementsByClassName("minerHashratesChartButton")[0];
 
     let selectedIdx;
     
@@ -966,6 +1028,14 @@ function ButtonHoverInTheme(event)
                     exchangeRatesButton.style.backgroundColor = "blue";
                     break;
 
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "blue";
+                    break;
+
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "blue";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -998,7 +1068,15 @@ function ButtonHoverInTheme(event)
                 case "seeExchangeRatesButton":
                     exchangeRatesButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
-                    
+
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;       
+
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1032,6 +1110,14 @@ function ButtonHoverInTheme(event)
                     exchangeRatesButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1049,6 +1135,8 @@ function ButtonHoverOutTheme(event)
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let updateThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
+    let connectedMinersChartButton = document.getElementsByClassName("connectedMinersChartButton")[0];
+    let minerHashratesChartButton = document.getElementsByClassName("minerHashratesChartButton")[0];
 
     let selectedIdx;
     
@@ -1091,6 +1179,14 @@ function ButtonHoverOutTheme(event)
                     exchangeRatesButton.style.backgroundColor = "black";
                     break;
 
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "black";
+                    break;
+
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "black";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1124,6 +1220,14 @@ function ButtonHoverOutTheme(event)
                     exchangeRatesButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
 
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+                    
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1155,6 +1259,14 @@ function ButtonHoverOutTheme(event)
 
                 case "seeExchangeRatesButton":
                     exchangeRatesButton.style.backgroundColor = "rgb(85,0,85)";
+                    break;
+
+                case "connectedMinersChartButton":
+                    connectedMinersChartButton.style.backgroundColor = "rgb(85,0,85)";
+                    break;
+
+                case "minerHashratesChartButton":
+                    minerHashratesChartButton.style.backgroundColor = "rgb(85,0,85)";
                     break;
 
                 default:
