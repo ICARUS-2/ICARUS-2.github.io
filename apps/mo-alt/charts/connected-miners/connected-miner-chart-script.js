@@ -4,9 +4,7 @@ const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 
-const EXCHANGE_DECIMALS = 4;
-
-const poolStatsURL = "https://api.moneroocean.stream/pool/stats"
+const CONNECTED_MINER_CHART_URL = "https://api.moneroocean.stream/pool/chart/miners"
 
 let refreshInterval;
 let clearRefreshId;
@@ -15,58 +13,118 @@ document.addEventListener("DOMContentLoaded", () =>
 {
     CheckAddress();
     SetEventListeners();
-    SetRefreshRate();
     InitializeTheme();
-    RetrieveAndSetExchangeRates();
+    RetrieveAndSetChartData();
 });
 
-async function RetrieveAndSetExchangeRates()
+async function RetrieveAndSetChartData()
 {
-    let statsObj = await FetchJson(poolStatsURL);
-    let xmrPriceUsd = statsObj.pool_statistics.price.usd;
-    let xmrPriceEur = statsObj.pool_statistics.price.eur;
-    let xmrPriceBtc = statsObj.pool_statistics.price.btc;
-
-    let table = document.getElementsByClassName("exchangeRatesTable")[0];
-    table.innerHTML = "";
-
-    let index = {value : 0}
-
-    let btcPriceMultiplier = 1 / xmrPriceBtc;
-
-    InsertIntoERTable(index, "Pairing", "Value", true)
-
-    InsertIntoERTable(index, "XMR -> USD", "$"+xmrPriceUsd.toFixed(EXCHANGE_DECIMALS));
-    InsertIntoERTable(index, "XMR -> EUR", "€"+xmrPriceEur.toFixed(EXCHANGE_DECIMALS));
-    InsertIntoERTable(index, "XMR -> BTC", "₿"+xmrPriceBtc.toFixed(10), true);
-
-    InsertIntoERTable(index, "BTC -> USD", "$"+(xmrPriceUsd*btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS));
-    InsertIntoERTable(index, "BTC -> EUR", "€"+(xmrPriceEur*btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS))
-    InsertIntoERTable(index, "BTC -> XMR", "XMR"+(btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS), true);
-
-    InsertIntoERTable(index, "USD -> EUR", "€"+(xmrPriceEur/xmrPriceUsd).toFixed(EXCHANGE_DECIMALS));
-    InsertIntoERTable(index, "EUR -> USD", "$"+(xmrPriceUsd/xmrPriceEur).toFixed(EXCHANGE_DECIMALS));
+    let responseObj = await FetchJson(CONNECTED_MINER_CHART_URL);
+    
+    SetHeader(responseObj);
+    DrawChart(responseObj);
 }
 
-async function InsertIntoERTable(index, pairing, value, spacer = false)
+function SetHeader(responseObj)
 {
-    let table = document.getElementsByClassName("exchangeRatesTable")[0];
-    let row = table.insertRow(index.value);
-    let coinPairCell = row.insertCell(0);
-    let rateCell = row.insertCell(1);
+    let header = document.getElementsByClassName("connectedMinerChartHeader")[0];
+    let change24hElement = document.getElementsByClassName("connectedMinerChartDiff")[0];
+    
+    let connectedAccounts = responseObj[0].cn;
+    let connectedAccounts24HAgo = responseObj[responseObj.length-1].cn
 
-    coinPairCell.innerHTML = pairing;
-    rateCell.innerHTML = value;
+    header.innerHTML = "Connected Addresses : " + connectedAccounts;
 
-    if (spacer)
+    if (connectedAccounts > connectedAccounts24HAgo)
     {
-        index.value++;
-        let spacerRow = table.insertRow(index.value);
-        spacerRow.classList.add("exchangeRatesBlankTableRow")
-        spacerRow.innerHTML = ""
-    }
+        let percentage = ((connectedAccounts / connectedAccounts24HAgo * 100) - 100).toFixed(2)
 
-    index.value++;
+        change24hElement.style.color = "lightgreen";
+        change24hElement.innerHTML = "&nbsp↑" + " " + percentage + "%"
+    }
+    else
+    {
+        let percentage = ((connectedAccounts24HAgo / connectedAccounts * 100) - 100).toFixed(2)
+
+
+        change24hElement.style.color = "red";
+        change24hElement.innerHTML = "&nbsp↓" + " " + percentage + "%"
+    }
+}
+
+function DrawChart(responseObj)
+{
+    let seed = GetData(responseObj);
+
+    const dataObj = {
+        labels: seed.labels,
+        datasets: [{
+          label: '24H Connected Accounts',
+          data: seed.array,
+          fill: false,
+          borderColor: 'cyan',
+        }]
+      };
+
+    const config = {
+        type: 'line',
+        data: dataObj,
+          scales: {
+            y: { // defining min and max so hiding the dataset does not change scale range
+              min: seed.min,
+              max: seed.max
+            }
+          }
+        
+      };
+
+    let context = document.getElementsByClassName("connectedMinerChartCanvas")[0].getContext('2d');
+
+    const chart = new Chart(context, config);
+
+    console.log(seed.array)
+}
+
+function GetData(responseObj)
+{
+    let arr = [];
+    let labels = [];
+    let min = 0;
+    let max = Number.MAX_SAFE_INTEGER;
+    
+    const SAMPLING_INTERVAL = 20;
+
+    responseObj.forEach((item, index) =>
+        {
+            if(index % SAMPLING_INTERVAL != 0)
+                return
+
+            if(index == 0)
+            {
+                labels.push("24H")
+            }
+            else if(index == responseObj.length - 1)
+            {
+                labels.push("NOW")
+            }
+            else
+            {
+                labels.push("")
+            }
+
+            if (item.cn > max)
+            {
+                max = item.cn
+            } 
+
+            if (item.cn < min)
+            {
+                min = item.cn;
+            }
+            arr.push(item.cn);
+        })
+    
+    return {array : arr.reverse(), min, max, labels}
 }
 
 function CheckAddress()
@@ -111,57 +169,28 @@ function SetEventListeners()
         window.localStorage.removeItem(LOGIN_KEY);
         window.localStorage.removeItem(THEME_KEY);
         window.localStorage.removeItem(REFRESH_KEY);
-        window.location.href = "../"
+        window.location.href = "../../"
     })
 
-    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let backButton = document.getElementsByClassName("connectedMinerChartBackButton")[0];
     backButton.addEventListener("click", ()=>
     {
-        window.location.href = "../dashboard";
+        window.location.href = "../../dashboard";
     })    
-}
 
-function SetRefreshRate()
-{
-    let selectedIdx = window.localStorage.getItem(REFRESH_KEY);
-
-    switch(Number(selectedIdx))
-    {
-        case 0:
-            refreshInterval = 5000;
-            break;
-
-        case 1:
-            refreshInterval = 15000;
-            break;
-
-        case 2:
-            refreshInterval = 30000;
-            break;
-
-        case 3:
-            refreshInterval = 60000;
-            break;
-
-        default:
-            LogError("Refresh rate not defined, try clearing browser data");
-            break;
-    }
-
-    if (clearRefreshId)
-        window.clearInterval(clearRefreshId);
-
-    clearRefreshId = window.setInterval(RetrieveAndSetExchangeRates, refreshInterval);
+    let refreshButton = document.getElementsByClassName("connectedMinerChartFetchButton")[0]
+    refreshButton.addEventListener("click", RetrieveAndSetChartData);
 }
 
 function InitializeTheme()
 {
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
-    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
-    let erTable = document.getElementsByClassName("exchangeRatesTable")[0];
+    let backButton = document.getElementsByClassName("connectedMinerChartBackButton")[0];
+    let canvas = document.getElementsByClassName("connectedMinerChartCanvas")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
+    let refreshButton = document.getElementsByClassName("connectedMinerChartFetchButton")[0];
 
     signInButton.removeEventListener("mouseover", ButtonHoverInTheme)
     signInButton.removeEventListener("mouseout", ButtonHoverOutTheme)
@@ -171,6 +200,9 @@ function InitializeTheme()
 
     backButton.removeEventListener("mouseover", ButtonHoverInTheme);
     backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    refreshButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    refreshButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     switch (idx)
     {
@@ -187,8 +219,11 @@ function InitializeTheme()
                 backButton.style.backgroundColor = "";
                 backButton.style.borderColor = "";
 
-                erTable.style.backgroundColor = "";
-                erTable.style.borderColor = "";
+                refreshButton.style.backgroundColor = "";
+                refreshButton.style.borderColor = "";
+
+                canvas.style.backgroundColor = "";
+                canvas.style.borderColor = "";
             }
             break;
 
@@ -205,6 +240,9 @@ function InitializeTheme()
             
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
             
                 document.body.style.backgroundColor = bgColor;
                 
@@ -217,8 +255,11 @@ function InitializeTheme()
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
 
-                erTable.style.backgroundColor = bgColor;
-                erTable.style.borderColor = bordColor;
+                refreshButton.style.backgroundColor = bgColor;
+                refreshButton.style.borderColor = bordColor;
+
+                canvas.style.backgroundColor = bgColor;
+                canvas.style.borderColor = bordColor;
             }
             break;
 
@@ -237,6 +278,9 @@ function InitializeTheme()
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 document.body.style.backgroundColor = bodyColor;
 
                 signInButton.style.backgroundColor = bgColor;
@@ -248,8 +292,11 @@ function InitializeTheme()
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
 
-                erTable.style.backgroundColor = bgColor;
-                erTable.style.borderColor = bordColor;
+                refreshButton.style.backgroundColor = bgColor;
+                refreshButton.style.borderColor = bordColor;
+
+                canvas.style.backgroundColor = bgColor;
+                canvas.style.borderColor = bordColor;
             }
             break;
 
@@ -268,6 +315,9 @@ function InitializeTheme()
             backButton.addEventListener("mouseover", ButtonHoverInTheme);
             backButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+            refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
+            refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
             document.body.style.backgroundColor = bodyColor;
 
             signInButton.style.backgroundColor = bgColor;
@@ -279,8 +329,11 @@ function InitializeTheme()
             backButton.style.backgroundColor = bgColor;
             backButton.style.borderColor = bordColor;
 
-            erTable.style.backgroundColor = bgColor;
-            erTable.style.borderColor = bordColor;
+            refreshButton.style.backgroundColor = bgColor;
+            refreshButton.style.borderColor = bordColor;
+
+            canvas.style.backgroundColor = bgColor;
+            canvas.style.borderColor = bordColor;
         }
         break;
     }
@@ -288,9 +341,10 @@ function InitializeTheme()
 
 function ButtonHoverInTheme(event)
 {
-    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let backButton = document.getElementsByClassName("connectedMinerChartBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
+    let refreshButton = document.getElementsByClassName("connectedMinerChartFetchButton")[0];
 
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
@@ -307,8 +361,12 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "blue";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "blue";
+                    break;
+                
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "blue";
                     break;
             }
             break;
@@ -324,8 +382,12 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
             }
             break;
@@ -341,8 +403,12 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
             }
             break;
@@ -355,9 +421,10 @@ function ButtonHoverInTheme(event)
 
 function ButtonHoverOutTheme(event)
 {
-    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let backButton = document.getElementsByClassName("connectedMinerChartBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
+    let refreshButton = document.getElementsByClassName("connectedMinerChartFetchButton")[0];
 
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
@@ -374,8 +441,12 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "black";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "black";
+                    break;
+
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "black";
                     break;
             }
             break;
@@ -391,8 +462,12 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
             }
             break;
@@ -408,8 +483,12 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
 
-                case "exchangeRatesBackButton":
+                case "connectedMinerChartBackButton":
                     backButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "connectedMinerChartFetchButton":
+                    refreshButton.style.backgroundColor = "rgb(85,0,85)";
                     break;
             }
             break;
@@ -420,7 +499,6 @@ function ButtonHoverOutTheme(event)
     }
 }
 
-
 async function FetchJson(url)
 {
     let res = await fetch(url);
@@ -428,10 +506,9 @@ async function FetchJson(url)
     return res.json();
 }
 
-
 function LogError(msg)
 {
-    let main = document.getElementsByClassName("exchangeRatesPageMain")[0];
+    let main = document.getElementsByClassName("connectedMinerChartPageMain")[0];
     main.innerHTML = msg;
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
     document.getElementsByClassName("selectThemeDiv")[0].style.display = "none";

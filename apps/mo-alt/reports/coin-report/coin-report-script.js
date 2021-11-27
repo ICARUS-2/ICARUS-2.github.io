@@ -444,7 +444,6 @@ function ButtonHoverInTheme(event)
 function ButtonHoverOutTheme(event)
 {
     let backButton = document.getElementsByClassName("coinReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("coinReportRefreshButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 

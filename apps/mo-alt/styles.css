@@ -480,7 +480,9 @@ body
     display: flex;
 }
 
-.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, .coinReportRefreshButton, .updatePayoutBackButton, .exchangeRatesBackButton
+.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, 
+.coinReportRefreshButton, .updatePayoutBackButton, .exchangeRatesBackButton,
+.connectedMinerChartBackButton, .connectedMinerChartFetchButton
 {
     text-decoration: none;
     color: white;
@@ -491,7 +493,9 @@ body
     margin: 10px;
 }
 
-.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover, .coinReportRefreshButton:hover, .updatePayoutBackButton:hover, .exchangeRatesBackButton:hover
+.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover,
+.coinReportRefreshButton:hover, .updatePayoutBackButton:hover, .exchangeRatesBackButton:hover,
+.connectedMinerChartBackButton:hover, .connectedMinerChartFetchButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -548,7 +552,7 @@ body
     margin-top: 50px;
 }
 
-/*Exchange rates*/
+/*EXCHANGE RATES*/
 .exchangeRatesPageMain
 {
     width: 100%;
@@ -577,6 +581,40 @@ body
 {
     height: 20px !important; /* overwrites any other rules */
     background-color: #FFFFFF;
+}
+
+/*CONNECTED MINER CHART*/
+.connectedMinerChartPageMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.connectedMinerChartCanvas
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 1000px;
+    height: 500px;
+}
+
+.connectedMinerChartHeaderContainer
+{
+    display: flex;
+}
+
+.connectedMinerChartTopButtons
+{
+    display: flex;
 }
 
 @media only screen and (max-width: 1000px) 
