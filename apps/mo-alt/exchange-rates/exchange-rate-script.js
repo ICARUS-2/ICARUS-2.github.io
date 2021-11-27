@@ -1,160 +1,72 @@
 const LOGIN_KEY = 'MO_ALT_LOGIN';
 const THEME_KEY = 'MO_ALT_COLOR_THEME';
-const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
+const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 
-const MIN_THRESHOLD = 0.0030;
-const MAX_THRESHOLD = 1000;
+const EXCHANGE_DECIMALS = 4;
 
-const TX_FEES = [0.0004, 0.0003, 0.0002, 0.0001]
-const THRESHOLDS = [0.5026, 1.5018, 2.5011, 3.5003]
+const poolStatsURL = "https://api.moneroocean.stream/pool/stats"
 
-const API_URL = "https://api.moneroocean.stream/"
+let refreshInterval;
+let clearRefreshId;
 
-let addr
-let inputField;
-let additionalInfoField;
-let backButton;
-let submitButton;
-let userObj;
-
-document.addEventListener('DOMContentLoaded', () =>
+document.addEventListener("DOMContentLoaded", () =>
 {
     CheckAddress();
-
-    let signedInAs = document.getElementsByClassName('placeholder')[0];
-    let signOutButton = document.getElementsByClassName('signOutButton')[0];
-    signOutButton.style.display = "none";
-    signedInAs.addEventListener("click", () => 
-    {
-        if(signOutButton.style.display == "none")
-        {
-            signOutButton.style.display = "block";
-        }
-        else
-        {
-            signOutButton.style.display = "none";
-        }
-    })
-    signOutButton.addEventListener("click", () =>
-    {
-        window.localStorage.removeItem(LOGIN_KEY);
-        window.localStorage.removeItem(THEME_KEY);
-        window.localStorage.removeItem(REFRESH_KEY);
-        window.location.href = "../login/"
-    })
-
-    addr = window.localStorage.getItem(LOGIN_KEY);
-    inputField = document.getElementsByClassName("thresholdBox")[0];
-    inputField.addEventListener("change", HandleInputChanged)
-
-    backButton = document.getElementsByClassName("updatePayoutBackButton")[0];
-    backButton.addEventListener("click", ()=> window.location="../dashboard");
-
-    additionalInfoField = document.getElementsByClassName("payoutInputAdditionalInfo")[0];
-
-    submitButton = document.getElementsByClassName("updateThresholdButton")[0];
-    submitButton.addEventListener("click", HandleUpdateButtonPressed);
-
+    SetEventListeners();
+    SetRefreshRate();
     InitializeTheme();
-    DisplayCurrentThreshold();
-})
+    RetrieveAndSetExchangeRates();
+});
 
-async function DisplayCurrentThreshold()
+async function RetrieveAndSetExchangeRates()
 {
-    userObj = await FetchJson(API_URL + "user/" + addr)
-    document.getElementsByClassName("currentPayoutThreshold")[0].innerHTML = "Current Threshold: " + userObj.payout_threshold / 1000000000000 + " XMR"
+    let statsObj = await FetchJson(poolStatsURL);
+    let xmrPriceUsd = statsObj.pool_statistics.price.usd;
+    let xmrPriceEur = statsObj.pool_statistics.price.eur;
+    let xmrPriceBtc = statsObj.pool_statistics.price.btc;
+
+    let table = document.getElementsByClassName("exchangeRatesTable")[0];
+    table.innerHTML = "";
+
+    let index = {value : 0}
+
+    let btcPriceMultiplier = 1 / xmrPriceBtc;
+
+    InsertIntoERTable(index, "Pairing", "Value", true)
+
+    InsertIntoERTable(index, "XMR -> USD", "$"+xmrPriceUsd.toFixed(EXCHANGE_DECIMALS));
+    InsertIntoERTable(index, "XMR -> EUR", "€"+xmrPriceEur.toFixed(EXCHANGE_DECIMALS));
+    InsertIntoERTable(index, "XMR -> BTC", "₿"+xmrPriceBtc.toFixed(10), true);
+
+    InsertIntoERTable(index, "BTC -> USD", "$"+(xmrPriceUsd*btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS));
+    InsertIntoERTable(index, "BTC -> EUR", "€"+(xmrPriceEur*btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS))
+    InsertIntoERTable(index, "BTC -> XMR", "XMR"+(btcPriceMultiplier).toFixed(EXCHANGE_DECIMALS), true);
+
+    InsertIntoERTable(index, "USD -> EUR", "€"+(xmrPriceEur/xmrPriceUsd).toFixed(EXCHANGE_DECIMALS));
+    InsertIntoERTable(index, "EUR -> USD", "$"+(xmrPriceUsd/xmrPriceEur).toFixed(EXCHANGE_DECIMALS));
 }
 
-function getFeeFromThreshold(threshold)
+async function InsertIntoERTable(index, pairing, value, spacer = false)
 {
-    if (threshold > THRESHOLDS[THRESHOLDS.length - 1])
-        return {fee : 0, percentage : 0}
+    let table = document.getElementsByClassName("exchangeRatesTable")[0];
+    let row = table.insertRow(index.value);
+    let coinPairCell = row.insertCell(0);
+    let rateCell = row.insertCell(1);
 
-    for (let i = 0; i < THRESHOLDS.length; i++)
+    coinPairCell.innerHTML = pairing;
+    rateCell.innerHTML = value;
+
+    if (spacer)
     {
-        if (threshold > THRESHOLDS[i])
-            continue;
-        else
-        {
-            return {fee : TX_FEES[i], percentage : TX_FEES[i] / threshold * 100}
-        }
-    }
-}
-
-function HandleInputChanged()
-{
-    let input = inputField.value;
-
-    if (CheckValidPayoutThreshold(input))
-    {
-        let fees = getFeeFromThreshold(input)
-        additionalInfoField.style.color = "lightgreen"
-        additionalInfoField.innerHTML = `Payout fee: ${fees.fee} XMR (${fees.percentage.toFixed(4)} %)`;
-    }
-    else
-    {
-        additionalInfoField.style.color = "red"
-        additionalInfoField.innerText = `Please enter a number between ${MIN_THRESHOLD} and ${MAX_THRESHOLD}`;
-    }
-}
-
-async function HandleUpdateButtonPressed()
-{
-    let input = inputField.value;
-
-    if (!CheckValidPayoutThreshold(input))
-        return;
-
-    if (Number(input) * 1000000000000 == userObj.payout_threshold)
-    {
-        additionalInfoField.style.color = "red";
-        additionalInfoField.innerHTML = "New threshold can't be the same as the old one!"
-        return;
+        index.value++;
+        let spacerRow = table.insertRow(index.value);
+        spacerRow.classList.add("exchangeRatesBlankTableRow")
+        spacerRow.innerHTML = ""
     }
 
-    let result = await fetch("https://api.moneroocean.stream/user/updateThreshold", {
-        "headers": {
-          "content-type": "application/json",
-        },
-        "body": `{\"username\":\"${addr}\",\"threshold\":${input}}`,
-        "method": "POST",
-      });
-
-    if(result.ok && result.status == 200)
-    {
-        alert(`Payout successfully updated from ${userObj.payout_threshold / 1000000000000} to ${input} XMR`)
-    }
-    else
-    {
-        alert(`The update failed because an error occurred. Error code ${result.status}`)
-    }
-    window.location.href = "../dashboard";
-}
-
-function StringIsNumeric(str)
-{
-    if (typeof str != "string") return false
-    return !isNaN(str) && !isNaN(parseFloat(str)) 
-}
-
-function CheckValidPayoutThreshold(payout)
-{
-    if (payout == "")
-        return false;
-
-    if (!StringIsNumeric(payout))
-        return false;
-
-    return payout >= MIN_THRESHOLD && payout <= MAX_THRESHOLD;
-}
-
-async function FetchJson(url)
-{
-    let res = await fetch(url);
-
-    return res.json();
+    index.value++;
 }
 
 function CheckAddress()
@@ -177,23 +89,79 @@ function CheckAddress()
     }
 }
 
-function LogError(msg)
+function SetEventListeners()
 {
-    let main = document.getElementsByClassName("updatePayoutMain")[0];
-    main.innerHTML = msg;
-    main.style.color = "white"
-    document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
-    throw new Error();
+    let signedInAs = document.getElementsByClassName('placeholder')[0];
+    let signOutButton = document.getElementsByClassName('signOutButton')[0];
+    signOutButton.style.display = "none";
+    signedInAs.addEventListener("click", () => 
+    {
+        if(signOutButton.style.display == "none")
+        {
+            signOutButton.style.display = "block";
+        }
+        else
+        {
+            signOutButton.style.display = "none";
+        }
+    })
+
+    signOutButton.addEventListener("click", () =>
+    {
+        window.localStorage.removeItem(LOGIN_KEY);
+        window.localStorage.removeItem(THEME_KEY);
+        window.localStorage.removeItem(REFRESH_KEY);
+        window.location.href = "../"
+    })
+
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    backButton.addEventListener("click", ()=>
+    {
+        window.location.href = "../dashboard";
+    })    
+}
+
+function SetRefreshRate()
+{
+    let selectedIdx = window.localStorage.getItem(REFRESH_KEY);
+
+    switch(Number(selectedIdx))
+    {
+        case 0:
+            refreshInterval = 5000;
+            break;
+
+        case 1:
+            refreshInterval = 15000;
+            break;
+
+        case 2:
+            refreshInterval = 30000;
+            break;
+
+        case 3:
+            refreshInterval = 60000;
+            break;
+
+        default:
+            LogError("Refresh rate not defined, try clearing browser data");
+            break;
+    }
+
+    if (clearRefreshId)
+        window.clearInterval(clearRefreshId);
+
+    clearRefreshId = window.setInterval(RetrieveAndSetExchangeRates, refreshInterval);
 }
 
 function InitializeTheme()
 {
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
-    let backButton = document.getElementsByClassName("updatePayoutBackButton")[0];
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let erTable = document.getElementsByClassName("exchangeRatesTable")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let updateButton = document.getElementsByClassName("updateThresholdButton")[0];
 
     signInButton.removeEventListener("mouseover", ButtonHoverInTheme)
     signInButton.removeEventListener("mouseout", ButtonHoverOutTheme)
@@ -203,9 +171,6 @@ function InitializeTheme()
 
     backButton.removeEventListener("mouseover", ButtonHoverInTheme);
     backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
-
-    updateButton.removeEventListener("mouseover", ButtonHoverInTheme);
-    updateButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     switch (idx)
     {
@@ -222,11 +187,8 @@ function InitializeTheme()
                 backButton.style.backgroundColor = "";
                 backButton.style.borderColor = "";
 
-                updateButton.style.backgroundColor = "";
-                updateButton.style.borderColor = ""
-
-                inputField.style.backgroundColor = "";
-                inputField.style.borderColor = "";
+                erTable.style.backgroundColor = "";
+                erTable.style.borderColor = "";
             }
             break;
 
@@ -244,9 +206,6 @@ function InitializeTheme()
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
             
-                updateButton.addEventListener("mouseover", ButtonHoverInTheme);
-                updateButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
                 document.body.style.backgroundColor = bgColor;
                 
                 signInButton.style.backgroundColor = bgColor;
@@ -258,11 +217,8 @@ function InitializeTheme()
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
 
-                updateButton.style.backgroundColor = bgColor;
-                updateButton.style.borderColor = bordColor;
-
-                inputField.style.backgroundColor = bgColor;
-                inputField.style.borderColor = bordColor;
+                erTable.style.backgroundColor = bgColor;
+                erTable.style.borderColor = bordColor;
             }
             break;
 
@@ -281,9 +237,6 @@ function InitializeTheme()
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
-                updateButton.addEventListener("mouseover", ButtonHoverInTheme);
-                updateButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
                 document.body.style.backgroundColor = bodyColor;
 
                 signInButton.style.backgroundColor = bgColor;
@@ -295,11 +248,8 @@ function InitializeTheme()
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
 
-                updateButton.style.backgroundColor = bgColor;
-                updateButton.style.borderColor = bordColor;
-
-                inputField.style.backgroundColor = bgColor;
-                inputField.style.borderColor = bordColor;
+                erTable.style.backgroundColor = bgColor;
+                erTable.style.borderColor = bordColor;
             }
             break;
 
@@ -318,9 +268,6 @@ function InitializeTheme()
             backButton.addEventListener("mouseover", ButtonHoverInTheme);
             backButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
-            updateButton.addEventListener("mouseover", ButtonHoverInTheme);
-            updateButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
             document.body.style.backgroundColor = bodyColor;
 
             signInButton.style.backgroundColor = bgColor;
@@ -332,11 +279,8 @@ function InitializeTheme()
             backButton.style.backgroundColor = bgColor;
             backButton.style.borderColor = bordColor;
 
-            updateButton.style.backgroundColor = bgColor;
-            updateButton.style.borderColor = bordColor;
-
-            inputField.style.backgroundColor = bgColor;
-            inputField.style.borderColor = bordColor;
+            erTable.style.backgroundColor = bgColor;
+            erTable.style.borderColor = bordColor;
         }
         break;
     }
@@ -344,11 +288,9 @@ function InitializeTheme()
 
 function ButtonHoverInTheme(event)
 {
-    let backButton = document.getElementsByClassName("updatePayoutBackButton")[0];
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let updateButton = document.getElementsByClassName("updateThresholdButton")[0];
-
 
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
@@ -365,12 +307,8 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "blue";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "blue";
-                    break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "blue";
                     break;
             }
             break;
@@ -386,13 +324,9 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "rgb(0,85,165)";
-                    break;  
             }
             break;
 
@@ -407,13 +341,9 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "rgb(255,0,255)";
-                    break;  
             }
             break;
 
@@ -425,10 +355,9 @@ function ButtonHoverInTheme(event)
 
 function ButtonHoverOutTheme(event)
 {
-    let backButton = document.getElementsByClassName("updatePayoutBackButton")[0];
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let updateButton = document.getElementsByClassName("updateThresholdButton")[0];
 
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
@@ -445,13 +374,9 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "black";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "black";
                     break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "black";
-                    break;  
             }
             break;
 
@@ -466,13 +391,9 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "rgb(4,0,50)";
-                    break;  
             }
             break;
 
@@ -487,13 +408,9 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
 
-                case "updatePayoutBackButton":
+                case "exchangeRatesBackButton":
                     backButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
-
-                case "updateThresholdButton":
-                    updateButton.style.backgroundColor = "rgb(85, 0, 85)";
-                    break;  
             }
             break;
 
@@ -501,4 +418,12 @@ function ButtonHoverOutTheme(event)
             //
             break;
     }
+}
+
+
+async function FetchJson(url)
+{
+    let res = await fetch(url);
+
+    return res.json();
 }
