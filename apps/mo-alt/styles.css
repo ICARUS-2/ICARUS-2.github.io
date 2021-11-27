@@ -316,7 +316,8 @@ body
     justify-content: space-between;
 }
 
-.transactionReportButton, .updateThresholdButton, .seeExchangeRatesButton
+.transactionReportButton, .updateThresholdButton, .seeExchangeRatesButton,
+.connectedMinersChartButton, .minerHashratesChartButton
 {
     text-decoration: none;
     color: white;
@@ -326,7 +327,8 @@ body
     padding: 15px;
 }
 
-.transactionReportButton:hover, .updateThresholdButton:hover, .seeExchangeRatesButton:hover
+.transactionReportButton:hover, .updateThresholdButton:hover, .seeExchangeRatesButton:hover,
+.connectedMinersChartButton:hover, .minerHashratesChartButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -354,6 +356,12 @@ body
     width: 49%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.minerHashratesHeader, .connectedMinersHeader
+{
+    display: flex;
     justify-content: space-between;
 }
 
