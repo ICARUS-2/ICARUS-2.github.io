@@ -657,6 +657,7 @@ function ChangeTheme()
     let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let payoutThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
+    let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
 
     placeholder.removeEventListener("mouseover", ButtonHoverInTheme);
     placeholder.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -671,7 +672,10 @@ function ChangeTheme()
     txReportButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     payoutThresholdButton.removeEventListener("mouseover", ButtonHoverInTheme);
-    payoutThresholdButton.removeEventListener("mouseout", ButtonHoverOutTheme)
+    payoutThresholdButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    exchangeRatesButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    exchangeRatesButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     switch(selectedIdx)
     {
@@ -715,6 +719,10 @@ function ChangeTheme()
                 //change payout button
                 payoutThresholdButton.style.backgroundColor = "";
                 payoutThresholdButton.style.borderColor = "";
+
+                //exchange rates button;
+                exchangeRatesButton.style.backgroundColor = "";
+                exchangeRatesButton.style.borderColor = "";
             }
             break;
 
@@ -763,6 +771,12 @@ function ChangeTheme()
                 payoutThresholdButton.style.borderColor = bordColor;
                 payoutThresholdButton.addEventListener("mouseover", ButtonHoverInTheme);
                 payoutThresholdButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //exchange rates button
+                exchangeRatesButton.style.backgroundColor = bgColor;
+                exchangeRatesButton.style.borderColor = bordColor;
+                exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
+                exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
@@ -821,6 +835,12 @@ function ChangeTheme()
                 payoutThresholdButton.addEventListener("mouseover", ButtonHoverInTheme);
                 payoutThresholdButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //exchange rates button
+                exchangeRatesButton.style.backgroundColor = bgColor;
+                exchangeRatesButton.style.borderColor = bordColor;
+                exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
+                exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
                 selectThemeSection.style.borderColor = bordColor;
@@ -878,6 +898,11 @@ function ChangeTheme()
                 payoutThresholdButton.addEventListener("mouseover", ButtonHoverInTheme);
                 payoutThresholdButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //exchange rates button
+                exchangeRatesButton.style.backgroundColor = bgColor;
+                exchangeRatesButton.style.borderColor = bordColor;
+                exchangeRatesButton.addEventListener("mouseover", ButtonHoverInTheme);
+                exchangeRatesButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 //select theme section
                 selectThemeSection.style.backgroundColor = bgColor;
@@ -898,6 +923,7 @@ function ButtonHoverInTheme(event)
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let updateThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
+    let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
 
     let selectedIdx;
     
@@ -936,6 +962,10 @@ function ButtonHoverInTheme(event)
                     updateThresholdButton.style.backgroundColor = "blue";
                     break;
 
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "blue";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -965,6 +995,10 @@ function ButtonHoverInTheme(event)
                     updateThresholdButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
 
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+                    
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -994,6 +1028,10 @@ function ButtonHoverInTheme(event)
                     updateThresholdButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1010,7 +1048,8 @@ function ButtonHoverOutTheme(event)
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let updateThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
-    
+    let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
+
     let selectedIdx;
     
     let radioButtons = document.getElementsByClassName("themeButton");
@@ -1048,6 +1087,10 @@ function ButtonHoverOutTheme(event)
                     updateThresholdButton.style.backgroundColor = "black";
                     break;
 
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "black";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1076,7 +1119,11 @@ function ButtonHoverOutTheme(event)
                 case "updateThresholdButton":
                     updateThresholdButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
-                
+            
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
                 default:
                     LogError("Button not defined, try clearing browser data");
                     break;
@@ -1104,6 +1151,10 @@ function ButtonHoverOutTheme(event)
 
                 case "updateThresholdButton":
                     updateThresholdButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "seeExchangeRatesButton":
+                    exchangeRatesButton.style.backgroundColor = "rgb(85,0,85)";
                     break;
 
                 default:

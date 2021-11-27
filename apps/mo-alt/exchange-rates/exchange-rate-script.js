@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () =>
     CheckAddress();
     SetEventListeners();
     SetRefreshRate();
-
+    InitializeTheme();
     RetrieveAndSetExchangeRates();
 });
 
@@ -152,6 +152,272 @@ function SetRefreshRate()
         window.clearInterval(clearRefreshId);
 
     clearRefreshId = window.setInterval(RetrieveAndSetExchangeRates, refreshInterval);
+}
+
+function InitializeTheme()
+{
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let erTable = document.getElementsByClassName("exchangeRatesTable")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    signInButton.removeEventListener("mouseover", ButtonHoverInTheme)
+    signInButton.removeEventListener("mouseout", ButtonHoverOutTheme)
+
+    signOutButton.removeEventListener("mouseover", ButtonHoverInTheme)
+    signOutButton.removeEventListener("mouseout", ButtonHoverOutTheme)
+
+    backButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    switch (idx)
+    {
+        case 0:
+            {
+                document.body.style.backgroundColor = "";
+
+                signInButton.style.backgroundColor = "";
+                signInButton.style.borderColor = "";
+
+                signOutButton.style.backgroundColor = "";
+                signOutButton.style.borderColor = "";
+
+                backButton.style.backgroundColor = "";
+                backButton.style.borderColor = "";
+
+                erTable.style.backgroundColor = "";
+                erTable.style.borderColor = "";
+            }
+            break;
+
+        case 1:
+            {
+                let bgColor = "black";
+                let bordColor = "blue";
+
+                signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                backButton.addEventListener("mouseover", ButtonHoverInTheme);
+                backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+            
+                document.body.style.backgroundColor = bgColor;
+                
+                signInButton.style.backgroundColor = bgColor;
+                signInButton.style.borderColor = bordColor;
+
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+
+                backButton.style.backgroundColor = bgColor;
+                backButton.style.borderColor = bordColor;
+
+                erTable.style.backgroundColor = bgColor;
+                erTable.style.borderColor = bordColor;
+            }
+            break;
+
+        case 2: 
+            {
+                let bodyColor = "rgb(4, 0, 32)";
+                let bgColor = "rgb(4,0,50)";
+                let bordColor = "rgb(0,85,165)";
+
+                signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+                signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+            
+                backButton.addEventListener("mouseover", ButtonHoverInTheme);
+                backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                document.body.style.backgroundColor = bodyColor;
+
+                signInButton.style.backgroundColor = bgColor;
+                signInButton.style.borderColor = bordColor;
+                    
+                signOutButton.style.backgroundColor = bgColor;
+                signOutButton.style.borderColor = bordColor;
+
+                backButton.style.backgroundColor = bgColor;
+                backButton.style.borderColor = bordColor;
+
+                erTable.style.backgroundColor = bgColor;
+                erTable.style.borderColor = bordColor;
+            }
+            break;
+
+        case 3:          
+        {  
+            let bodyColor = "rgb(30, 0, 30)";
+            let bgColor = "rgb(85, 0, 85)";
+            let bordColor = "rgb(255, 0, 255)";
+
+            signInButton.addEventListener("mouseover", ButtonHoverInTheme)
+            signInButton.addEventListener("mouseout", ButtonHoverOutTheme)
+        
+            signOutButton.addEventListener("mouseover", ButtonHoverInTheme)
+            signOutButton.addEventListener("mouseout", ButtonHoverOutTheme)
+        
+            backButton.addEventListener("mouseover", ButtonHoverInTheme);
+            backButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+            document.body.style.backgroundColor = bodyColor;
+
+            signInButton.style.backgroundColor = bgColor;
+            signInButton.style.borderColor = bordColor;
+                
+            signOutButton.style.backgroundColor = bgColor;
+            signOutButton.style.borderColor = bordColor;
+
+            backButton.style.backgroundColor = bgColor;
+            backButton.style.borderColor = bordColor;
+
+            erTable.style.backgroundColor = bgColor;
+            erTable.style.borderColor = bordColor;
+        }
+        break;
+    }
+}
+
+function ButtonHoverInTheme(event)
+{
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    switch(idx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "blue";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "blue";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "blue";
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+            }
+            break;
+
+        default:
+            //
+            break;
+    }
+}
+
+function ButtonHoverOutTheme(event)
+{
+    let backButton = document.getElementsByClassName("exchangeRatesBackButton")[0];
+    let signInButton = document.getElementsByClassName("placeholder")[0];
+    let signOutButton = document.getElementsByClassName("signOutButton")[0];
+
+    let idx = Number(window.localStorage.getItem(THEME_KEY));
+
+    switch(idx)
+    {
+        case 1:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "black";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "black";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "black";
+                    break;
+            }
+            break;
+
+        case 2:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+            }
+            break;
+
+        case 3:
+            switch(event.target.className)
+            {
+                case "placeholder":
+                    signInButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "signOutButton":
+                    signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "exchangeRatesBackButton":
+                    backButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+            }
+            break;
+
+        default:
+            //
+            break;
+    }
 }
 
 
