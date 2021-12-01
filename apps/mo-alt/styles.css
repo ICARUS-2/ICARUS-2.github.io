@@ -397,7 +397,7 @@ body
     justify-content: center;
 }
 
-.optionButton
+.optionButton, .seeBlockReportButton
 {
     text-decoration: none;
     background-color: rgb(15, 0, 50);
@@ -409,7 +409,7 @@ body
     margin-top: 20px;
 }
 
-.optionButton:hover
+.optionButton:hover, .seeBlockReportButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -432,6 +432,16 @@ body
 {
     display: flex;
     flex-direction: column;
+}
+
+.blockButton
+{
+    margin-right: 5px;
+}
+
+.blockDataButtons
+{
+    display: flex;
 }
 
 .minerTable
@@ -473,7 +483,7 @@ body
 }
 
 /*TRANSACTION REPORT*/
-.txReportMain, .coinReportMain
+.txReportMain, .coinReportMain, .blockReportMain
 {
     color: white;
     display: flex;
@@ -492,7 +502,7 @@ body
 .txReportBackButton, .txReportRefreshButton, .coinReportBackButton, 
 .coinReportRefreshButton, .updatePayoutBackButton, .exchangeRatesBackButton,
 .connectedMinerChartBackButton, .connectedMinerChartFetchButton, .minerHashratesChartBackButton,
-.minerHashratesChartFetchButton
+.minerHashratesChartFetchButton, .blockReportBackButton
 {
     text-decoration: none;
     color: white;
@@ -506,7 +516,7 @@ body
 .txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover,
 .coinReportRefreshButton:hover, .updatePayoutBackButton:hover, .exchangeRatesBackButton:hover,
 .connectedMinerChartBackButton:hover, .connectedMinerChartFetchButton:hover, .minerHashratesChartBackButton:hover,
-.minerHashratesChartFetchButton:hover
+.minerHashratesChartFetchButton:hover, .blockReportBackButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -626,6 +636,29 @@ body
 .connectedMinerChartTopButtons, .minerHashratesChartTopButtons
 {
     display: flex;
+}
+
+/*BLOCK PAYMENT REPORT*/
+
+.blockReportTable
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    table-layout: fixed;
+}
+
+.blockReportTable td
+{
+    padding: 20px;
+}
+
+.blockReportTableControls
+{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
 }
 
 @media only screen and (max-width: 1000px) 

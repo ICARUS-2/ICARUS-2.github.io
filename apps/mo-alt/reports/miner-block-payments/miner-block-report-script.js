@@ -4,7 +4,172 @@ const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 
-let baseUrl = "https://api.moneroocean.stream/";
+const BASE_URL = "https://api.moneroocean.stream/";
+let addr;
+let currentPage = 0;
+const PAGE_SIZE = 10;
+
+var COINS = {
+	18081: {
+		name: "XMR",
+		divisor: 1000000000000,
+		url: "https://xmrchain.net",
+		time: 120,
+	},
+	//18181: {
+	//	name: "XMC",
+	//	divisor: 1000000000000,
+	//	url: "http://explorer.monero-classic.org",
+	//	time: 120,
+	//},
+	19734: {
+		name: "SUMO",
+		divisor: 1000000000,
+		url: "https://explorer.sumokoin.com",
+		time: 240,
+	},
+	12211: {
+		name: "RYO",
+		divisor: 1000000000,
+		url: "https://explorer.ryo-currency.com",
+		time: 240,
+	},
+	18981: {
+		name: "GRFT",
+		divisor: 10000000000,
+		url: "https://blockexplorer.graft.network",
+		time: 120,
+	},
+	38081: {
+		name: "MSR",
+		divisor: 1000000000000,
+		url: "https://explorer.getmasari.org",
+		time: 60,
+	},
+	48782: {	
+		name: "LTHN",
+		divisor: 100000000,
+		url: "https://lethean.io/explorer",
+		time: 120,
+	},
+	19281: {
+		name: "XMV",
+		divisor: 100000000000,
+		url: "https://explorer.monerov.online",
+		time: 60,
+		unit: "G",
+		factor: 16,
+	},
+	9231: {
+		name: "XEQ",
+		divisor: 10000,
+		url: "https://explorer.equilibria.network",
+		time: 120,
+	},
+	19950: {
+		name: "XWP",
+		divisor: 1000000000000,
+		url: "https://explorer.xwp.one",
+		time: 15,
+		unit: "G",
+		factor: 32,
+	},
+	8766: {
+		name: "RVN",
+		divisor: 100000000,
+		url: "https://ravencoin.network",
+		time: 60,
+		unit: "H",
+		factor: 0xFFFFFFFFFFFFFFFF / 0xFF000000,
+	},
+	9053: {
+		name: "ERG",
+		divisor: 1000000000,
+		url: "https://explorer.ergoplatform.com/en",
+		time: 120,
+		unit: "H",
+		factor: 1,
+	},
+	8545: {
+		name: "ETH",
+		divisor: 1000000000000000000,
+		url: "https://etherscan.io",
+		time: 13,
+		unit: "H",
+		factor: 1,
+	},
+	//11181: {
+	//	name: "AEON",
+	//	divisor: 1000000000000,
+	//	url: "https://aeonblockexplorer.com",
+	//	time: 240,
+	//},
+	17750: {
+		name: "XHV",
+		divisor: 1000000000000,
+		url: "https://explorer.havenprotocol.org",
+		time: 120,
+	},
+	20206: {
+		name: "DERO",
+		divisor: 1000000000000,
+		url: "https://explorer.dero.io",
+		time: 27,
+	},
+	25182: {
+		name: "TUBE",
+		divisor: 1000000000,
+		url: "https://explorer.bittube.cash",
+		time: 15,
+		unit: "G",
+		factor: 40,
+	},
+	11812: {
+		name: "XLA",
+		divisor: 100,
+		url: "https://explorer.scalaproject.io",
+		time: 120,
+	},
+	33124: {
+		name: "XTNC",
+		divisor: 1000000000,
+		url: "https://explorer.xtendcash.com",
+		time: 120,
+		unit: "G",
+		factor: 32,
+	},
+	11898: {
+		name: "TRTL",
+		divisor: 100,
+		url: "https://explorer.turtlecoin.lol",
+		time: 30,
+	},
+	2086: {
+		name: "BLOC",
+		divisor: 10000,
+		url: "https://bloc-explorer.com",
+		time: 120,
+	},
+	13007: {
+		name: "IRD",
+		divisor: 100000000,
+		url: "https://explorer.ird.cash",
+		time: 175,
+	},
+	19994: {
+		name: "ARQ",
+		divisor: 1000000000,
+		url: "https://explorer.arqma.com",
+		time: 120,
+	},
+	16000: {
+		name: "CCX",
+		divisor: 1000000,
+		url: "https://explorer.conceal.network",
+		time: 120,
+	},
+};
+
 
 document.addEventListener("DOMContentLoaded", PreparePage)
 
@@ -13,7 +178,7 @@ function PreparePage()
     CheckAddress();
     SetEventListeners();
     InitializeTheme();
-    RetrieveAndSetTransactionData();
+    RetrieveAndSetBlockPayments();
 }
 
 function CheckAddress()
@@ -38,7 +203,7 @@ function CheckAddress()
 
 function LogError(msg)
 {
-    let main = document.getElementsByClassName("txReportMain")[0];
+    let main = document.getElementsByClassName("blockReportMain")[0];
     main.innerHTML = msg;
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
     throw new Error();
@@ -48,9 +213,8 @@ function InitializeTheme()
 {
     let idx = Number(window.localStorage.getItem(THEME_KEY));
 
-    let backButton = document.getElementsByClassName("txReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
-    let txTable = document.getElementsByClassName("txReportTable")[0];
+    let backButton = document.getElementsByClassName("blockReportBackButton")[0];
+    let blockReportTable = document.getElementsByClassName("blockReportTable")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
@@ -62,9 +226,6 @@ function InitializeTheme()
 
     backButton.removeEventListener("mouseover", ButtonHoverInTheme);
     backButton.removeEventListener("mouseout", ButtonHoverOutTheme);
-
-    refreshButton.removeEventListener("mouseover", ButtonHoverInTheme);
-    refreshButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     switch (idx)
     {
@@ -80,12 +241,9 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = "";
                 backButton.style.borderColor = "";
-            
-                refreshButton.style.backgroundColor = "";
-                refreshButton.style.borderColor = "";
 
-                txTable.style.backgroundColor = "";
-                txTable.style.borderColor = "";
+                blockReportTable.style.backgroundColor = "";
+                blockReportTable.style.borderColor = "";
             }
             break;
 
@@ -102,9 +260,6 @@ function InitializeTheme()
             
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
-            
-                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 document.body.style.backgroundColor = bgColor;
                 
@@ -116,12 +271,9 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
-            
-                refreshButton.style.backgroundColor = bgColor;
-                refreshButton.style.borderColor = bordColor;
 
-                txTable.style.backgroundColor = bgColor;
-                txTable.style.borderColor = bordColor;
+                blockReportTable.style.backgroundColor = bgColor;
+                blockReportTable.style.borderColor = bordColor;
             }
             break;
 
@@ -140,8 +292,6 @@ function InitializeTheme()
                 backButton.addEventListener("mouseover", ButtonHoverInTheme);
                 backButton.addEventListener("mouseout", ButtonHoverOutTheme);
             
-                refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-                refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
                 document.body.style.backgroundColor = bodyColor;
 
                 signInButton.style.backgroundColor = bgColor;
@@ -152,12 +302,9 @@ function InitializeTheme()
 
                 backButton.style.backgroundColor = bgColor;
                 backButton.style.borderColor = bordColor;
-            
-                refreshButton.style.backgroundColor = bgColor;
-                refreshButton.style.borderColor = bordColor;
 
-                txTable.style.backgroundColor = bgColor;
-                txTable.style.borderColor = bordColor;
+                blockReportTable.style.backgroundColor = bgColor;
+                blockReportTable.style.borderColor = bordColor;
             }
             break;
 
@@ -175,9 +322,6 @@ function InitializeTheme()
         
             backButton.addEventListener("mouseover", ButtonHoverInTheme);
             backButton.addEventListener("mouseout", ButtonHoverOutTheme);
-        
-            refreshButton.addEventListener("mouseover", ButtonHoverInTheme);
-            refreshButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
             document.body.style.backgroundColor = bodyColor;
 
@@ -189,12 +333,9 @@ function InitializeTheme()
 
             backButton.style.backgroundColor = bgColor;
             backButton.style.borderColor = bordColor;
-        
-            refreshButton.style.backgroundColor = bgColor;
-            refreshButton.style.borderColor = bordColor;
 
-            txTable.style.backgroundColor = bgColor;
-            txTable.style.borderColor = bordColor;
+            blockReportTable.style.backgroundColor = bgColor;
+            blockReportTable.style.borderColor = bordColor;
         }
         break;
     }
@@ -202,8 +343,7 @@ function InitializeTheme()
 
 function ButtonHoverInTheme(event)
 {
-    let backButton = document.getElementsByClassName("txReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let backButton = document.getElementsByClassName("blockReportBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
@@ -222,12 +362,8 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "blue";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "blue";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "blue";
                     break;
             }
             break;
@@ -243,12 +379,8 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "rgb(0,85,165)";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
             }
             break;
@@ -264,12 +396,8 @@ function ButtonHoverInTheme(event)
                     signOutButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "rgb(255,0,255)";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
             }
             break;
@@ -282,8 +410,7 @@ function ButtonHoverInTheme(event)
 
 function ButtonHoverOutTheme(event)
 {
-    let backButton = document.getElementsByClassName("txReportBackButton")[0];
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
+    let backButton = document.getElementsByClassName("blockReportBackButton")[0];
     let signInButton = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
 
@@ -302,12 +429,8 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "black";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "black";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "black";
                     break;
             }
             break;
@@ -323,12 +446,8 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "rgb(4,0,50)";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
             }
             break;
@@ -344,12 +463,8 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
 
-                case "txReportBackButton":
+                case "blockReportBackButton":
                     backButton.style.backgroundColor = "rgb(85, 0, 85)";
-                    break;
-
-                case "txReportRefreshButton":
-                    refreshButton.style.backgroundColor = "rgb(85, 0, 85)";
                     break;
             }
             break;
@@ -385,56 +500,86 @@ function SetEventListeners()
         window.location.href = "../../"
     })
 
-    let backButton = document.getElementsByClassName("txReportBackButton")[0];
+    let backButton = document.getElementsByClassName("blockReportBackButton")[0];
     backButton.addEventListener("click", ()=>
     {
         window.location.href = "../../dashboard";
     })
 
-    let refreshButton = document.getElementsByClassName("txReportRefreshButton")[0];
-    refreshButton.addEventListener("click", ()=>
-    {
-        RetrieveAndSetTransactionData();
-    })
+    let prevPageButton = document.getElementsByClassName("blockReportPrevBtn")[0];
+    prevPageButton.addEventListener("click", PreviousPage)
+
+    let nextPageButton = document.getElementsByClassName("blockReportNextBtn")[0];
+    nextPageButton.addEventListener("click", NextPage);
 }
 
-async function RetrieveAndSetTransactionData()
+function NextPage()
 {
-    let apiPath = BASE_URL + "miner/" + window.localStorage.getItem(LOGIN_KEY) + "/payments";
-    let txData = await FetchJson(apiPath);
+    currentPage++;
 
-    let table = document.getElementsByClassName("txReportTable")[0];
+    RetrieveAndSetBlockPayments();
+}
 
+function PreviousPage()
+{
+    if (currentPage == 0)
+        return;
+
+    currentPage--;
+
+    RetrieveAndSetBlockPayments();
+}
+
+async function RetrieveAndSetBlockPayments()
+{
+    let headerNum = currentPage + 1;
+
+    let blockReportHeader = document.getElementsByClassName("blockReportHeader")[0];
+    blockReportHeader.innerHTML = "YOUR BLOCK PAYMENTS - PAGE  " + headerNum
+
+    let url = BASE_URL + "miner/" + addr + `/block_payments?page=${currentPage}&limit=${PAGE_SIZE}&`
+    let table = document.getElementsByClassName("blockReportTable")[0];
     table.innerHTML = "";
 
+    let blockData = await FetchJson(url);
+
     let header = table.insertRow(0);
-    let timeStampHeader = header.insertCell(0);
-    let amountHeader = header.insertCell(1);
-    let hashHeader = header.insertCell(2);
+    let coinSymbolHeader = header.insertCell(0);
+    let blockPayTimestampHeader = header.insertCell(1);
+    let blockFoundTimestampHeader = header.insertCell(2);
+    let blockAmountXmrHeader = header.insertCell(3);
+    let blockSharePercentageHeader = header.insertCell(4);
+    let blockHashHeader = header.insertCell(5);
 
-    timeStampHeader.innerHTML = "Timestamp";
-    amountHeader.innerHTML = "Amount Paid";
-    hashHeader.innerHTML = "Transaction Hash"
+    coinSymbolHeader.innerHTML = "Coin";
+    blockPayTimestampHeader.innerHTML = "Paid";
+    blockFoundTimestampHeader.innerHTML = "Found";
+    blockAmountXmrHeader.innerHTML = "XMR Reward";
+    blockSharePercentageHeader.innerHTML = "Reward %";
+    blockHashHeader.innerHTML = "Hash"
 
-    let totalPaid = 0;
-
-    for (let i = 0; i < txData.length; i++)
+    for (let i = 0; i < blockData.length; i++)
     {
-        let row = table.insertRow(i + 1);
+        let row = table.insertRow(i+1);
+        let coinSymbolCell = row.insertCell(0);
+        let blockPayTimestampCell = row.insertCell(1);
+        let blockFoundTimestampCell = row.insertCell(2);
+        let blockAmountXmrCell = row.insertCell(3);
+        let blockSharePercentageCell = row.insertCell(4);
+        let blockHashCell = row.insertCell(5);
 
-        let timestampCell = row.insertCell(0);
-        let amountCell = row.insertCell(1);
-        let hashCell = row.insertCell(2);
+        let entry = blockData[i];
 
-        timestampCell.innerHTML = (UnixTSToDate(txData[i].ts)).split("y, ")[1].replace(',', '').replace(',', '');;
-        amountCell.innerHTML = (txData[i].amount / 1000000000000).toString().substr(0,7);
-        
-        hashCell.innerHTML = txData[i].txnHash.toString().substr(0, 14) + "...";
-
-        totalPaid += txData[i].amount / 1000000000000
+        coinSymbolCell.innerHTML = COINS[entry.port].name;
+        blockPayTimestampCell.innerHTML = (UnixTSToDate(entry.ts)).split("y, ")[1].replace(',', '').replace(',', '');
+        blockFoundTimestampCell.innerHTML = (UnixTSToDate(entry.ts_found)).split("y, ")[1].replace(',', '').replace(',', '');
+        blockAmountXmrCell.innerHTML = entry.value.toFixed(8);
+        blockSharePercentageCell.innerHTML = entry.value_percent.toFixed(8);
+        blockHashCell.innerHTML = entry.hash.substr(0, 7)+"...";
     }
 
-    document.getElementsByClassName("totalTXInfo")[0].innerHTML = `Payout Count: ${txData.length} -> Total XMR Paid: ${totalPaid.toFixed(6)}`
+    console.log(blockData);
+
 }
 
 async function FetchJson(url)
