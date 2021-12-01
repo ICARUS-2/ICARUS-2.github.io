@@ -763,6 +763,11 @@ body
         width: 100%;
     }
 
+    .optionButton, .seeBlockReportButton
+    {
+        width: 40%;
+    }
+
     .minerHashrates, .connectedMiners
     {
         width: 100%;
