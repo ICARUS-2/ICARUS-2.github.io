@@ -824,6 +824,24 @@ body
         width: 100%;
         font-size: 25px;
     }
+
+    /*BLOCK DATA REPORT*/
+    .blockReportTable
+    {
+        width: 100%;
+    }
+
+    .blockReportTable td
+    {
+        padding-left: 10px;
+        padding-right: 20px;
+        font-size: 15px;
+    }
+
+    .blockReportTable td:nth-child(1)
+    {
+        width: 50px;
+    }
 }
 
 @media only screen and (max-width: 850px)
