@@ -397,7 +397,7 @@ body
     justify-content: center;
 }
 
-.optionButton
+.optionButton, .seeBlockReportButton
 {
     text-decoration: none;
     background-color: rgb(15, 0, 50);
@@ -409,7 +409,7 @@ body
     margin-top: 20px;
 }
 
-.optionButton:hover
+.optionButton:hover, .seeBlockReportButton:hover
 {
     background-color: rgb(77, 0, 255);
 }
@@ -432,6 +432,16 @@ body
 {
     display: flex;
     flex-direction: column;
+}
+
+.blockButton
+{
+    margin-right: 5px;
+}
+
+.blockDataButtons
+{
+    display: flex;
 }
 
 .minerTable

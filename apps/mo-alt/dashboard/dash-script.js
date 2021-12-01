@@ -207,6 +207,8 @@ let clearRefreshId;
 
 let blockDataButton;
 
+let blockReportButton;
+
 let baseUrl = "https://api.moneroocean.stream/"
 
 function PreparePage()
@@ -337,6 +339,10 @@ function SetEventListeners()
     //Block data table button
     blockDataButton = document.getElementsByClassName("blockButton")[0];
     blockDataButton.addEventListener("click", HandleBlockButtonPress);
+
+    //block report button
+    blockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
+    blockReportButton.addEventListener("click", () => window.location.href = "../reports/miner-block-payments")
 
     //theme buttons
     let themeButtons = document.getElementsByClassName("themeButton");
@@ -661,6 +667,7 @@ function ChangeTheme()
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let optionButton = document.getElementsByClassName("optionButton")[0];
+    let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
     let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
@@ -677,6 +684,9 @@ function ChangeTheme()
 
     optionButton.removeEventListener("mouseover", ButtonHoverInTheme);
     optionButton.removeEventListener("mouseout", ButtonHoverOutTheme);
+
+    seeBlockReportButton.removeEventListener("mouseover", ButtonHoverInTheme);
+    seeBlockReportButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     txReportButton.removeEventListener("mouseover", ButtonHoverInTheme);
     txReportButton.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -719,6 +729,10 @@ function ChangeTheme()
                 //option button
                 optionButton.style.backgroundColor = "";
                 optionButton.style.borderColor = "";
+
+                //block report button
+                seeBlockReportButton.style.backgroundColor = "";
+                seeBlockReportButton.style.borderColor = "";
 
                 //select theme section
                 selectThemeSection.style.backgroundColor = "";
@@ -783,6 +797,12 @@ function ChangeTheme()
                 optionButton.style.borderColor = bordColor;
                 optionButton.addEventListener("mouseover", ButtonHoverInTheme);
                 optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
+                //block report button
+                seeBlockReportButton.style.backgroundColor = bgColor;
+                seeBlockReportButton.style.borderColor = bordColor;
+                seeBlockReportButton.addEventListener("mouseover", ButtonHoverInTheme);
+                seeBlockReportButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 //transaction report button
                 txReportButton.style.backgroundColor = bgColor;
@@ -859,6 +879,12 @@ function ChangeTheme()
                 optionButton.addEventListener("mouseover", ButtonHoverInTheme);
                 optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //block report button
+                seeBlockReportButton.style.backgroundColor = bgColor;
+                seeBlockReportButton.style.borderColor = bordColor;
+                seeBlockReportButton.addEventListener("mouseover", ButtonHoverInTheme);
+                seeBlockReportButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 //transaction report button
                 txReportButton.style.backgroundColor = bgColor;
                 txReportButton.style.borderColor = bordColor;
@@ -934,6 +960,12 @@ function ChangeTheme()
                 optionButton.addEventListener("mouseover", ButtonHoverInTheme);
                 optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
+                //block report button
+                seeBlockReportButton.style.backgroundColor = bgColor;
+                seeBlockReportButton.style.borderColor = bordColor;
+                seeBlockReportButton.addEventListener("mouseover", ButtonHoverInTheme);
+                seeBlockReportButton.addEventListener("mouseout", ButtonHoverOutTheme);
+
                 //transaction report button
                 txReportButton.style.backgroundColor = bgColor;
                 txReportButton.style.borderColor = bordColor;
@@ -979,6 +1011,7 @@ function ChangeTheme()
 function ButtonHoverInTheme(event)
 {
     let optionButton = document.getElementsByClassName("optionButton")[0];
+    let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
@@ -1006,6 +1039,10 @@ function ButtonHoverInTheme(event)
             {
                 case "optionButton blockButton":
                     optionButton.style.backgroundColor = "blue";
+                    break;
+
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "blue";
                     break;
 
                 case "placeholder":
@@ -1049,6 +1086,10 @@ function ButtonHoverInTheme(event)
                     optionButton.style.backgroundColor = "rgb(0,85,165)"
                     break;
 
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "rgb(0,85,165)";
+                    break;
+
                 case "placeholder":
                     placeholder.style.backgroundColor = "rgb(0,85,165)";
                     break;
@@ -1088,6 +1129,10 @@ function ButtonHoverInTheme(event)
             {
                 case "optionButton blockButton":
                     optionButton.style.backgroundColor = "rgb(255,0,255)";
+                    break;
+
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
 
                 case "placeholder":
@@ -1130,6 +1175,7 @@ function ButtonHoverInTheme(event)
 function ButtonHoverOutTheme(event)
 {
     let optionButton = document.getElementsByClassName("optionButton")[0];
+    let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
@@ -1157,6 +1203,10 @@ function ButtonHoverOutTheme(event)
             {
                 case "optionButton blockButton":
                     optionButton.style.backgroundColor = "black";
+                    break;
+
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "black";
                     break;
 
                 case "placeholder":
@@ -1200,6 +1250,10 @@ function ButtonHoverOutTheme(event)
                     optionButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
 
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "rgb(4,0,50)";
+                    break;
+
                 case "placeholder":
                     placeholder.style.backgroundColor = "rgb(4,0,50)";
                     break;
@@ -1239,6 +1293,10 @@ function ButtonHoverOutTheme(event)
             {
                 case "optionButton blockButton":
                     optionButton.style.backgroundColor = "rgb(85, 0, 85)";
+                    break;
+
+                case "seeBlockReportButton":
+                    seeBlockReportButton.style.backgroundColor = "rgb(85,0,85)";
                     break;
 
                 case "placeholder":
