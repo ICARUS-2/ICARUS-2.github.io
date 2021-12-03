@@ -4,7 +4,7 @@ const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 
-let baseUrl = "https://api.moneroocean.stream/";
+const BASE_URL = "https://api.moneroocean.stream/";
 
 document.addEventListener("DOMContentLoaded", PreparePage)
 
