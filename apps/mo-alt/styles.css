@@ -763,6 +763,11 @@ body
         width: 100%;
     }
 
+    .optionButton, .seeBlockReportButton
+    {
+        width: 40%;
+    }
+
     .minerHashrates, .connectedMiners
     {
         width: 100%;
@@ -835,12 +840,12 @@ body
     {
         padding-left: 10px;
         padding-right: 20px;
-        font-size: 15px;
+        font-size: 12px;
     }
 
     .blockReportTable td:nth-child(1)
     {
-        width: 50px;
+        width: 45px;
     }
 }
 
