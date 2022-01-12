@@ -82,6 +82,12 @@ var COINS = {
 		unit: "H",
 		factor: 0xFFFFFFFFFFFFFFFF / 0xFF000000,
 	},
+	9998: {
+		name: "RTM",
+		divisor: 100000000,
+		url: "https://explorer.raptoreum.com",
+		time: 120,
+	},
 	9053: {
 		name: "ERG",
 		divisor: 1000000000,
@@ -169,7 +175,6 @@ var COINS = {
 		time: 120,
 	},
 };
-
 
 document.addEventListener("DOMContentLoaded", PreparePage)
 
