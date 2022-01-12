@@ -5,9 +5,10 @@ const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
 //https://github.com/MoneroOcean/nodejs-pool/blob/master/lib/api.js#L171
 
 //Port list from https://github.com/MoneroOcean/moneroocean-gui/blob/master/script.js
-var COINS = {
+const COINS = {
 	18081: {
 		name: "XMR",
+        portNumber: 18081,
 		divisor: 1000000000000,
 		url: "https://xmrchain.net",
 		time: 120,
@@ -20,36 +21,42 @@ var COINS = {
 	//},
 	19734: {
 		name: "SUMO",
+        portNumber: 19734,
 		divisor: 1000000000,
 		url: "https://explorer.sumokoin.com",
 		time: 240,
 	},
 	12211: {
 		name: "RYO",
+        portNumber: 12211,
 		divisor: 1000000000,
 		url: "https://explorer.ryo-currency.com",
 		time: 240,
 	},
 	18981: {
 		name: "GRFT",
+        portNumber: 18981,
 		divisor: 10000000000,
 		url: "https://blockexplorer.graft.network",
 		time: 120,
 	},
 	38081: {
 		name: "MSR",
+        portNumber: 38081,
 		divisor: 1000000000000,
 		url: "https://explorer.getmasari.org",
 		time: 60,
 	},
 	48782: {	
 		name: "LTHN",
+        portNumber: 48782,
 		divisor: 100000000,
 		url: "https://lethean.io/explorer",
 		time: 120,
 	},
 	19281: {
 		name: "XMV",
+        portNumber: 19281,
 		divisor: 100000000000,
 		url: "https://explorer.monerov.online",
 		time: 60,
@@ -58,12 +65,14 @@ var COINS = {
 	},
 	9231: {
 		name: "XEQ",
+        portNumber: 9231,
 		divisor: 10000,
 		url: "https://explorer.equilibria.network",
 		time: 120,
 	},
 	19950: {
 		name: "XWP",
+        portNumber: 19950,
 		divisor: 1000000000000,
 		url: "https://explorer.xwp.one",
 		time: 15,
@@ -72,6 +81,7 @@ var COINS = {
 	},
 	8766: {
 		name: "RVN",
+        portNumber: 8766,
 		divisor: 100000000,
 		url: "https://ravencoin.network",
 		time: 60,
@@ -80,12 +90,14 @@ var COINS = {
 	},
 	9998: {
 		name: "RTM",
+        portNumber: 9998,
 		divisor: 100000000,
 		url: "https://explorer.raptoreum.com",
 		time: 120,
 	},
 	9053: {
 		name: "ERG",
+        portNumber: 9053,
 		divisor: 1000000000,
 		url: "https://explorer.ergoplatform.com/en",
 		time: 120,
@@ -94,6 +106,7 @@ var COINS = {
 	},
 	8545: {
 		name: "ETH",
+        portNumber: 8545,
 		divisor: 1000000000000000000,
 		url: "https://etherscan.io",
 		time: 13,
@@ -108,18 +121,21 @@ var COINS = {
 	//},
 	17750: {
 		name: "XHV",
+        portNumber: 17750,
 		divisor: 1000000000000,
 		url: "https://explorer.havenprotocol.org",
 		time: 120,
 	},
 	20206: {
 		name: "DERO",
+        portNumber: 20206,
 		divisor: 1000000000000,
 		url: "https://explorer.dero.io",
 		time: 27,
 	},
 	25182: {
 		name: "TUBE",
+        portNumber: 25182,
 		divisor: 1000000000,
 		url: "https://explorer.bittube.cash",
 		time: 15,
@@ -128,12 +144,14 @@ var COINS = {
 	},
 	11812: {
 		name: "XLA",
+        portNumber: 11812,
 		divisor: 100,
 		url: "https://explorer.scalaproject.io",
 		time: 120,
 	},
 	33124: {
 		name: "XTNC",
+        portNumber: 33124,
 		divisor: 1000000000,
 		url: "https://explorer.xtendcash.com",
 		time: 120,
@@ -142,30 +160,35 @@ var COINS = {
 	},
 	11898: {
 		name: "TRTL",
+        portNumber: 11898,
 		divisor: 100,
 		url: "https://explorer.turtlecoin.lol",
 		time: 30,
 	},
 	2086: {
 		name: "BLOC",
+        portNumber: 2086,
 		divisor: 10000,
 		url: "https://bloc-explorer.com",
 		time: 120,
 	},
 	13007: {
 		name: "IRD",
+        portNumber: 13007,
 		divisor: 100000000,
 		url: "https://explorer.ird.cash",
 		time: 175,
 	},
 	19994: {
 		name: "ARQ",
+        portNumber: 19994,
 		divisor: 1000000000,
 		url: "https://explorer.arqma.com",
 		time: 120,
 	},
 	16000: {
 		name: "CCX",
+        portNumber: 16000,
 		divisor: 1000000,
 		url: "https://explorer.conceal.network",
 		time: 120,
@@ -224,7 +247,8 @@ function PreparePage()
     InitializeTheme();
     SetEventListeners();
     GetDisplays();
-    
+    InitializeBlockDropdownMenu();
+
     let displays = document.getElementsByClassName("display");
     for (let d of displays)
     {
@@ -342,10 +366,6 @@ function SetEventListeners()
         window.location.href = "../login/"
     })
 
-    //Block data table button
-    blockDataButton = document.getElementsByClassName("blockButton")[0];
-    blockDataButton.addEventListener("click", HandleBlockButtonPress);
-
     //block report button
     blockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     blockReportButton.addEventListener("click", () => window.location.href = "../reports/miner-block-payments")
@@ -415,6 +435,29 @@ function GetDisplays()
     sharesDisplay = document.getElementsByClassName("sharesDisplay")[0];
 }
 
+function InitializeBlockDropdownMenu()
+{
+    let dropdown = document.getElementsByClassName("blockDropdownMenu")[0];
+    let ports = Object.keys(COINS).map(key =>
+        {
+            return COINS[key];
+        })
+
+    console.log(ports);
+
+    for (let obj of ports)
+    {
+        let option = document.createElement("option");
+        option.text = obj.name;
+        option.value = obj.portNumber;
+
+        dropdown.add(option);
+    }
+
+    dropdown.selectedIndex = 12;
+
+    console.log(ports);
+}
 
 async function RefreshStats()
 {
@@ -536,58 +579,6 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
     foundHeader.innerHTML = "Found";
     rewardHeader.innerHTML = "Reward";
     hashHeader.innerHTML = "Hash";
-
-    let mediaQueryWidth = 1600;
-
-    if (blockDataButton.innerHTML == "See XMR") //populate table with alt blocks
-    {
-        for(let i = 0; i < BLOCK_TABLE_SIZE; i++)
-        {
-            let row = table.insertRow(i + 1);
-            let port = altBlocksObj[i].port;
-
-            let coinData = COINS[port];
-
-            let coinCell = row.insertCell(0);
-            let heightCell = row.insertCell(1);
-            let foundCell = row.insertCell(2);
-            let rewardCell = row.insertCell(3);
-            let hashCell = row.insertCell(4);
-
-            coinCell.innerHTML = coinData.name;
-            heightCell.innerHTML = altBlocksObj[i].height;
-            foundCell.innerHTML = UnixTSToDate(altBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
-            rewardCell.innerHTML = (altBlocksObj[i].value / coinData.divisor).toString().substr(0,7);
-            
-            if (window.innerWidth <= mediaQueryWidth) 
-                hashCell.innerHTML = altBlocksObj[i].hash.substr(0,6) + "..."
-            else
-                hashCell.innerHTML = altBlocksObj[i].hash.substr(0,20) + "..."
-        }
-    }
-    else //populate table with XMR blocks
-    {
-        for(let i = 0; i < BLOCK_TABLE_SIZE; i++)
-        {
-            let row = table.insertRow(i + 1);
-
-            let coinCell = row.insertCell(0);
-            let heightCell = row.insertCell(1);
-            let foundCell = row.insertCell(2);
-            let rewardCell = row.insertCell(3);
-            let hashCell = row.insertCell(4);
-
-            coinCell.innerHTML = "XMR";
-            heightCell.innerHTML = xmrBlocksObj[i].height;
-            foundCell.innerHTML = UnixTSToDate(xmrBlocksObj[i].ts).split("y, ")[1].replace(',', '').replace(',', '');
-            rewardCell.innerHTML = (xmrBlocksObj[i].value / 1000000000000).toString().substr(0,7);
-            
-            if(window.innerWidth <= mediaQueryWidth)
-                hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,6) + "..."
-            else
-                hashCell.innerHTML = xmrBlocksObj[i].hash.substr(0,20) + "..."
-        }
-    }
 }
 
 async function FetchJson(url)
@@ -597,20 +588,9 @@ async function FetchJson(url)
     return res.json();
 }
 
-function HandleBlockButtonPress()
+function HandleBlockDropdownChange()
 {
-    if (blockDataButton.innerHTML == "See Alt")
-    {
-        document.getElementsByClassName("blockDataHeader")[0].innerHTML = "Altcoin Block Data"
-        blockDataButton.innerHTML = "See XMR";
-    }
-    else
-    {
-        document.getElementsByClassName("blockDataHeader")[0].innerHTML = "XMR Block Data"
-        blockDataButton.innerHTML = "See Alt";
-    }
 
-    RefreshStats();
 }
 
 function ParseHashrate(hashrateStr)
@@ -672,7 +652,6 @@ function ChangeTheme()
     let allDashboardItems = document.getElementsByClassName('dashboardItem')
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
-    let optionButton = document.getElementsByClassName("optionButton")[0];
     let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
     let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
@@ -687,9 +666,6 @@ function ChangeTheme()
 
     signOutButton.removeEventListener("mouseover", ButtonHoverInTheme);
     signOutButton.removeEventListener("mouseout", ButtonHoverOutTheme);
-
-    optionButton.removeEventListener("mouseover", ButtonHoverInTheme);
-    optionButton.removeEventListener("mouseout", ButtonHoverOutTheme);
 
     seeBlockReportButton.removeEventListener("mouseover", ButtonHoverInTheme);
     seeBlockReportButton.removeEventListener("mouseout", ButtonHoverOutTheme);
@@ -731,10 +707,6 @@ function ChangeTheme()
                 //sign out button
                 signOutButton.style.backgroundColor = "";
                 signOutButton.style.borderColor = "";
-
-                //option button
-                optionButton.style.backgroundColor = "";
-                optionButton.style.borderColor = "";
 
                 //block report button
                 seeBlockReportButton.style.backgroundColor = "";
@@ -797,12 +769,6 @@ function ChangeTheme()
                 signOutButton.style.borderColor = bordColor;
                 signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
                 signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
-                //option button
-                optionButton.style.backgroundColor = bgColor;
-                optionButton.style.borderColor = bordColor;
-                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
-                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
                 //block report button
                 seeBlockReportButton.style.backgroundColor = bgColor;
@@ -879,12 +845,6 @@ function ChangeTheme()
                 signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
                 signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
-                //option button
-                optionButton.style.backgroundColor = bgColor;
-                optionButton.style.borderColor = bordColor;
-                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
-                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
                 //block report button
                 seeBlockReportButton.style.backgroundColor = bgColor;
                 seeBlockReportButton.style.borderColor = bordColor;
@@ -960,12 +920,6 @@ function ChangeTheme()
                 signOutButton.addEventListener("mouseover", ButtonHoverInTheme);
                 signOutButton.addEventListener("mouseout", ButtonHoverOutTheme);
 
-                //option button
-                optionButton.style.backgroundColor = bgColor;
-                optionButton.style.borderColor = bordColor;
-                optionButton.addEventListener("mouseover", ButtonHoverInTheme);
-                optionButton.addEventListener("mouseout", ButtonHoverOutTheme);
-
                 //block report button
                 seeBlockReportButton.style.backgroundColor = bgColor;
                 seeBlockReportButton.style.borderColor = bordColor;
@@ -1016,7 +970,6 @@ function ChangeTheme()
 
 function ButtonHoverInTheme(event)
 {
-    let optionButton = document.getElementsByClassName("optionButton")[0];
     let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
@@ -1043,10 +996,6 @@ function ButtonHoverInTheme(event)
         case 1:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "blue";
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "blue";
                     break;
@@ -1088,10 +1037,6 @@ function ButtonHoverInTheme(event)
         case 2:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "rgb(0,85,165)"
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "rgb(0,85,165)";
                     break;
@@ -1133,10 +1078,6 @@ function ButtonHoverInTheme(event)
         case 3:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "rgb(255,0,255)";
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "rgb(255,0,255)";
                     break;
@@ -1180,7 +1121,6 @@ function ButtonHoverInTheme(event)
 
 function ButtonHoverOutTheme(event)
 {
-    let optionButton = document.getElementsByClassName("optionButton")[0];
     let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let placeholder = document.getElementsByClassName("placeholder")[0];
     let signOutButton = document.getElementsByClassName("signOutButton")[0];
@@ -1207,10 +1147,6 @@ function ButtonHoverOutTheme(event)
         case 1:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "black";
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "black";
                     break;
@@ -1252,10 +1188,6 @@ function ButtonHoverOutTheme(event)
         case 2:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "rgb(4,0,50)";
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "rgb(4,0,50)";
                     break;
@@ -1297,10 +1229,6 @@ function ButtonHoverOutTheme(event)
         case 3:
             switch(event.target.className)
             {
-                case "optionButton blockButton":
-                    optionButton.style.backgroundColor = "rgb(85, 0, 85)";
-                    break;
-
                 case "seeBlockReportButton":
                     seeBlockReportButton.style.backgroundColor = "rgb(85,0,85)";
                     break;
