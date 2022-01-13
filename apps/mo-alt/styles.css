@@ -448,6 +448,7 @@ body
 .blockDropdownMenu
 {
     height: 30px;
+    margin-right: 5px;
 }
 
 .minerTable

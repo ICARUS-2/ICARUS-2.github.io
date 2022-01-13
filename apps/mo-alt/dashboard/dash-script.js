@@ -366,6 +366,10 @@ function SetEventListeners()
         window.location.href = "../login/"
     })
 
+    //block dropdown menu
+    let blockDropdown = document.getElementsByClassName("blockDropdownMenu")[0];
+    blockDropdown.addEventListener("change", () => UpdateBlockData())
+
     //block report button
     blockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     blockReportButton.addEventListener("click", () => window.location.href = "../reports/miner-block-payments")
@@ -443,8 +447,6 @@ function InitializeBlockDropdownMenu()
             return COINS[key];
         })
 
-    console.log(ports);
-
     for (let obj of ports)
     {
         let option = document.createElement("option");
@@ -454,9 +456,13 @@ function InitializeBlockDropdownMenu()
         dropdown.add(option);
     }
 
-    dropdown.selectedIndex = 12;
+    let altOpt = document.createElement("option")
+    altOpt.text = "Altcoins";
+    altOpt.value = "Altcoins";
+    dropdown.add(altOpt);
 
-    console.log(ports);
+    //12 is the index for XMR
+    dropdown.selectedIndex = 12;
 }
 
 async function RefreshStats()
@@ -468,8 +474,8 @@ async function RefreshStats()
     let poolStatsUrl = "https://api.moneroocean.stream/pool/stats";
     let networkStatsUrl = "https://api.moneroocean.stream/network/stats";
     let worldUrl = "https://localmonero.co/blocks/api/get_stats";
-    let xmrBlocksUrl = "https://api.moneroocean.stream/pool/blocks";
-    let altBlocksUrl = "https://api.moneroocean.stream/pool/altblocks";
+    //let xmrBlocksUrl = "https://api.moneroocean.stream/pool/blocks";
+    //let altBlocksUrl = "https://api.moneroocean.stream/pool/altblocks";
     let userUrl = baseUrl;
     userUrl += "user/" + addr;
 
@@ -478,8 +484,8 @@ async function RefreshStats()
     let minerStatsObj = await FetchJson(minerStatsUrl);
     let minerStatsAllWorkersObj = await FetchJson(minerStatsAllWorkersUrl);
     let poolStatsObj = await FetchJson(poolStatsUrl);
-    let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
-    let altBlocksObj = await FetchJson(altBlocksUrl);
+    //let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
+    //let altBlocksObj = await FetchJson(altBlocksUrl);
     let userObj = await FetchJson(userUrl);
 
     UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
@@ -488,7 +494,7 @@ async function RefreshStats()
     UpdateBalances(minerStatsObj, userObj);
     UpdateExchangeRates(poolStatsObj);
     UpdateMinerData(minerStatsAllWorkersObj)
-    UpdateBlockData(xmrBlocksObj, altBlocksObj)
+    UpdateBlockData()
 }
 
 function UpdateTopStats(netObj, poolObj, worldApiObj)
@@ -563,8 +569,28 @@ function UpdateMinerData(workersObj)
     }
 }
 
-function UpdateBlockData(xmrBlocksObj, altBlocksObj)
+async function UpdateBlockData()
 {
+    let dropdown = document.getElementsByClassName("blockDropdownMenu")[0];
+    let portNumber = dropdown.value;
+
+    let url;
+
+    if (dropdown.value == COINS[18081].portNumber)
+    {
+        url= "https://api.moneroocean.stream/pool/blocks"
+    }
+    else if (portNumber == "Altcoins")
+    {
+        url = "https://api.moneroocean.stream/pool/altblocks";
+    }
+    else
+    {
+        url = "https://api.moneroocean.stream/pool/coin_altblocks/" + portNumber;
+    }   
+
+    let retrievedBlockData = await FetchJson(url);
+
     let table = document.getElementsByClassName("blockTable")[0];
     table.innerHTML = "";
     let header = table.insertRow(0);
@@ -579,6 +605,30 @@ function UpdateBlockData(xmrBlocksObj, altBlocksObj)
     foundHeader.innerHTML = "Found";
     rewardHeader.innerHTML = "Reward";
     hashHeader.innerHTML = "Hash";
+
+    for (let i = 0; i < BLOCK_TABLE_SIZE; i++)
+    {
+        let obj = retrievedBlockData[i];
+        let coinPortData;
+    
+        if (obj.port)
+            coinPortData = COINS[obj.port];
+        else
+            coinPortData = COINS[18081];
+
+        let row = table.insertRow(i+1)
+        let coinCell = row.insertCell(0);
+        let heightCell = row.insertCell(1);
+        let foundCell = row.insertCell(2);
+        let rewardCell = row.insertCell(3);
+        let hashCell = row.insertCell(4);
+
+        coinCell.innerHTML = coinPortData.name;
+        heightCell.innerHTML = obj.height;
+        foundCell.innerHTML = UnixTSToDate(obj.ts).split("y, ")[1].replace(',', '').replace(',', '');
+        rewardCell.innerHTML = (obj.value / coinPortData.divisor).toString().substr(0,7);
+        hashCell.innerHTML = obj.hash.substr(0,6) + "..."
+    }
 }
 
 async function FetchJson(url)
@@ -586,11 +636,6 @@ async function FetchJson(url)
     let res = await fetch(url);
 
     return res.json();
-}
-
-function HandleBlockDropdownChange()
-{
-
 }
 
 function ParseHashrate(hashrateStr)
