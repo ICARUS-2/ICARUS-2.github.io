@@ -442,6 +442,13 @@ body
 .blockDataButtons
 {
     display: flex;
+    align-items: center;
+}
+
+.blockDropdownMenu
+{
+    height: 30px;
+    margin-right: 5px;
 }
 
 .minerTable
