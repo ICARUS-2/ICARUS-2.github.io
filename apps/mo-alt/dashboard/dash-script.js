@@ -198,6 +198,9 @@ const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 document.addEventListener("DOMContentLoaded", PreparePage)
 
+//Top status
+let topStatusDisplay;
+
 //Top stat displays
 let networkHashrateDisplay;
 let poolHashrateDisplay;
@@ -410,6 +413,9 @@ function SetEventListeners()
 
 function GetDisplays()
 {
+    //Top status
+    topStatusDisplay = document.getElementsByClassName("dashboardStatusDisplay")[0];
+
     //Top stats
     networkHashrateDisplay = document.getElementsByClassName("networkHashrateDisplay")[0];
     poolHashrateDisplay = document.getElementsByClassName("poolHashrateDisplay")[0];
@@ -488,6 +494,7 @@ async function RefreshStats()
     //let altBlocksObj = await FetchJson(altBlocksUrl);
     let userObj = await FetchJson(userUrl);
 
+    UpdateStatusBar(minerStatsAllWorkersObj);
     UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
     UpdateMinerHashrates(minerStatsObj);
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
@@ -495,6 +502,30 @@ async function RefreshStats()
     UpdateExchangeRates(poolStatsObj);
     UpdateMinerData(minerStatsAllWorkersObj)
     UpdateBlockData()
+}
+
+function UpdateStatusBar(allWorkers)
+{
+    //return prematurely in the event of an error occuring
+    if (!allWorkers)
+    {
+        topStatusDisplay.innerHTML = "ERROR";
+        topStatusDisplay.style.color = "red";
+        return;
+    }
+    
+    let workerCount = Object.keys(allWorkers).length - 1;
+
+    if (workerCount < 1)
+    {
+        topStatusDisplay.style.color = "yellow"
+        topStatusDisplay.innerHTML = "NOT MINING";
+    }
+    else
+    {
+        topStatusDisplay.style.color = "lightgreen";
+        topStatusDisplay.innerHTML = "MINERS ONLINE";
+    }
 }
 
 function UpdateTopStats(netObj, poolObj, worldApiObj)

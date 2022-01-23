@@ -255,6 +255,12 @@ body
     margin-right: 10px;
 }
 
+.statusDiv
+{
+    margin-top: 5px;
+    display: flex;
+}
+
 .topItems
 {
     display: flex;
