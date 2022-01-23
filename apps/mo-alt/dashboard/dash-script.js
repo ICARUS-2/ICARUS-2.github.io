@@ -519,12 +519,7 @@ function UpdateStatusBar(allWorkers)
     if (workerCount < 1)
     {
         topStatusDisplay.style.color = "yellow"
-        topStatusDisplay.innerHTML = "NO MINERS DETECTED";
-    }
-    else if (workerCount == 1)
-    {
-        topStatusDisplay.style.color = "lightgreen";
-        topStatusDisplay.innerHTML = "MINER ONLINE";
+        topStatusDisplay.innerHTML = "NOT MINING";
     }
     else
     {

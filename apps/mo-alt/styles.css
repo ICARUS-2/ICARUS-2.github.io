@@ -257,6 +257,7 @@ body
 
 .statusDiv
 {
+    margin-top: 5px;
     display: flex;
 }
 
