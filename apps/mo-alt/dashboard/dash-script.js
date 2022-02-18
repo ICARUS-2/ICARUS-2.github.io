@@ -301,8 +301,6 @@ function InitializeRefreshRate()
 
 function InitializeBalanceCurrency()
 {
-    console.log(window.localStorage.getItem(CURRENCY_KEY))
-
     if (!window.localStorage.getItem(CURRENCY_KEY))
         window.localStorage.setItem(CURRENCY_KEY, 0)
 
@@ -324,9 +322,8 @@ function SetBalanceCurrency()
         }
     }
 
-    console.log(selectedIdx)
-
     window.localStorage.setItem(CURRENCY_KEY, selectedIdx)
+    RefreshStats();
 }
 
 function SetRefreshRate()
@@ -532,7 +529,7 @@ async function RefreshStats()
     UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
     UpdateMinerHashrates(minerStatsObj);
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
-    UpdateBalances(minerStatsObj, userObj);
+    UpdateBalances(minerStatsObj, userObj, poolStatsObj);
     UpdateExchangeRates(poolStatsObj);
     UpdateMinerData(minerStatsAllWorkersObj)
     UpdateBlockData()
@@ -586,9 +583,40 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
     addressMinerCountDisplay.innerHTML = count - 1;
 }
 
-function UpdateBalances(minerStatsObj, userObj)
+function UpdateBalances(minerStatsObj, userObj, poolObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6);
+    let pendingAmt = (minerStatsObj.amtDue / 1000000000000).toFixed(6);
+    let currencyConversion = "";
+    let currencyAmt = "";
+
+    switch(window.localStorage.getItem(CURRENCY_KEY))
+    {
+        //USD
+        case "0":
+            let usdPrice = poolObj.pool_statistics.price.usd.toFixed(2);
+            currencyAmt = pendingAmt * usdPrice;
+
+            currencyConversion = "($" + currencyAmt.toFixed(2) + ")";
+            break;
+
+        //EUR
+        case "1":
+            let eurPrice = poolObj.pool_statistics.price.eur.toFixed(2);
+            currencyAmt = pendingAmt * eurPrice;
+
+            currencyConversion = "(€" + currencyAmt.toFixed(2) + ")";
+            break;
+
+        //BTC
+        case "2":
+            let btcPrice = poolObj.pool_statistics.price.btc.toFixed(5);
+            currencyAmt = pendingAmt * btcPrice;
+
+            currencyConversion = "(₿" + currencyAmt.toFixed(5) + ")";
+            break;
+    }
+
+    pendingBalanceDisplay.innerHTML = pendingAmt + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6) + " " + currencyConversion;
     totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
