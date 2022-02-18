@@ -1,6 +1,7 @@
 const LOGIN_KEY = 'MO_ALT_LOGIN';
 const THEME_KEY = 'MO_ALT_COLOR_THEME';
 const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
+const CURRENCY_KEY = 'MO_ALT_CURRENCY';
 
 //https://github.com/MoneroOcean/nodejs-pool/blob/master/lib/api.js#L171
 
@@ -248,6 +249,7 @@ function PreparePage()
     CheckAddress();
     InitializeRefreshRate();
     InitializeTheme();
+    InitializeBalanceCurrency();
     SetEventListeners();
     GetDisplays();
     InitializeBlockDropdownMenu();
@@ -295,6 +297,36 @@ function InitializeRefreshRate()
 
     document.getElementsByClassName('refreshRateButton')[idx].checked = true;
     SetRefreshRate();
+}
+
+function InitializeBalanceCurrency()
+{
+    console.log(window.localStorage.getItem(CURRENCY_KEY))
+
+    if (!window.localStorage.getItem(CURRENCY_KEY))
+        window.localStorage.setItem(CURRENCY_KEY, 0)
+
+    let idx = window.localStorage.getItem(CURRENCY_KEY);
+
+    document.getElementsByClassName("currencyButton")[idx].checked = true;
+}
+
+function SetBalanceCurrency()
+{
+    let selectedIdx;
+    let allCurrencyButtons = document.getElementsByClassName("currencyButton");
+
+    for (let i = 0; i < allCurrencyButtons.length; i++)
+    {
+        if (allCurrencyButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+
+    console.log(selectedIdx)
+
+    window.localStorage.setItem(CURRENCY_KEY, selectedIdx)
 }
 
 function SetRefreshRate()
@@ -385,11 +417,13 @@ function SetEventListeners()
 
     //refresh rate buttons
     let refreshRateButtons = document.getElementsByClassName("refreshRateButton");
-
     for (let btn of refreshRateButtons)
         btn.addEventListener('change', SetRefreshRate);
 
-    
+    let currencyButtons = document.getElementsByClassName("currencyButton");
+    for (let btn of currencyButtons)
+        btn.addEventListener('change', SetBalanceCurrency)
+
     //transaction report button
     let txReportButton = document.getElementsByClassName('transactionReportButton')[0];
     txReportButton.addEventListener("click", () => window.location.href = "../reports/transaction-report")
@@ -1353,5 +1387,6 @@ function LogError(msg)
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
     document.getElementsByClassName("selectThemeDiv")[0].style.display = "none";
     document.getElementsByClassName("selectRefreshDiv")[0].style.display = "none";
+    document.getElementsByClassName("selectCurrencyDiv")[0].style.display = "none";
     throw new Error();
 }
