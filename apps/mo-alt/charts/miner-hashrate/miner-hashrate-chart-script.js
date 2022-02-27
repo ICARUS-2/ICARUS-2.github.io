@@ -422,7 +422,7 @@ function ButtonHoverOutTheme(event)
                     signOutButton.style.backgroundColor = "black";
                     break;
 
-                case "connectedMinerChartBackButton":
+                case "minerHashratesChartBackButton":
                     backButton.style.backgroundColor = "black";
                     break;
 
