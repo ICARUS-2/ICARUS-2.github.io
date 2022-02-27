@@ -793,6 +793,7 @@ function ChangeTheme()
     let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
     let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
+    let selectCurrencySection = document.getElementsByClassName("selectCurrencyDiv")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let payoutThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
@@ -857,6 +858,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = "";
                 selectRefreshSection.style.borderColor = "";
+
+                //select currency section
+                selectCurrencySection.style.backgroundColor = "";
+                selectCurrencySection.style.borderColor = "";
 
                 //transaction report button
                 txReportButton.style.backgroundColor = "";
@@ -951,6 +956,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //currency select section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
 
@@ -1026,6 +1035,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //currency select section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
 
@@ -1101,6 +1114,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //select currency section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
     }
