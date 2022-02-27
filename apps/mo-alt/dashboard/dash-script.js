@@ -1,6 +1,7 @@
 const LOGIN_KEY = 'MO_ALT_LOGIN';
 const THEME_KEY = 'MO_ALT_COLOR_THEME';
 const REFRESH_KEY = 'MO_ALT_REFRESH_RATE';
+const CURRENCY_KEY = 'MO_ALT_CURRENCY';
 
 //https://github.com/MoneroOcean/nodejs-pool/blob/master/lib/api.js#L171
 
@@ -248,6 +249,7 @@ function PreparePage()
     CheckAddress();
     InitializeRefreshRate();
     InitializeTheme();
+    InitializeBalanceCurrency();
     SetEventListeners();
     GetDisplays();
     InitializeBlockDropdownMenu();
@@ -295,6 +297,33 @@ function InitializeRefreshRate()
 
     document.getElementsByClassName('refreshRateButton')[idx].checked = true;
     SetRefreshRate();
+}
+
+function InitializeBalanceCurrency()
+{
+    if (!window.localStorage.getItem(CURRENCY_KEY))
+        window.localStorage.setItem(CURRENCY_KEY, 0)
+
+    let idx = window.localStorage.getItem(CURRENCY_KEY);
+
+    document.getElementsByClassName("currencyButton")[idx].checked = true;
+}
+
+function SetBalanceCurrency()
+{
+    let selectedIdx;
+    let allCurrencyButtons = document.getElementsByClassName("currencyButton");
+
+    for (let i = 0; i < allCurrencyButtons.length; i++)
+    {
+        if (allCurrencyButtons[i].checked)
+        {
+            selectedIdx = i;
+        }
+    }
+
+    window.localStorage.setItem(CURRENCY_KEY, selectedIdx)
+    RefreshStats();
 }
 
 function SetRefreshRate()
@@ -385,11 +414,13 @@ function SetEventListeners()
 
     //refresh rate buttons
     let refreshRateButtons = document.getElementsByClassName("refreshRateButton");
-
     for (let btn of refreshRateButtons)
         btn.addEventListener('change', SetRefreshRate);
 
-    
+    let currencyButtons = document.getElementsByClassName("currencyButton");
+    for (let btn of currencyButtons)
+        btn.addEventListener('change', SetBalanceCurrency)
+
     //transaction report button
     let txReportButton = document.getElementsByClassName('transactionReportButton')[0];
     txReportButton.addEventListener("click", () => window.location.href = "../reports/transaction-report")
@@ -498,7 +529,7 @@ async function RefreshStats()
     UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
     UpdateMinerHashrates(minerStatsObj);
     UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
-    UpdateBalances(minerStatsObj, userObj);
+    UpdateBalances(minerStatsObj, userObj, poolStatsObj);
     UpdateExchangeRates(poolStatsObj);
     UpdateMinerData(minerStatsAllWorkersObj)
     UpdateBlockData()
@@ -552,9 +583,40 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
     addressMinerCountDisplay.innerHTML = count - 1;
 }
 
-function UpdateBalances(minerStatsObj, userObj)
+function UpdateBalances(minerStatsObj, userObj, poolObj)
 {
-    pendingBalanceDisplay.innerHTML = (minerStatsObj.amtDue / 1000000000000).toFixed(6) + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6);
+    let pendingAmt = (minerStatsObj.amtDue / 1000000000000).toFixed(6);
+    let currencyConversion = "";
+    let currencyAmt = "";
+
+    switch(window.localStorage.getItem(CURRENCY_KEY))
+    {
+        //USD
+        case "0":
+            let usdPrice = poolObj.pool_statistics.price.usd.toFixed(2);
+            currencyAmt = pendingAmt * usdPrice;
+
+            currencyConversion = "($" + currencyAmt.toFixed(2) + ")";
+            break;
+
+        //EUR
+        case "1":
+            let eurPrice = poolObj.pool_statistics.price.eur.toFixed(2);
+            currencyAmt = pendingAmt * eurPrice;
+
+            currencyConversion = "(€" + currencyAmt.toFixed(2) + ")";
+            break;
+
+        //BTC
+        case "2":
+            let btcPrice = poolObj.pool_statistics.price.btc.toFixed(5);
+            currencyAmt = pendingAmt * btcPrice;
+
+            currencyConversion = "(₿" + currencyAmt.toFixed(5) + ")";
+            break;
+    }
+
+    pendingBalanceDisplay.innerHTML = pendingAmt + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6) + " " + currencyConversion;
     totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
@@ -731,6 +793,7 @@ function ChangeTheme()
     let seeBlockReportButton = document.getElementsByClassName("seeBlockReportButton")[0];
     let selectThemeSection = document.getElementsByClassName("selectThemeDiv")[0];
     let selectRefreshSection = document.getElementsByClassName("selectRefreshDiv")[0];
+    let selectCurrencySection = document.getElementsByClassName("selectCurrencyDiv")[0];
     let txReportButton = document.getElementsByClassName("transactionReportButton")[0];
     let payoutThresholdButton = document.getElementsByClassName("updateThresholdButton")[0];
     let exchangeRatesButton = document.getElementsByClassName("seeExchangeRatesButton")[0];
@@ -795,6 +858,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = "";
                 selectRefreshSection.style.borderColor = "";
+
+                //select currency section
+                selectCurrencySection.style.backgroundColor = "";
+                selectCurrencySection.style.borderColor = "";
 
                 //transaction report button
                 txReportButton.style.backgroundColor = "";
@@ -889,6 +956,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //currency select section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
 
@@ -964,6 +1035,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //currency select section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
 
@@ -1039,6 +1114,10 @@ function ChangeTheme()
                 //refresh rate section
                 selectRefreshSection.style.backgroundColor = bgColor;
                 selectRefreshSection.style.borderColor = bordColor;
+
+                //select currency section
+                selectCurrencySection.style.backgroundColor = bgColor;
+                selectCurrencySection.style.borderColor = bordColor;
             }
             break;
     }
@@ -1353,5 +1432,6 @@ function LogError(msg)
     document.getElementsByClassName("errorReturnButton")[0].style.display = "block";
     document.getElementsByClassName("selectThemeDiv")[0].style.display = "none";
     document.getElementsByClassName("selectRefreshDiv")[0].style.display = "none";
+    document.getElementsByClassName("selectCurrencyDiv")[0].style.display = "none";
     throw new Error();
 }
