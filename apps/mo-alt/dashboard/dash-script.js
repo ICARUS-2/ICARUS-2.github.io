@@ -586,38 +586,50 @@ function UpdateConnectedMiners(poolObj, minerStatsAllWorkersObj)
 function UpdateBalances(minerStatsObj, userObj, poolObj)
 {
     let pendingAmt = (minerStatsObj.amtDue / 1000000000000).toFixed(6);
-    let currencyConversion = "";
-    let currencyAmt = "";
+    let xmrPaidAmt = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
+    
+    let balanceAmtHtml = "";
+    let balanceAmtWithExchangeRate = "";
+    let xmrPaidAmtWithExchangeRate = "";
+    let xmrPaidAmtWithExchangeRateHtml = "";
 
     switch(window.localStorage.getItem(CURRENCY_KEY))
     {
         //USD
         case "0":
             let usdPrice = poolObj.pool_statistics.price.usd.toFixed(2);
-            currencyAmt = pendingAmt * usdPrice;
-
-            currencyConversion = "($" + currencyAmt.toFixed(2) + ")";
+            balanceAmtWithExchangeRate = pendingAmt * usdPrice;
+            balanceAmtHtml = "($" + balanceAmtWithExchangeRate.toFixed(2) + ")";
+            
+            xmrPaidAmtWithExchangeRate = xmrPaidAmt * usdPrice;
+            xmrPaidAmtWithExchangeRateHtml = "($" + xmrPaidAmtWithExchangeRate.toFixed(2) + ")"
             break;
 
         //EUR
         case "1":
             let eurPrice = poolObj.pool_statistics.price.eur.toFixed(2);
-            currencyAmt = pendingAmt * eurPrice;
+            balanceAmtWithExchangeRate = pendingAmt * eurPrice;
+            balanceAmtHtml = "(€" + balanceAmtWithExchangeRate.toFixed(2) + ")";
 
-            currencyConversion = "(€" + currencyAmt.toFixed(2) + ")";
+            xmrPaidAmtWithExchangeRate = pendingAmt * eurPrice;
+            xmrPaidAmtWithExchangeRateHtml = "(€" + xmrPaidAmtWithExchangeRate.toFixed(2) + ")"
             break;
 
         //BTC
         case "2":
             let btcPrice = poolObj.pool_statistics.price.btc.toFixed(5);
-            currencyAmt = pendingAmt * btcPrice;
+            balanceAmtWithExchangeRate = pendingAmt * btcPrice;
+            balanceAmtHtml = "(₿" + balanceAmtWithExchangeRate.toFixed(5) + ")";
 
-            currencyConversion = "(₿" + currencyAmt.toFixed(5) + ")";
+            xmrPaidAmtWithExchangeRate = xmrPaidAmt * btcPrice;
+            xmrPaidAmtWithExchangeRateHtml = "(₿" + xmrPaidAmtWithExchangeRate.toFixed(5) + ")";
             break;
     }
 
-    pendingBalanceDisplay.innerHTML = pendingAmt + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6) + " " + currencyConversion;
-    totalXMRPaidDisplay.innerHTML = (minerStatsObj.amtPaid / 1000000000000).toFixed(6);
+    
+
+    pendingBalanceDisplay.innerHTML = pendingAmt + " / " + (userObj.payout_threshold / 1000000000000).toFixed(6) + " " + balanceAmtHtml;
+    totalXMRPaidDisplay.innerHTML = xmrPaidAmt + " " + xmrPaidAmtWithExchangeRateHtml;
     transactionCountDisplay.innerHTML = minerStatsObj.txnCount;
 }
 
