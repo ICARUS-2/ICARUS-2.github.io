@@ -611,7 +611,7 @@ function UpdateBalances(minerStatsObj, userObj, poolObj)
             balanceAmtWithExchangeRate = pendingAmt * eurPrice;
             balanceAmtHtml = "(€" + balanceAmtWithExchangeRate.toFixed(2) + ")";
 
-            xmrPaidAmtWithExchangeRate = pendingAmt * eurPrice;
+            xmrPaidAmtWithExchangeRate = xmrPaidAmt * eurPrice;
             xmrPaidAmtWithExchangeRateHtml = "(€" + xmrPaidAmtWithExchangeRate.toFixed(2) + ")"
             break;
 
