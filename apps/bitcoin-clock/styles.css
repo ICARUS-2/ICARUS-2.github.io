@@ -36,7 +36,7 @@ main
 }
 
 
-.blockchainHeightContainer, .blocksTillHalvingContainer
+.blockchainHeightContainer, .blocksTillHalvingContainer, .priceContainer
 {
     margin-top: 100px;
     max-width: 70%;
@@ -52,7 +52,7 @@ main
     max-width: 70%;
 }
 
-.blockchainHeight, .blocksTillHalving, .etaDisplay
+.blockchainHeight, .blocksTillHalving, .etaDisplay, .price
 {
     height: 100px;
 }
