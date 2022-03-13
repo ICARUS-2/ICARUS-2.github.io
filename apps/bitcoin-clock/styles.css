@@ -36,10 +36,24 @@ main
 }
 
 
-.blockchainHeightContainer, .blocksTillHalvingContainer
+.pricesContainer
 {
     margin-top: 100px;
     max-width: 70%;
+}
+
+.blocksContainer, .pricesContainer
+{
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+}
+
+.blockchainHeightContainer, .blocksTillHalvingContainer
+{
+    max-width: 80%;
 }
 
 .etaHeader
@@ -52,9 +66,15 @@ main
     max-width: 70%;
 }
 
-.blockchainHeight, .blocksTillHalving, .etaDisplay
+.blockchainHeight, .blocksTillHalving, .etaDisplay, .price, .priceChange
 {
-    height: 100px;
+    height: 120px;
+}
+
+.priceChangeContainerInner
+{
+    display: flex;
+    align-items: center;
 }
 
 /*MEDIA QUERIES*/
@@ -80,5 +100,20 @@ main
     .halvingTimers div
     {
         height: 47px;
+    }
+
+    .blocksContainer, .pricesContainer
+    {
+        flex-direction: column;
+    }
+
+    .blockchainHeightContainer
+    {
+        margin-top: 100px;
+    }
+
+    .priceChangeContainer
+    {
+        margin-top: 100px;
     }
 }

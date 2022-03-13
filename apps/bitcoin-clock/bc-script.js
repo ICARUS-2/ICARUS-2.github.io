@@ -1,6 +1,6 @@
 const BLOCK_INTERVAL = 210000;
 
-const API_REFRESH_RATE  = 30000;
+const API_REFRESH_RATE  = 10000;
 
 const BLOCK_TIME = 600000;
 
@@ -24,6 +24,7 @@ let globalMsToNextHalving = 0;
 const APIs = 
 {
     BlockchainHeight: "https://blockchain.info/q/getblockcount",
+    Price: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true"
 }
 
 const DISPLAY_COLORS = 
@@ -34,6 +35,8 @@ const DISPLAY_COLORS =
         Green:"rgb(0,190,0)",
         Blue: "rgb(0,0,200)",
         Yellow: "yellow",
+        White: "white",
+        LightBlue: "rgb(0,200,255)"
     },
     OffColors: 
     {
@@ -41,6 +44,8 @@ const DISPLAY_COLORS =
         Green: "rgb(0,10,0)",
         Blue: "rgb(0,0,20)",
         Yellow: "rgb(10, 10, 0)",
+        White: "rgb(20,20,20)",
+        LightBlue: "rgb(0,7,10)"
     }
 }
 
@@ -49,13 +54,72 @@ document.addEventListener("DOMContentLoaded", async () =>
     currentBlockchainHeight = await getBlockchainHeight(); 
     initialize();
     getHalvingTimeStamp();
-    window.setInterval(updateBlockchainHeight, API_REFRESH_RATE)
+    window.setInterval(update, API_REFRESH_RATE)
     window.setInterval(updateTimer, TIMER_INTERVAL);
 })
+
+async function update()
+{
+    updateBlockchainHeight();
+    updatePrice();
+}
 
 async function getBlockchainHeight()
 {
     return (await fetch(APIs.BlockchainHeight)).json();
+}
+
+async function getPrice()
+{
+    return (await fetch(APIs.Price)).json();
+}
+
+async function updatePrice()
+{
+    let priceData = await getPrice();
+    let bitcoinData = priceData.bitcoin;
+    let usdPrice = bitcoinData.usd.toString();
+    let change = bitcoinData.usd_24h_change.toFixed(2).toString();
+
+    try
+    {
+        $(".price").sevenSeg("destroy");
+        $(".priceChange").sevenSeg("destroy");
+    }
+    catch(err)
+    {
+
+    }
+
+    let changeIsNegative = change.includes("-");
+    let changeOn = changeIsNegative ? DISPLAY_COLORS.OnColors.Red : DISPLAY_COLORS.OnColors.Green;
+    let changeOff = changeIsNegative ? DISPLAY_COLORS.OffColors.Red : DISPLAY_COLORS.OffColors.Green;
+
+    let changeLength = change.length;
+
+    if (change.includes("-"))
+        changeLength--;
+
+    if (change.includes("."))
+        changeLength--
+
+    let arrow = document.getElementsByClassName("priceChangeArrow")[0];
+    let percentSign = document.getElementsByClassName("priceChangePercent")[0];
+
+    percentSign.style.color = changeOn;
+    arrow.style.color = changeOn
+
+    if (changeIsNegative)
+    {
+        arrow.name = "arrow-down-outline"
+    }
+    else
+    {
+        arrow.name = "arrow-up-outline"
+    }
+
+    $(".price").sevenSeg({value: usdPrice, colorOn: DISPLAY_COLORS.OnColors.White, colorOff : DISPLAY_COLORS.OffColors.White, digits: usdPrice.length});
+    $(".priceChange").sevenSeg({value: change.toString(), colorOn: changeOn, colorOff : changeOff, digits: changeLength, decimalPoint : true});
 }
 
 async function updateBlockchainHeight()
@@ -138,7 +202,7 @@ function initialize()
 {
     globalMsToNextHalving = getMillisecondsTillNextHalving();
     updateTimer();
-    $(".blockchainHeight").sevenSeg({value: currentBlockchainHeight, colorOn: DISPLAY_COLORS.OnColors.Green, colorOff: DISPLAY_COLORS.OffColors.Green, digits: currentBlockchainHeight.toString().length});
+    $(".blockchainHeight").sevenSeg({value: currentBlockchainHeight, colorOn: DISPLAY_COLORS.OnColors.LightBlue, colorOff: DISPLAY_COLORS.OffColors.LightBlue, digits: currentBlockchainHeight.toString().length});
     $(".blocksTillHalving").sevenSeg({value: getBlocksTillNextHalving(), colorOn: DISPLAY_COLORS.OnColors.Blue, colorOff: DISPLAY_COLORS.OffColors.Blue, digits: getBlocksTillNextHalving().toString().length});
     $(".halvingDate").sevenSeg({value : "0", colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : 7})
 
@@ -147,6 +211,8 @@ function initialize()
     $(".etaYears").sevenSeg({value : halvingDate.getFullYear(), colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : halvingDate.getFullYear().toString().length})
     $(".etaMonth").sevenSeg({value : halvingDate.getMonth() + 1, colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : halvingDate.getMonth().toString().length})
     $(".etaDay").sevenSeg({value : halvingDate.getDate(), colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : (halvingDate.getDay()+ 1).toString().length})
+
+    updatePrice();
 }
 
 function reInitialize()
