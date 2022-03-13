@@ -57,30 +57,43 @@
             </div>
         </div>
 
-        <div class="blocksTillHalvingContainer">
-            <h1>Blocks Till Halving</h1>
-            <div class="blocksTillHalving sevenSegmentDisplay">
+        <div class="blocksContainer">
+            <div class="blocksTillHalvingContainer">
+                <h1>Blocks Till Halving</h1>
+                <div class="blocksTillHalving sevenSegmentDisplay">
 
+                </div>
+            </div>
+
+            <div class="blockchainHeightContainer">
+                <h1>Blockchain Height</h1>
+                <div class="blockchainHeight sevenSegmentDisplay">
+
+                </div>
             </div>
         </div>
 
-        <div class="blockchainHeightContainer">
-            <h1>Blockchain Height</h1>
-            <div class="blockchainHeight sevenSegmentDisplay">
+        <div class="pricesContainer">
+            <div class="priceContainer">
+                <h1>Price (USD)</h1>
+                <!--PRICE PROVIDED BY COINGECKO API-->
+                <div class="price sevenSegmentDisplay">
 
+                </div>
             </div>
-        </div>
-
-        <div class="priceContainer">
-            <h1>Real-Time Price (USD)</h1>
-            <div class="price sevenSegmentDisplay">
-
-            </div>
-
-            <div class="priceChange sevenSegmentDisplay">
+            <div class="priceChangeContainer">
+                <h1>Change 24H</h1>
+                <!--PRICE PROVIDED BY COINGECKO API-->
+                <div class="priceChangeContainerInner">
+                    <ion-icon class="priceChangeArrow" name="arrow-down-outline" style="color: blue; font-size: 64px;"></ion-icon>
+                    <div class="priceChange sevenSegmentDisplay">
+                </div>
+                <span style="font-size: 64px;" class="priceChangePercent">&#37;</span>
+                </div>
 
             </div>
         </div>
     </main>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 </body>
 </html>

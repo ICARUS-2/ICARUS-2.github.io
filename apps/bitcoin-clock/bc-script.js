@@ -1,6 +1,6 @@
 const BLOCK_INTERVAL = 210000;
 
-const API_REFRESH_RATE  = 30000;
+const API_REFRESH_RATE  = 10000;
 
 const BLOCK_TIME = 600000;
 
@@ -36,6 +36,7 @@ const DISPLAY_COLORS =
         Blue: "rgb(0,0,200)",
         Yellow: "yellow",
         White: "white",
+        LightBlue: "rgb(0,200,255)"
     },
     OffColors: 
     {
@@ -43,7 +44,8 @@ const DISPLAY_COLORS =
         Green: "rgb(0,10,0)",
         Blue: "rgb(0,0,20)",
         Yellow: "rgb(10, 10, 0)",
-        White: "rgb(20,20,20)"
+        White: "rgb(20,20,20)",
+        LightBlue: "rgb(0,7,10)"
     }
 }
 
@@ -93,9 +95,31 @@ async function updatePrice()
     let changeOn = changeIsNegative ? DISPLAY_COLORS.OnColors.Red : DISPLAY_COLORS.OnColors.Green;
     let changeOff = changeIsNegative ? DISPLAY_COLORS.OffColors.Red : DISPLAY_COLORS.OffColors.Green;
 
+    let changeLength = change.length;
+
+    if (change.includes("-"))
+        changeLength--;
+
+    if (change.includes("."))
+        changeLength--
+
+    let arrow = document.getElementsByClassName("priceChangeArrow")[0];
+    let percentSign = document.getElementsByClassName("priceChangePercent")[0];
+
+    percentSign.style.color = changeOn;
+    arrow.style.color = changeOn
+
+    if (changeIsNegative)
+    {
+        arrow.name = "arrow-down-outline"
+    }
+    else
+    {
+        arrow.name = "arrow-up-outline"
+    }
 
     $(".price").sevenSeg({value: usdPrice, colorOn: DISPLAY_COLORS.OnColors.White, colorOff : DISPLAY_COLORS.OffColors.White, digits: usdPrice.length});
-    $(".priceChange").sevenSeg({value: change, colorOn: changeOn, colorOff : changeOff, digits: change.length, decimalPoint : true});
+    $(".priceChange").sevenSeg({value: change.toString(), colorOn: changeOn, colorOff : changeOff, digits: changeLength, decimalPoint : true});
 }
 
 async function updateBlockchainHeight()
@@ -178,7 +202,7 @@ function initialize()
 {
     globalMsToNextHalving = getMillisecondsTillNextHalving();
     updateTimer();
-    $(".blockchainHeight").sevenSeg({value: currentBlockchainHeight, colorOn: DISPLAY_COLORS.OnColors.Green, colorOff: DISPLAY_COLORS.OffColors.Green, digits: currentBlockchainHeight.toString().length});
+    $(".blockchainHeight").sevenSeg({value: currentBlockchainHeight, colorOn: DISPLAY_COLORS.OnColors.LightBlue, colorOff: DISPLAY_COLORS.OffColors.LightBlue, digits: currentBlockchainHeight.toString().length});
     $(".blocksTillHalving").sevenSeg({value: getBlocksTillNextHalving(), colorOn: DISPLAY_COLORS.OnColors.Blue, colorOff: DISPLAY_COLORS.OffColors.Blue, digits: getBlocksTillNextHalving().toString().length});
     $(".halvingDate").sevenSeg({value : "0", colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : 7})
 
