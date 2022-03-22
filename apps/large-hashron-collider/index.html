@@ -176,6 +176,12 @@ li
 
 
 
+.pubKeyLink
+{
+    color: inherit !important;
+}
+
+
 </style>
 </head>
 
@@ -8900,8 +8906,8 @@ function InitBulkGeneratePage() {
                 //api += "1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm|"
 
                 //TEST WITH BALANCE
-                //resMap.push("34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo PRIVKEY")
-                //api += "34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo"
+                resMap.push("34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo PRIVKEY")
+                api += "34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo"
 
                 let apiData;
                 try
@@ -8959,7 +8965,7 @@ function InitBulkGeneratePage() {
                     let txCountCell = row.insertCell(2);
                     let finalBalCell = row.insertCell(3);
 
-                    pubKeyCell.innerHTML = item.publicKey;
+                    pubKeyCell.innerHTML =  `<a href="https://www.blockchain.com/btc/address/${item.publicKey}" target="blank" class="pubKeyLink">${item.publicKey}</a>`;
                     privKeyCell.innerHTML = item.privateKey;
                     txCountCell.innerHTML = item.txCount;
                     finalBalCell.innerHTML = item.finalBalance;
