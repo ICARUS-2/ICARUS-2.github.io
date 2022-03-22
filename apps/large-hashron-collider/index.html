@@ -8821,38 +8821,52 @@ function InitBulkGeneratePage() {
     
     
     //#region AUTO GENERATE 
-              let autoGenerateButton = document.getElementById("autoGenerateButton");
-              let stopAutoGenerateButton = document.getElementById("stopAutoGenerateButton");
-              let autoIndicator = document.getElementById("autoIndicator");
-              let intervalId;
-              let interval = 2500
+            let autoGenerateButton = document.getElementById("autoGenerateButton");
+            let stopAutoGenerateButton = document.getElementById("stopAutoGenerateButton");
+            let autoIndicator = document.getElementById("autoIndicator");
+            let autoGenFlag = false;
 
-              autoGenerateButton.addEventListener("click", StartAutoGenerate);
-              stopAutoGenerateButton.addEventListener("click", StopAutoGenerate);
+            //Seconds to wait between API calls
+            const INTERVAL = 2.7;
 
-              async function StartAutoGenerate()
-              {
-                  autoGenerateButton.style.display = "none"
-                  stopAutoGenerateButton.style.display = "inline-block"
-                  bulkGenerateButton.disabled = true;
-                  autoIndicator.style.display = "inline-block"
+            let previousCallTimestamp;
 
-                  await BulkGenerate();
-                  intervalId = setInterval( async () =>
-                  {
-                      await BulkGenerate();
-                  } , interval )
-              }
+            autoGenerateButton.addEventListener("click", StartAutoGenerate);
+            stopAutoGenerateButton.addEventListener("click", StopAutoGenerate);
 
-              function StopAutoGenerate()
-              {
-                  stopAutoGenerateButton.style.display = "none"
-                  autoGenerateButton.style.display = "inline-block"
-                  bulkGenerateButton.disabled = false
-                  autoIndicator.style.display = "none"
+            async function StartAutoGenerate()
+            {
+                autoGenerateButton.style.display = "none"
+                stopAutoGenerateButton.style.display = "inline-block"
+                bulkGenerateButton.disabled = true;
+                autoIndicator.style.display = "inline-block"
 
-                  clearInterval(intervalId)
-              }
+                autoGenFlag = true;
+                
+                await BulkGenerate();
+
+                while (autoGenFlag){
+                    var diff = (Date.now() - previousCallTimestamp) / 1000;
+                    
+                    if (diff > INTERVAL)
+                        await BulkGenerate();
+
+                    await sleep(100)
+                }
+            }
+            function StopAutoGenerate()
+            {
+                stopAutoGenerateButton.style.display = "none"
+                autoGenerateButton.style.display = "inline-block"
+                bulkGenerateButton.disabled = false
+                autoIndicator.style.display = "none"
+
+                autoGenFlag = false;
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
     //#endregion
     
     
@@ -8861,6 +8875,9 @@ function InitBulkGeneratePage() {
     
     async function BulkGenerate() {
         return __awaiter(this, void 0, void 0, function () {
+            
+            previousCallTimestamp = Date.now();
+
             function UpdateProgress() {
                 let str = (generatedCount++) + "/" + count;
                 let display = document.getElementsByClassName("generateIndicator")[0];
