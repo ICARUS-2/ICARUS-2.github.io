@@ -290,10 +290,19 @@ li
                         <h2 style="display: none; margin-left: 10px;" id="autoIndicator">Auto</h2>
                     </div>
 
+                    <br>
+
+                    <div style="display: flex; align-items: center;">
+                        <div style="font-weight: bold; font-size: 20px; margin-right: 10px">Stop on <span style="color: yellow">valid zero balance</span></div>
+                        <input type="checkbox" id="stopOnZeroBalanceCheckbox" style="width: 25px; height: 25px">
+                    </div>
+
+                    <br>
+
                     <div style="display: flex;">
                         <button id="bulk-generate-button" style="display: inline-block; width: 300px;">Create</button>
-                        <button id="autoGenerateButton" style="display: inline-block; width: 300px; margin-left: 20px; background-color: darkgreen;">Activate auto-generate</button>
-                        <button id="stopAutoGenerateButton" style="display: none; width: 300px; margin-left: 20px; background-color: darkred;">Stop auto-generate</button>
+                        <button id="autoGenerateButton" style="display: inline-block; width: 300px; margin-left: 20px; background-color: darkgreen;">AutoGen</button>
+                        <button id="stopAutoGenerateButton" style="display: none; width: 300px; margin-left: 20px; background-color: darkred;">Stop AutoGen</button>
                     </div>
                 </div>
             </div>
@@ -301,16 +310,17 @@ li
             <div class="stats" style="flex: 2; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                 <div style="display: flex; color: red"><h2>NEVER USED: </h2><h2 class="neverUsedHeader">0</h2></div>
                 
-                <div style="display: flex; color: yellow"><h2>ZERO BALANCE: </h2><h2 class="zeroBalanceHeader">0</h2></div>
+                <div style="display: flex; color: yellow"><h2>VALID - ZERO BALANCE: </h2><h2 class="zeroBalanceHeader">0</h2></div>
 
-                <div style="display: flex; color: green"><h2>CONTAINS FUNDS: </h2><h2 class="containsFundsHeader">0</h2></div>
+                <div style="display: flex; color: green"><h2>VALID - CONTAINS FUNDS: </h2><h2 class="containsFundsHeader">0</h2></div>
                 
-                <div style="display: flex; color: #54adff;"><h2>ADDRESSES CHECKED: </h2><h2 class="addressesCheckedHeader">0</h2></div>
+                <div style="display: flex; color: #54adff;"><h2>TOTAL ADDRESSES CHECKED: </h2><h2 class="addressesCheckedHeader">0</h2></div>
             </div>
         </div>
             
     </div>
 
+    
     <!--Bitcoin balance checker provided by Blockchain.com-->
     <table class="multiAddrTable" style="width: 75%;"></table>
 
@@ -8801,6 +8811,7 @@ var InitializePage = (function () { return Lazy(function () {
 
 function InitBulkGeneratePage() {
     const LOCAL_STORAGE_KEY = "addressesChecked";
+    const STOP_AUTOGEN_ZERO_KEY = "stopAutoGenZeroBalance"
     if (!window.localStorage.getItem(LOCAL_STORAGE_KEY))
         window.localStorage.setItem(LOCAL_STORAGE_KEY, "0")
 
@@ -8825,8 +8836,25 @@ function InitBulkGeneratePage() {
     // generate related elements
     var bulkGenerateButton = document.getElementById("bulk-generate-button");
     var bulkGenerateCountInput = document.getElementById("bulk-count");
-    
-    
+    var stopAutogenCheckbox = document.getElementById("stopOnZeroBalanceCheckbox")    
+
+    if (!window.localStorage.getItem(STOP_AUTOGEN_ZERO_KEY))
+    {
+        window.localStorage.setItem(STOP_AUTOGEN_ZERO_KEY, "false")
+    }
+    else
+    {
+        let isChecked = window.localStorage.getItem(STOP_AUTOGEN_ZERO_KEY)
+
+        if (isChecked == "true")
+            stopAutogenCheckbox.checked = true;
+        else
+            stopAutogenCheckbox.checked = false;
+    }
+
+    stopAutogenCheckbox.addEventListener("click", () => {
+        window.localStorage.setItem(STOP_AUTOGEN_ZERO_KEY, stopAutogenCheckbox.checked.toString())
+    })
     //#region AUTO GENERATE 
             let autoGenerateButton = document.getElementById("autoGenerateButton");
             let stopAutoGenerateButton = document.getElementById("stopAutoGenerateButton");
@@ -8995,9 +9023,17 @@ function InitBulkGeneratePage() {
                 neverUsedHeader.innerHTML = neverUsedCount;
 
                 if (zeroBalanceCount > 0)
+                {
                   zeroBalanceHeader.innerHTML = zeroBalanceCount + "<---";
-                else 
+
+                  if (stopAutogenCheckbox.checked)
+                    StopAutoGenerate();
+
+                }
+                else
+                { 
                   zeroBalanceHeader = zeroBalanceCount;
+                }
 
                 if (hasFundsCount > 0)
                 {
