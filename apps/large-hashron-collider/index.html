@@ -290,15 +290,19 @@ li
                         <h2 style="display: none; margin-left: 10px;" id="autoIndicator">Auto</h2>
                     </div>
 
+                    <br>
+
                     <div style="display: flex; align-items: center;">
-                        <div style="font-weight: bold; font-size: 20px; margin-right: 10px">Stop autogen on zero balance</div>
+                        <div style="font-weight: bold; font-size: 20px; margin-right: 10px">Stop on <span style="color: yellow">valid zero balance</span></div>
                         <input type="checkbox" id="stopOnZeroBalanceCheckbox" style="width: 25px; height: 25px">
                     </div>
 
+                    <br>
+
                     <div style="display: flex;">
                         <button id="bulk-generate-button" style="display: inline-block; width: 300px;">Create</button>
-                        <button id="autoGenerateButton" style="display: inline-block; width: 300px; margin-left: 20px; background-color: darkgreen;">Activate auto-generate</button>
-                        <button id="stopAutoGenerateButton" style="display: none; width: 300px; margin-left: 20px; background-color: darkred;">Stop auto-generate</button>
+                        <button id="autoGenerateButton" style="display: inline-block; width: 300px; margin-left: 20px; background-color: darkgreen;">AutoGen</button>
+                        <button id="stopAutoGenerateButton" style="display: none; width: 300px; margin-left: 20px; background-color: darkred;">Stop AutoGen</button>
                     </div>
                 </div>
             </div>
@@ -310,12 +314,13 @@ li
 
                 <div style="display: flex; color: green"><h2>VALID - CONTAINS FUNDS: </h2><h2 class="containsFundsHeader">0</h2></div>
                 
-                <div style="display: flex; color: #54adff;"><h2>ADDRESSES CHECKED: </h2><h2 class="addressesCheckedHeader">0</h2></div>
+                <div style="display: flex; color: #54adff;"><h2>TOTAL ADDRESSES CHECKED: </h2><h2 class="addressesCheckedHeader">0</h2></div>
             </div>
         </div>
             
     </div>
 
+    
     <!--Bitcoin balance checker provided by Blockchain.com-->
     <table class="multiAddrTable" style="width: 75%;"></table>
 
@@ -8926,8 +8931,8 @@ function InitBulkGeneratePage() {
                 })
 
                 //TEST ZERO BALANCE
-                resMap.push("1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm PRIVKEY")
-                api += "1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm|"
+                //resMap.push("1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm PRIVKEY")
+                //api += "1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm|"
 
                 //TEST WITH BALANCE
                 //resMap.push("34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo PRIVKEY")
