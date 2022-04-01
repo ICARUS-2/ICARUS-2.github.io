@@ -36,7 +36,8 @@ const DISPLAY_COLORS =
         Blue: "rgb(0,0,200)",
         Yellow: "yellow",
         White: "white",
-        LightBlue: "rgb(0,200,255)"
+        LightBlue: "rgb(0,200,255)",
+        Pink:"rgb(255,0,255)"
     },
     OffColors: 
     {
@@ -45,7 +46,8 @@ const DISPLAY_COLORS =
         Blue: "rgb(0,0,20)",
         Yellow: "rgb(10, 10, 0)",
         White: "rgb(20,20,20)",
-        LightBlue: "rgb(0,7,10)"
+        LightBlue: "rgb(0,7,10)",
+        Pink: "rgb(25,0,25)"
     }
 }
 
@@ -62,6 +64,29 @@ async function update()
 {
     updateBlockchainHeight();
     updatePrice();
+    updateBlockReward();
+}
+
+async function updateBlockReward()
+{
+    let currentBlockReward = getBlockReward();
+    let blockRewardAfterHalving = getBlockReward(currentBlockchainHeight+BLOCK_INTERVAL)
+
+    let cblSegLength = currentBlockReward.toString().length
+    if (currentBlockReward.toString().includes('.'))
+    {
+        cblSegLength--;
+    }
+
+    let blahSegLength = blockRewardAfterHalving.toString().length;
+    if (blockRewardAfterHalving.toString().includes('.'))
+    {
+        blahSegLength--;
+    }
+
+
+    $(".currentBlockReward").sevenSeg({value: currentBlockReward, colorOn: DISPLAY_COLORS.OnColors.Pink, colorOff: DISPLAY_COLORS.OffColors.Pink, digits: cblSegLength});
+    $(".blockRewardAfterHalving").sevenSeg({value: blockRewardAfterHalving, colorOn: DISPLAY_COLORS.OnColors.Pink, colorOff: DISPLAY_COLORS.OffColors.Pink, digits: blahSegLength});
 }
 
 async function getBlockchainHeight()
@@ -213,6 +238,7 @@ function initialize()
     $(".etaDay").sevenSeg({value : halvingDate.getDate(), colorOn : DISPLAY_COLORS.OnColors.Yellow, colorOff: DISPLAY_COLORS.OffColors.Yellow, digits : (halvingDate.getDay()+ 1).toString().length})
 
     updatePrice();
+    updateBlockReward();
 }
 
 function reInitialize()
