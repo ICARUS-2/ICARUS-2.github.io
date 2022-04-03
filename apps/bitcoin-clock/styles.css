@@ -107,6 +107,11 @@ main
         flex-direction: column;
     }
 
+    .blockRewardsContainer
+    {
+        max-width: 50%;
+    }
+
     .blockRewardAfterHalvingContainer
     {
         margin-top: 20px;
