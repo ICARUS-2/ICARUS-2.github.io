@@ -268,11 +268,13 @@ li
                         <div style="font-weight: bold; font-size: 20px; padding-bottom: 10px;">SearchType</div>
 
                         <div>
-                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-legacy" type="radio" name="address-type-bulk" style="width: 35px; height: 35px" checked>Legacy</label>
+                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-legacy" type="radio" name="address-type-bulk" style="width: 35px; height: 35px" checked>Legacy (max 128)</label>
                             <br>
-                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-segwit" type="radio" name="address-type-bulk" style="width: 35px; height: 35px">Segwit</label>
+                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-segwit" type="radio" name="address-type-bulk" style="width: 35px; height: 35px">Segwit (max 128)</label>
                             <br>
-                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-bech32" type="radio" name="address-type-bulk"  style="width: 35px; height: 35px">Native Segwit/BECH-32</label>
+                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-bech32" type="radio" name="address-type-bulk"  style="width: 35px; height: 35px">Native Segwit/BECH-32 (max 100)</label>
+                            <br>
+                            <label style="white-space: nowrap; font-size: 25px;"><input id="bulk-radio-type-all" type="radio" name="address-type-bulk"  style="width: 35px; height: 35px">All (max 40)</label>
                         </div>
 
                         <br>
@@ -285,7 +287,7 @@ li
                     
                     <div style="font-weight: bold; font-size: 20px;">Quantity</div>
                     <div style="display: flex; align-items: center;">
-                        <input id="bulk-count" type="number" value="120" step="1" min="1" max="10000" style="display: inline-block; font-size: 25px; width: 100px; padding: 5px;">
+                        <input id="bulk-count" type="number" value="20" step="1" min="1" max="10000" style="display: inline-block; font-size: 25px; width: 100px; padding: 5px;">
                         <h2 style="display: inline-block; padding-left: 10px;" class="generateIndicator">0/0</h2>
                         <h2 style="display: none; margin-left: 10px;" id="autoIndicator">Auto</h2>
                     </div>
@@ -6301,10 +6303,6 @@ window.CryptoJS = INIT_CryptoJS();
 
 </script>
 <script type="text/javascript">
-
-
-</script>
-<script type="text/javascript">
 "use strict";
 window.addEventListener("load", function () { return __awaiter(void 0, void 0, void 0, function () {
     var _a, IsDarkMode, SetDarkMode, IsTestnet, AsyncNoParallel, newLink, isTestnet, RunTests_1, testOverlay_1, testRunningDiv_1, testRunningProgress_1, testDoneDiv_1, testResultTextDiv_1, testResultCloseButton, GenerateSingleAddress;
@@ -7854,6 +7852,7 @@ function INIT_AddressUtil() {
             address += bech32Chars[checksum[i]];
         return address;
     }
+    //TODO:
     function GenerateNewRandomAddress(addressType) {
         var bytes = WorkerUtils.Get32SecureRandomBytes();
         var bigint = new BN(0);
@@ -7874,7 +7873,14 @@ function INIT_AddressUtil() {
             case "legacy":
                 address = MakeLegacyAddress(keypair);
                 break;
+            case "all":
+                addresses = [MakeLegacyAddress(keypair), MakeSegwitAddress(keypair), MakeBech32Address(keypair)]
+                return {
+                    addresses,
+                    privateKey
+                }
         }
+
         return {
             address: address,
             privateKey: privateKey
@@ -8822,9 +8828,12 @@ function InitBulkGeneratePage() {
     var segwitAddressTypeRadioButton = document.getElementById("bulk-radio-type-segwit");
     var bech32AddressTypeRadioButton = document.getElementById("bulk-radio-type-bech32");
     var legacyAddressTypeRadioButton = document.getElementById("bulk-radio-type-legacy");
+    var allAddressTypeRadioButton = document.getElementById("bulk-radio-type-all")
     segwitAddressTypeRadioButton.addEventListener("change", function () { return segwitAddressTypeRadioButton.checked && (addressType = "segwit"); });
     bech32AddressTypeRadioButton.addEventListener("change", function () { return bech32AddressTypeRadioButton.checked && (addressType = "bech32"); });
     legacyAddressTypeRadioButton.addEventListener("change", function () { return legacyAddressTypeRadioButton.checked && (addressType = "legacy"); });
+    allAddressTypeRadioButton.addEventListener("change", function () { return allAddressTypeRadioButton.checked && (addressType = "all"); });
+
     // bip38
     var bip38Checkbox = document.getElementById("bip38-enabled-bulk");
     var bip38PasswordContainer = document.getElementById("bip38-password-box-div-bulk");
@@ -8910,7 +8919,6 @@ function InitBulkGeneratePage() {
     
     async function BulkGenerate() {
         return __awaiter(this, void 0, void 0, function () {
-            
             previousCallTimestamp = Date.now();
 
             function UpdateProgress() {
@@ -8921,14 +8929,52 @@ function InitBulkGeneratePage() {
             }
             async function SetAndFormatResult(result) {
                 let api = "https://blockchain.info/balance?cors=true&active="
-                let resMap = result
-                    .map(function (_a, index) {
-                    var address = _a.address, privateKey = _a.privateKey;
+                let resMap
+                if (addressType == "all")
+                {
+                    resMap = result.map(function (_a, index)
+                    {
+                        let addresses = _a.addresses;
+                        let privateKey = _a.privateKey
 
-                    api += address + "|";
-                    
-                    return address + " " + privateKey;
-                })
+                        
+                        addresses.forEach((item) =>
+                        {
+                            api += item + "|"
+                        })
+
+                        return{
+                            legacy: addresses[0],
+                            segwit: addresses[1],
+                            bech32: addresses[2],
+                            privateKey
+                        }
+                    })
+
+                    //TEST CASE
+                    /*
+                    resMap.push({
+                        legacy: "1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm",
+                        segwit: "34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo",
+                        bech32: "bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97",
+                        privateKey: "5BitcoinKeyCompromisedDontUseBtc"
+                    })
+                    api += "1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm|34xp4vRoCGJym3xR7yCVPFHoCNxv4Twseo|bc1qgdjqv0av3q56jvd82tkdjpy7gdp9ut8tlqmgrpmv24sq90ecnvqqjwvw97"
+                    console.log(api)
+                    console.log(resMap)
+                    */
+                }
+                else
+                {
+                    resMap = result
+                        .map(function (_a, index) {
+                        var address = _a.address, privateKey = _a.privateKey;
+
+                        api += address + "|";
+                        
+                        return address + " " + privateKey;
+                    })
+                }
 
                 //TEST ZERO BALANCE
                 //resMap.push("1EHNa6Q4Jz2uvNExL497mE43ikXhwF6kZm PRIVKEY")
@@ -8953,69 +8999,235 @@ function InitBulkGeneratePage() {
                 //console.log(apiData);
 
                 let arr = [];
-
-                resMap.forEach((entry) =>
-                  {
-                      let split = entry.split(' ')
-                      let pub = split[0];
-                      let priv = split[1];
-                      let txCount = apiData[pub].n_tx;
-                      let finalBalance = apiData[pub].final_balance;
-                      let obj = {publicKey : pub, privateKey : priv, txCount : txCount, finalBalance : finalBalance}
-                    arr.push(obj)
-                  })
-
-                  let table = document.getElementsByClassName("multiAddrTable")[0];
-                  table.innerHTML = "";
-
-                  let header = table.insertRow(0);
-                  let publicKeyHeader = header.insertCell(0);
-                  let privateKeyHeader = header.insertCell(1);
-                  let txCountHeader = header.insertCell(2);
-                  let finalBalanceHeader = header.insertCell(3);
-                  
-                  publicKeyHeader.innerHTML = "PublicKey";
-                  privateKeyHeader.innerHTML = "PrivateKey";
-                  txCountHeader.innerHTML = "TransactionCount";
-                  finalBalanceHeader.innerHTML = "FinalBalance";
-
-                  let neverUsedCount = 0;
-                  let zeroBalanceCount = 0;
-                  let hasFundsCount = 0;
-
-                  for(let i = 1; i < arr.length + 1; i++)
-                  {
-                    let item = arr[i-1];
-
-                    let row = table.insertRow(i);
-
-                    let pubKeyCell = row.insertCell(0);
-                    let privKeyCell = row.insertCell(1);
-                    let txCountCell = row.insertCell(2);
-                    let finalBalCell = row.insertCell(3);
-
-                    pubKeyCell.innerHTML =  `<a href="https://www.blockchain.com/btc/address/${item.publicKey}" target="blank" class="pubKeyLink">${item.publicKey}</a>`;
-                    privKeyCell.innerHTML = item.privateKey;
-                    txCountCell.innerHTML = item.txCount;
-                    finalBalCell.innerHTML = item.finalBalance;
-
-                    if (item.finalBalance > 0)
-                    {
-                       row.style.color = "lime";
-                       hasFundsCount++;
-                    }
-                    else if (item.txCount > 0)
-                    {
-                      row.style.color = "yellow";
-                      zeroBalanceCount++;
-                    }
-                    else 
-                    {
-                      row.style.color = "red";
-                      neverUsedCount++;
-                    }
-                  }
                 
+                let neverUsedCount = 0;
+                let zeroBalanceCount = 0;
+                let hasFundsCount = 0;
+
+                let table = document.getElementsByClassName("multiAddrTable")[0];
+                table.innerHTML = "";
+
+                if (addressType != "all")
+                {
+                    resMap.forEach((entry) =>
+                    {
+                        let split = entry.split(' ')
+                        let pub = split[0];
+                        let priv = split[1];
+                        let txCount = apiData[pub].n_tx;
+                        let finalBalance = apiData[pub].final_balance;
+                        let obj = {publicKey : pub, privateKey : priv, txCount : txCount, finalBalance : finalBalance}
+                        arr.push(obj)
+                    })
+
+                    let header = table.insertRow(0);
+                    let publicKeyHeader = header.insertCell(0);
+                    let privateKeyHeader = header.insertCell(1);
+                    let txCountHeader = header.insertCell(2);
+                    let finalBalanceHeader = header.insertCell(3);
+                    
+                    publicKeyHeader.innerHTML = "PublicKey";
+                    privateKeyHeader.innerHTML = "PrivateKey";
+                    txCountHeader.innerHTML = "TransactionCount";
+                    finalBalanceHeader.innerHTML = "FinalBalance";
+
+                    for(let i = 1; i < arr.length + 1; i++)
+                    {
+                        let item = arr[i-1];
+
+                        let row = table.insertRow(i);
+
+                        let pubKeyCell = row.insertCell(0);
+                        let privKeyCell = row.insertCell(1);
+                        let txCountCell = row.insertCell(2);
+                        let finalBalCell = row.insertCell(3);
+
+                        pubKeyCell.innerHTML =  `<a href="https://www.blockchain.com/btc/address/${item.publicKey}" target="blank" class="pubKeyLink">${item.publicKey}</a>`;
+                        privKeyCell.innerHTML = item.privateKey;
+                        txCountCell.innerHTML = item.txCount;
+                        finalBalCell.innerHTML = item.finalBalance;
+
+                        if (item.finalBalance > 0)
+                        {
+                        row.style.color = "lime";
+                        hasFundsCount++;
+                        }
+                        else if (item.txCount > 0)
+                        {
+                        row.style.color = "yellow";
+                        zeroBalanceCount++;
+                        }
+                        else 
+                        {
+                        row.style.color = "red";
+                        neverUsedCount++;
+                        }
+                    }
+                }
+                else //If the user wants to search all address types
+                {
+                    let header = table.insertRow(0);
+
+                    let privateKeyHeader = header.insertCell(0);
+                    privateKeyHeader.innerHTML = "PrivateKey";
+
+                    //Divider
+                    let privateKeyDividerHeader = header.insertCell(1);
+                    privateKeyDividerHeader.innerHTML = "";
+                    //
+
+                    let legacyHeader = header.insertCell(2);
+                    legacyHeader.innerHTML = "LegacyPublicKey";
+
+                    let legacyTxCountHeader = header.insertCell(3);
+                    legacyTxCountHeader.innerHTML = "LegacyTransactionCount";
+
+                    let legacyFinalBalanceHeader = header.insertCell(4);
+                    legacyFinalBalanceHeader.innerHTML = "LegacyFinalBalance";
+
+                    //Divider
+                    let legacyDividerHeader = header.insertCell(5);
+                    legacyDividerHeader.innerHTML = "";
+                    //
+
+                    let segwitHeader = header.insertCell(6);
+                    segwitHeader.innerHTML = "SegwitPublicKey";
+
+                    let segwitTxCountHeader = header.insertCell(7);
+                    segwitTxCountHeader.innerHTML = "SegwitTransactionCount";
+
+                    let segwitFinalBalanceHeader = header.insertCell(8);
+                    segwitFinalBalanceHeader.innerHTML = "SegwitFinalBalance"
+
+                    //Divider
+                    let segwitDividerHeader = header.insertCell(9);
+                    segwitDividerHeader.innerHTML = "";
+                    //
+
+                    let bech32Header = header.insertCell(10);
+                    bech32Header.innerHTML = "Bech32PublicKey"
+
+                    let bech32TxCountHeader = header.insertCell(11);
+                    bech32TxCountHeader.innerHTML = "Bech32TransactionCount"
+
+                    let bech32FinalBalanceHeader = header.insertCell(12);
+                    bech32FinalBalanceHeader.innerHTML = "Bech32FinalBalance"
+
+                    resMap.forEach( (entry, i) =>
+                    {                  
+                        debugger;  
+                        let index = i+1;
+
+                        let privateKey = entry.privateKey
+
+                        let legacy = entry.legacy;
+                        let legacyTxCount = apiData[legacy].n_tx
+                        let legacyFinalBalance = apiData[legacy].final_balance
+
+                        let segwit = entry.segwit;
+                        let segwitTxCount = apiData[segwit].n_tx
+                        let segwitFinalBalance = apiData[segwit].final_balance
+
+                        let bech32 = entry.bech32;
+                        let bech32TxCount = apiData[bech32].n_tx;
+                        let bech32FinalBalance = apiData[bech32].final_balance
+
+                        let totalBalance = legacyFinalBalance + segwitFinalBalance + bech32FinalBalance;
+                        let totalTxCount = legacyTxCount + segwitTxCount + bech32TxCount;
+
+                        let row = table.insertRow(index)
+                        
+                        let privateKeyCell = row.insertCell(0);
+                        privateKeyCell.innerHTML = privateKey;
+
+                        if (totalBalance > 0)
+                        {
+                            privateKeyCell.style.color = "lime";
+                        }
+                        else if (totalTxCount > 0)
+                        {
+                            privateKeyCell.style.color = "yellow";
+                        }
+                        else
+                        {
+                            privateKeyCell.style.color = "red";
+                        }
+                        
+                        //divider
+                        let privateKeyDividerCell = row.insertCell(1);
+                        privateKeyDividerCell.innerHTML = "|";
+                        //
+
+                        let legacyCell = row.insertCell(2);
+                        legacyCell.innerHTML = `<a href="https://www.blockchain.com/btc/address/${legacy}" target="blank" class="pubKeyLink">${legacy}</a>`;
+
+                        let legacyTxCountCell = row.insertCell(3);
+                        legacyTxCountCell.innerHTML = legacyTxCount;
+
+                        let legacyFinalBalanceCell = row.insertCell(4);
+                        legacyFinalBalanceCell.innerHTML = legacyFinalBalance;
+                        
+                        //divider
+                        let legacyDividerCell = row.insertCell(5);
+                        legacyDividerCell.innerHTML = "|";
+                        //
+                        recordBalanceStats([legacyCell, legacyTxCountCell, legacyFinalBalanceCell], legacyFinalBalance, legacyTxCount)
+
+                        let segwitCell = row.insertCell(6);
+                        segwitCell.innerHTML = `<a href="https://www.blockchain.com/btc/address/${segwit}" target="blank" class="pubKeyLink">${segwit}</a>`;
+
+                        let segwitTxCountCell = row.insertCell(7);
+                        segwitTxCountCell.innerHTML = segwitTxCount;
+
+                        let segwitFinalBalanceCell = row.insertCell(8);
+                        segwitFinalBalanceCell.innerHTML = segwitFinalBalance
+
+                        //divider
+                        let segwitDividerCell = row.insertCell(9);
+                        segwitDividerCell.innerHTML = "|";
+                        //
+                        recordBalanceStats([segwitCell, segwitTxCountCell, segwitFinalBalanceCell], segwitFinalBalance, segwitTxCount)
+
+                        let bech32Cell = row.insertCell(10);
+                        bech32Cell.innerHTML = `<a href="https://www.blockchain.com/btc/address/${bech32}" target="blank" class="pubKeyLink">${bech32}</a>`;
+
+                        let bech32TxCountCell = row.insertCell(11);
+                        bech32TxCountCell.innerHTML = bech32TxCount
+
+                        let bech32FinalBalanceCell = row.insertCell(12);
+                        bech32FinalBalanceCell.innerHTML = bech32FinalBalance;
+
+                        recordBalanceStats([bech32Cell, bech32TxCountCell, bech32FinalBalanceCell], bech32FinalBalance, bech32TxCount)
+
+                    } )
+
+                    function recordBalanceStats(cells, balance, txCount)
+                    {
+                        let color;
+
+                        if (balance > 0)
+                        {
+                            hasFundsCount++;
+                            color = "green"
+                        }
+                        else if (txCount > 0)
+                        {
+                            zeroBalanceCount++;
+                            color = "yellow"
+                        }
+                        else
+                        {
+                            neverUsedCount++;
+                            color = "red";
+                        }
+
+                        cells.forEach( (c)=>
+                        {
+                            c.style.color = color;
+                        } )
+                    }
+                }
+
                 let neverUsedHeader = document.getElementsByClassName("neverUsedHeader")[0];
                 let zeroBalanceHeader = document.getElementsByClassName("zeroBalanceHeader")[0];
                 let containsFundsHeader = document.getElementsByClassName("containsFundsHeader")[0];
@@ -9049,7 +9261,18 @@ function InitBulkGeneratePage() {
                   containsFundsHeader.innerHTML = hasFundsCount;
 
                 let addrChecked = Number(window.localStorage.getItem(LOCAL_STORAGE_KEY));
-                addrChecked+= arr.length;
+                if (Number.isNaN(addrChecked))
+                    addrChecked = 0;
+
+                if (addressType == "all")
+                {
+                    addrChecked += resMap.length*3
+                }
+                else
+                {
+                    addrChecked+= arr.length;
+                }
+
                 window.localStorage.setItem(LOCAL_STORAGE_KEY, addrChecked);
                 document.getElementsByClassName("addressesCheckedHeader")[0].innerHTML = window.localStorage.getItem(LOCAL_STORAGE_KEY);
               //TODO
@@ -9068,8 +9291,8 @@ function InitBulkGeneratePage() {
                             alert("Number must be greater than zero");
                             return [2 /*return*/];
                         }
-                        if (count > 140) {
-                            alert("Number must be 140 at most");
+                        if (count > 128) {
+                            alert("Number must be 128 at most");
                             return [2 /*return*/];
                         }
                         bulkAddressType = addressType;
