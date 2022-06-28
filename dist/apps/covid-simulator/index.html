@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COVID-19 Simulator</title>
+        <link rel="stylesheet" href="./styles.css">
+        <script src="src/hamburger-menu.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-logo">
+                <img src="./assets/corona-symbol.png">
+                <h1>COVID-19 Simulator</h1>
+            </div>
+            <div class="nav-links">
+                <a class="home-link" href="#">Home</a>
+                <a class="login-link" href="login.html">Login</a>
+            </div>
+            <div class="hamburger-menu" onclick="UpdateMenu()">
+                <svg viewBox="0 0 100 80" width="40" height="40">
+                    <rect width="100" height="20"></rect>
+                    <rect y="30" width="100" height="20"></rect>
+                    <rect y="60" width="100" height="20"></rect>
+                  </svg>
+            
+                  <div class="hm-dropdown">
+                    <a class="hm-link" href="#">Home</a>
+                    <a class="hm-link" href="login.html">Login</a>
+                </div>
+            </div>
+        </nav>
+        <main class="index-main">
+            <div class="desc">
+                <div class="desc-para">
+                    <h2>Why is it important?</h2>
+                    <p>We believe showcasing a simulation
+                    would be valuable to teach the importance 
+                    of social distancing.</p>
+                </div>
+
+                <div class="desc-para">
+                    <h2>What can I do with it?</h2>
+                    <p>
+                        With this site, you can see the effects
+                        of how quick or slow the virus spreads 
+                        depending on differing enviromental conditions 
+                        and the social distancing measures taken.  
+                    </p>
+                </div>
+
+                <div class="desc-para">
+                    <h2>Who is it for?</h2>
+                    <p>
+                        Governemental agencies and technical advisors. 
+                        It is paramount that our leaders understand the 
+                        impact of social distancing as broadly as possible.
+                        With this simulation, we hope to further this understanding.
+                    </p>
+                </div>
+            </div>
+            <div class="intro">
+                <h2>How does it work?</h2>
+                <br>
+                <p>The page has an enviroment with lots of bubbles that represent individuals. Red 
+                    bubbles are infected, blue are healthy, grey are immune. 
+                </p>
+                <br>
+                <p>
+                    Some bubbles will be immobile and some move around. If a red (sick)
+                    bubble bumps into a blue (healthy) bubble, it will turn 
+                    red. After a short time, the red bubbles will turn grey (immune/recovered).
+                </p>
+                <br>
+                <p>
+                    You have the ability to control the size of the environment, the size of the bubbles,
+                    the number of bubbles (up to 500) and which ones stay still, the initial ratio of sick
+                    to healthy, and the speed of the bubbles.
+                </p>
+            </div>
+        </main>
+        <footer class="index">
+            <div class="footer-info">
+                <p>Developed by 
+                    <br>Ethan Briffett
+                    <br>Phil Aube
+                    <br>Tarik Bikhandafne
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

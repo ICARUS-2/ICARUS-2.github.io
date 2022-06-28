@@ -1,0 +1,384 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root
+{
+    --NAV-H-PAD: 12px;
+    --NAV-LINK-SPACE: 12px;
+    --NAV-LINK-ANCHOR-PAD: 20px;
+    --NAV-LINK-EDGE: 10px;
+    --NAV-LOGO-SIZE: 70px;
+    --NAV-HEIGHT: 80px;
+
+    --MAIN-DESC-PAD: 40px;
+    --MAIN-INDEX-HEIGHT: 900px;
+    --MAIN-INDEX-HEIGHT-M: 1500px;
+
+    --FOOTER-HEIGHT: 140px;
+    --FOOTER-HEIGHT-M: 250px;
+    --FOOTER-FORM-HEIGHT: 90%;
+    --FOOTER-HEIGHT-L: 420px;
+
+    --LOGIN-HEIGHT: 700px;
+
+    --LIGHT-BLUE: rgb(0, 217, 255);
+    --DARK-RED: rgb(129, 0, 0);
+    --DARKER-RED: rgb(117, 0, 0);
+    --DARK-BLUE: rgb(2, 14, 179);
+    --DARKER-BLUE: rgb(0, 5, 71);
+    --GRADIENT: rgba(0,0,0,0.7);
+    --LIGHT-GRADIENT: rgba(0, 0, 0, 0.4);
+
+}
+
+/*#region NAV*/
+nav
+{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(172, 0, 0);
+    padding-left: var(--NAV-H-PAD);
+    padding-right: var(--NAV-H-PAD);
+    height: var(--NAV-HEIGHT);
+}
+
+.nav-logo
+{
+    display: flex;
+    color: white;
+    align-items: center;
+}
+
+.nav-logo img
+{
+    width: var(--NAV-LOGO-SIZE);
+    height: var(--NAV-LOGO-SIZE);
+}
+
+.nav-links
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-links a
+{
+    padding: var(--NAV-LINK-ANCHOR-PAD);
+    background-color: var(--DARK-RED);
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.nav-links a:hover
+{
+    background-color: var(--DARKER-RED);
+    color: var(--LIGHT-BLUE);
+}
+
+.login-link
+{
+    margin-left: var(--NAV-LINK-SPACE);
+    margin-right: var(--NAV-LINK-SPACE);
+}
+
+.sim-link
+{
+    margin-right: var(--NAV-LINK-EDGE);
+}
+
+.hamburger-menu, .hm-dropdown
+{
+    display: none;
+}
+
+.hm-dropdown
+{
+    flex-direction: column;
+    background-color: white;
+}
+
+.hm-dropdown a
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+}
+
+.hm-link
+{
+    margin-top: 4px;
+    color: black;
+}
+
+/*#endregion*/
+
+/*#region INDEX MAIN*/
+.index-main
+{
+    background-image: linear-gradient(var(--GRADIENT), var(--GRADIENT)), url(./assets/hero-image.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: var(--MAIN-INDEX-HEIGHT);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: var(--MAIN-DESC-PAD);
+    padding-right: var(--MAIN-DESC-PAD);
+}
+
+.desc
+{
+    color: white;
+    display: flex;
+}
+
+.intro
+{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    padding: var(--MAIN-DESC-PAD);
+    border: solid 2px var(--DARKER-RED);
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.desc-para
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--MAIN-DESC-PAD);
+    border: solid 2px var(--DARKER-RED);
+    background-color: rgba(0, 0, 0, .6);
+}
+
+.desc-para:hover, .intro:hover
+{
+    background-color: rgba(255, 255, 255, .25);
+}
+/*#endregion*/
+
+
+/*#region LOGIN*/
+#login-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--LOGIN-HEIGHT);
+    background-image: linear-gradient(var(--GRADIENT), var(--LIGHT-GRADIENT)), url(./assets/login-overlay.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 900px;
+}
+
+#login{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: solid 2px;
+    border-radius: 20px;
+    background-color: var(--LIGHT-GRADIENT);
+
+}
+/*#endregion LOGIN*/
+
+/*#region FOOTER*/
+footer
+{
+    color: white;
+    background-color: var(--DARKER-BLUE);
+    display: flex;
+    justify-content: space-around;
+    height: var(--FOOTER-HEIGHT);
+    align-items: center;
+}
+
+footer form
+{
+    display: flex;
+    border: solid white 2px;
+    border-radius: 10px;
+    margin: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    height: var(--FOOTER-FORM-HEIGHT);
+    background-color: var(--DARK-BLUE);
+}
+
+textarea
+{
+    height: 50px;
+    resize: none;
+}
+
+.contactform
+{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    margin-right: 5px;
+}
+
+.submit-contact
+{
+    margin: 10px;
+    margin-left: 5px;
+    padding: 10px;
+    height: 100px;
+    align-self: center;
+}
+
+.footer-info
+{
+    text-align: center;
+}
+/*#endregion*/
+
+/*#region SIMULATION*/
+
+#sim-main
+{
+    text-align: center;
+    background-color: #121212;
+    color: white;
+}
+
+canvas
+{
+    border-top: solid white 5px;
+    border-bottom: solid white 5px;
+    width: 100%;
+}
+
+#simulator-form 
+{
+    padding: 25px;
+    border: solid white 5px;
+}
+
+#simulator-form input
+{
+    margin-top: 20px;
+}
+
+#sim-submit
+{
+    padding: 15px 50px;
+}
+
+section
+{
+    padding: 25px;
+    border: solid white 5px;
+}
+
+section h2
+{
+    padding: 25px;
+}
+
+/*#endregion*/
+
+/*#region MEDIA QUERY SECTION*/
+@media screen and (max-width: 677px)
+{
+    .hamburger-menu
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        fill: white;
+        flex-direction: column;
+        margin-right: var(--NAV-LINK-EDGE);
+    }
+
+    .hamburger-menu svg:hover
+    {
+        fill: var(--DARK-BLUE);
+    }
+
+    .nav-links
+    {
+        display: none;
+    }
+
+    .index-main
+    {
+        height: var(--MAIN-INDEX-HEIGHT-M);
+    }
+
+    .desc
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    footer
+    {
+        flex-direction: column;
+        height: var(--FOOTER-HEIGHT-M);
+        text-align: center;
+    }
+}
+/*#endregion*/
+
+/*#region MEDIA QUERY SECTION MOBILE*/
+@media screen and (max-width: 390px)
+{
+    footer
+    {
+        height: var(--FOOTER-HEIGHT-L);
+    }
+    .contact
+    {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .submit-contact
+    {
+        margin: 10px;
+        padding: 25px;
+        width: 75%;
+    }
+    
+    .contactform
+    {
+        margin: 10px;
+        flex-direction: column;
+    }
+
+    .index-main
+    {
+        height: 1500px;
+    }
+}
+
+
+@media screen and (max-width: 375px)
+{
+    .index-main
+    {
+        height: 1750px;
+    }
+}
+
+@media screen and (max-width: 330px)
+{
+    .index-main
+    {
+        height: 2000px;
+    }
+}

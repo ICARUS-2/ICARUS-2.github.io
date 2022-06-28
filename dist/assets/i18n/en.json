@@ -1,0 +1,156 @@
+{
+    "nav":
+    {
+        "homeLink" : "Home",
+        "projectsLink": "Projects"
+    },
+
+    "home": 
+    {
+        "bannerText": "Ethan Briffett - Software Developer",
+        "aboutMeHeader":  "About <span class='colorBlue'>Me</span>",
+        "aboutMeDescription": "Who am I? I am a computer enthusiast and software developer who will soon be pursuing a Bachelor's of Computer Science at Concordia University.",
+        "aboutMeDescription2": "I am interested in a multitude of aspects within the field, such as app design, databases, and web development. My aim is to improve the lives of the users I program for!",
+        "seeMyProjectsButton": "See my projects!",
+        "workWithMeButton": "Work with me?",
+        "technologiesDescription": "Throughout the development of my projects, I have become familiar with the following technologies:"
+    },
+
+    "projects": 
+    {
+        "bannerText": "My Projects",
+        "mainHeader": "Here are some of the projects I've worked on! Click on a project to view its details.",
+        "sitesHeader": "Sites & Web Apps",
+        "appsHeader": "Apps",
+        "videoGamesHeader": "Video Games",
+
+        "template":
+        {
+            "projectsPageHeader": "",
+            "infoPageHeader": "",
+            "infoPageDescription": "",
+            "infoPageButtonText": ""
+        },
+
+        "moneroOceanCustomUi": 
+        {
+            "projectsPageHeader" : "MoneroOcean Custom UI",
+            "infoPageHeader" : "MoneroOcean Custom UI",
+            "infoPageDescription": "A customizable dashboard UI that allows MoneroOcean miners to view their stats, transaction reports, blocks, and more from the MoneroOcean REST API! Includes the ability to change threshold and theme.",
+            "infoPageButtonText": "Go to Dashboard"
+        },
+
+        "elliptiKeys":
+        {
+            "projectsPageHeader": "ElliptiKeys",
+            "infoPageHeader": "ElliptiKeys",
+            "infoPageDescription": "Implemented using Angular and the Blockchain.com Data API, ElliptiKeys is a sequential database containing every single Bitcoin private/public key in existance, created for the purpose of educating the general public about the security of the Bitcoin network and 256-bit ECC.<br><br> Yes, your private key is on here somewhere. No, no one will ever find it.",
+            "infoPageButtonText": "Go to Site"
+        },
+
+        "hellaGoodPizza":
+        {
+            "projectsPageHeader": "Hella Good Pizza Site",
+            "infoPageHeader": "Hella Good Pizza Site",
+            "infoPageDescription": "A test pizza restaurant website that demonstrates the four main C-R-U-D operations in a relational database, as well as user roles, permissions, and authentication. Written using .NET Core MVC with Entity Framework Core to handle database interactions. Developed in collaboration with <a href='https://github.com/overflow-gitch'  class='unstyledLink'>overflow-gitch</a> and <a href='https://github.com/philaube' class='unstyledLink'>philaube</a> as the final project for Fall 2021 Web Programming III course.",
+            "infoPageButtonText": "GitHub Repository"
+        },
+
+        "meadeWillisSite":
+        {
+            "projectsPageHeader": "Intern Project - Meade Willis Site"
+        },
+
+        "largeHashronCollider":
+        {
+            "projectsPageHeader": "Large Hashron Collider",
+            "infoPageHeader": "Large Hashron Collider",
+            "infoPageDescription": "Try your luck at searching for coins amongst the possible 2^256 Bitcoin keys! Based off of <a href='https://github.com/Kimbatt/btc-address-generator' class='unstyledLink'>Kimbatt's btc-address-generator</a>",
+            "infoPageButtonText":"Go to Site"
+        },
+
+        "bitcoinClock":
+        {
+            "projectsPageHeader": "Bitcoin Clock",
+            "infoPageHeader": "Bitcoin Clock",
+            "infoPageDescription": "A clock that displays the time estimation of Bitcoin's block reward halving. Other data such as blocks until halvening, blockchain height, current/future block rewards, and price are also shown. Made with <a href='https://brandonlwhite.github.io/sevenSeg.js/' class='unstyledLink'>SevenSeg.js</a>.",
+            "infoPageButtonText": "Go to Site"
+        },
+
+        "covidSimulator":
+        {
+            "projectsPageHeader": "COVID-19 Simulator",
+            "infoPageHeader": "COVID-19 Simulator",
+            "infoPageDescription": "An adjustable simulator meant to show how COVID-19 and other viruses spread among a population. Developed in collaboration with <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> and <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Created as the final project for Winter 2020 User Interfaces course.",
+            "infoPageButtonText": "Go to Site"
+        },
+
+        "tnnfBudgetViewer":
+        {
+            "projectsPageHeader": "TNNF BudgetViewer",
+            "infoPageHeader": "TNNF BudgetViewer",
+            "infoPageDescription": "A WPF financial planning app that lets the user manage different categories and expenses. Allows the user to create as many budget plans as they want and import them. Developed in collaboration with <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> and <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Created as the final project for Winter 2021 Application Development I course.",
+            "infoPageButtonText": "GitHub Repository"
+        },
+
+        "xvbGui":
+        {
+            "projectsPageHeader": "XvB_GUI",
+            "infoPageHeader": "XvB_GUI",
+            "infoPageDescription": "A WPF dashboard application that retrieves pool and miner data on the XMRvsBEAST Monero Mining Pool. Allows the user to monitor payouts, boosts, and bonuses for up to three Monero addresses. For people who enjoy watching the markets, selectable exchange rates are displayed in-app. <br><br> Due to the pool's shutdown in favor of decentralized mining, this client has been deprecated and the source code has been archived. It can still be forked to use any pool's API.",
+            "infoPageButtonText": "GitHub Repository (Archived)"
+        },
+
+        "tnnfContainers":
+        {
+            "projectsPageHeader": "TNNFContainers IoT System",
+            "infoPageHeader": "TNNFContainers IoT System",
+            "infoPageDescription": "An IoT system designed to control and monitor Raspberry Pi container farms. There are two primary components: The Python scripts running on the Pi sending the telemetry to the Azure IoT Hub, and the Xamarin Forms app that interacts with the IoT Hub. Developed in collaboration with <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> and <a href='https://github.com/philaube' class='unstyledLink'>philaube</a> as the Winter 2022 graduation project. <br><br>Documentation available <a class='unstyledLink' href='https://docs.google.com/document/d/1-52Zz_e1vIv51Z64m4wdY4Z31YisfALbznkaYPgknVE/'>here</a>",
+            "infoPageButtonText": "Download .zip (42MB)"
+        },
+
+        "waveDodger":
+        {
+            "projectsPageHeader": "WaveDodger",
+            "infoPageHeader": "WaveDodger",
+            "infoPageDescription": "My first ever video game developed as the final project for Fall 2019 Programming I, written in C#. Dodge waves of enemies as they travel down the screen. Collect all of the coins in order to advance to the next level.<br><br> Also, don't die. No pressure.",
+            "infoPageButtonText": "Download .zip (70MB)"
+        },
+
+        "waveDodger2":
+        {
+            "projectsPageHeader": "WaveDodger II",
+            "infoPageHeader": "WaveDodger II",
+            "infoPageDescription": "The riveting sequel to the original! Featuring random enemy movement and a dual-mode level editor. <br><br>Also, don't die. Still no pressure.",
+            "infoPageButtonText": "GitHub Repository"
+        },
+
+        "slimeDodger":
+        {
+            "projectsPageHeader": "WaveDodger III - SlimeDodger",
+            "infoPageHeader": "WaveDodger III - SlimeDodger",
+            "infoPageDescription": "The third game in the WaveDodger series, implemented in Javascript. Developed in collaboration with <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> for the final project of Fall 2021 Game Programming course. Code library provided by <a href='https://github.com/VikramSinghMTL' class='unstyledLink'>VikramSinghMTL</a>",
+            "infoPageButtonText": "Play Game"
+        },
+
+        "videoPoker":
+        {
+            "projectsPageHeader": "Video Poker",
+            "infoPageHeader": "Video Poker",
+            "infoPageDescription": "A fun little CLI gambling game that is sure to cause an addiction to the real thing. Please don't develop an addiction to the real thing.",
+            "infoPageButtonText": "Download (803KB)"
+        }
+    },
+
+    "contact":
+    {
+        "bannerText": "Contact",
+        "form":
+        {
+            "fullNamePlaceholder": "Full name*",
+            "emailAddressPlaceholder": "E-mail address*",
+            "messagePlaceholder": "Enter a message",
+            "submitButtonText": "Submit"
+        }
+    }
+}

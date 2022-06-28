@@ -1,0 +1,156 @@
+{
+    "nav":
+    {
+        "homeLink" : "Acceuil",
+        "projectsLink": "Projets"
+    },
+
+    "home":
+    {
+        "bannerText": "Ethan Briffett - Développeur Logiciel",
+        "aboutMeHeader": "À Propos de <span class='colorBlue'>Moi</span>",
+        "aboutMeDescription": "Qui suis je? Je suis un passionné d'informatique et un développeur de logiciels qui poursuivra bientôt un baccalauréat en informatique à l'Université Concordia.",
+        "aboutMeDescription2": "Je m'intéresse à une multitude d'aspects dans le domaine, tels que la conception d'applications, les bases de données et le développement Web. Mon objectif est d'améliorer la vie des utilisateurs pour qui je programme !",
+        "seeMyProjectsButton": "Voir mes projets!",
+        "workWithMeButton": "Travaille avec moi?",
+        "technologiesDescription": "Tout au long du développement de mes projets, je me suis familiarisé avec les technologies suivantes :"
+    },
+
+    "projects": 
+    {
+        "bannerText": "Mes Projets",
+        "mainHeader": "Voici quelques-uns des projets sur lesquels j'ai travaillé! Cliquez sur un projet pour afficher ses détails.",
+        "sitesHeader": "Sites et Applications Web",
+        "appsHeader": "Applications",
+        "videoGamesHeader": "Jeux Vidéo",
+
+        "template":
+        {
+            "projectsPageHeader": "",
+            "infoPageHeader": "",
+            "infoPageDescription": "",
+            "infoPageButtonText": ""
+        },
+
+        "moneroOceanCustomUi": 
+        {
+            "projectsPageHeader" : "IU Alternative MoneroOcean",
+            "infoPageDescription": "Une interface utilisateur de tableau de bord personnalisable qui permet aux mineurs de MoneroOcean d'afficher leurs statistiques, leurs rapports de transaction, leurs blocs et bien plus encore à partir de l'API REST de MoneroOcean! Inclut la possibilité de changer de seuil et de thème.",
+            "infoPageHeader" : "IU Alternative MoneroOcean",
+            "infoPageButtonText": "Aller à l'Application"
+        },
+
+        "elliptiKeys":
+        {
+            "projectsPageHeader": "ElliptiKeys",
+            "infoPageHeader": "ElliptiKeys",
+            "infoPageDescription": "Mis en œuvre à l'aide d'Angular et de l'API de données Blockchain.com, ElliptiKeys est une base de données séquentielle contenant chaque clé privée/publique Bitcoin existante, créée dans le but d'éduquer le grand public sur la sécurité du réseau Bitcoin et de l'ECC 256 bits. br><br> Oui, votre clé privée est ici quelque part. Non, personne ne le trouvera jamais.",
+            "infoPageButtonText": "Aller au Site"
+        },
+
+        "hellaGoodPizza":
+        {
+            "projectsPageHeader": "Site <<Hella Good Pizza>>",
+            "infoPageHeader": "Site <<Hella Good Pizza>>",
+            "infoPageDescription": "Un site Web de pizzeria de test qui illustre les quatre principales opérations C-R-U-D dans une base de données relationnelle, ainsi que les rôles d'utilisateur, les autorisations et l'authentification. Écrit en utilisant .NET Core MVC avec Entity Framework Core pour gérer les interactions de base de données. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a> comme projet final pour le cours de programmation Web III de l'automne 2021.",
+            "infoPageButtonText": "Dépot Github"
+        },
+        
+        "meadeWillisSite":
+        {
+            "projectsPageHeader": "Projet de Stage: Site Meade Willis"
+        },
+
+        "largeHashronCollider":
+        {
+            "projectsPageHeader": "<<Large Hashron Collider>>",
+            "infoPageHeader": "<<Large Hashron Collider>>",
+            "infoPageDescription": "Tentez votre chance en cherchant des pièces parmi les 2^256 clés Bitcoin possibles ! Basé sur <a href='https://github.com/Kimbatt/btc-address-generator' class='unstyledLink'>btc-address-generator de Kimbatt</a>",
+            "infoPageButtonText": "Aller à l'Application"
+        },
+
+        "bitcoinClock":
+        {
+            "projectsPageHeader": "Horloge Bitcoin",
+            "infoPageHeader": "Horloge Bitcoin",
+            "infoPageDescription": "Une horloge qui montre le temps jusqu'au 'halving' de Bitcoin. D'autres données telles que les blocs jusqu'àu 'halving', la hauteur de la blockchain, les récompenses de bloc actuelles/futures et le prix sont également affichées. fait avec <a href='https://brandonlwhite.github.io/sevenSeg.js/' class='unstyledLink'>SevenSeg.js</a>.",
+            "infoPageButtonText": "Aller à l'Application"
+        },
+
+        "covidSimulator":
+        {
+            "projectsPageHeader": "Simulateur COVID-19",
+            "infoPageHeader": "Simulateur COVID-19",
+            "infoPageDescription": "Un simulateur ajustable destiné à montrer comment le COVID-19 et d'autres virus se propagent au sein d'une population. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Créé en tant que projet final pour le cours d'interfaces utilisateur de l'hiver 2020.",
+            "infoPageButtonText": "Aller à l'Application"
+        },
+
+        "tnnfBudgetViewer":
+        {
+            "projectsPageHeader": "TNNF BudgetViewer",
+            "infoPageHeader": "TNNF BudgetViewer",
+            "infoPageDescription": "Une application de planification financière WPF qui permet à l'utilisateur de gérer différentes catégories et dépenses. Permet à l'utilisateur de créer autant de plans budgétaires qu'il le souhaite et de les importer. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Créé en tant que projet final pour le cours de développement d'applications I de l'hiver 2021.",
+            "infoPageButtonText": "Dépot GitHub"
+        },
+
+        "xvbGui":
+        {
+            "projectsPageHeader": "XvB_GUI",
+            "infoPageHeader": "XvB_GUI",
+            "infoPageDescription": "Une application de tableau de bord WPF qui récupère les données de pool et de mineur sur le pool de minage de Monero XMRvsBEAST. Permet à l'utilisateur de surveiller les paiements, les boosts et les bonus pour jusqu'à trois adresses Monero. Pour les personnes qui aiment regarder les marchés, des taux de change sélectionnables sont affichés dans l'application. <br><br> En raison de l'arrêt du pool au profit du minage décentralisé, ce client a été déprécié et le code source a été archivé. Il peut toujours être forké pour utiliser l'API de n'importe quel pool.",
+            "infoPageButtonText": "Dépot GitHub (Archivé)"
+        },
+
+        "tnnfContainers":
+        {
+            "projectsPageHeader": "Système IoT TNNFContainers",
+            "infoPageHeader": "Système IoT TNNFContainers",
+            "infoPageDescription": "Un système IoT conçu pour contrôler et surveiller les fermes de conteneurs Raspberry Pi. Il existe deux composants principaux : les scripts Python s'exécutant sur le Pi envoyant la télémétrie à Azure IoT Hub et l'application Xamarin Forms qui interagit avec IoT Hub. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a> comme projet de fin d'études Hiver 2022. <br><br>Documentation disponible <a class='unstyledLink' href='https://docs.google.com/document/d/1-52Zz_e1vIv51Z64m4wdY4Z31YisfALbznkaYPgknVE/'>ici</a>",
+            "infoPageButtonText": "Télécharger .zip (42MB)"
+        },
+
+        "waveDodger":
+        {
+            "projectsPageHeader": "WaveDodger",
+            "infoPageHeader": "WaveDodger",
+            "infoPageDescription": "Mon tout premier jeu vidéo développé en tant que projet final pour Fall 2019 Programming I, écrit en C#. Esquivez les vagues d'ennemis alors qu'ils parcourent l'écran. Récupérez toutes les pièces pour passer au niveau suivant. <br><br> Ne mourez pas non plus. Pas de pression.",
+            "infoPageButtonText": "Télécharger .zip (70MB)"
+        },
+
+        "waveDodger2":
+        {
+            "projectsPageHeader": "WaveDodger II",
+            "infoPageHeader": "WaveDodger II",
+            "infoPageDescription": "La suite captivante de l'original ! Avec un mouvement ennemi aléatoire et un éditeur de niveau à double mode. <br><br>Aussi, ne meurs pas. Toujours pas de pression.",
+            "infoPageButtonText": "GitHub Repository"
+        },
+
+        "slimeDodger":
+        {
+            "projectsPageHeader": "WaveDodger III - SlimeDodger",
+            "infoPageHeader": "WaveDodger III - SlimeDodger",
+            "infoPageDescription": "Le troisième jeu de la série WaveDodger, implémenté en Javascript. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> pour le projet final du cours de programmation de jeux de l'automne 2021. Bibliothèque de codes fournie par <a href='https://github.com/VikramSinghMTL' class='unstyledLink'>VikramSinghMTL</a>",
+            "infoPageButtonText": "Jouer"
+        },
+
+        "videoPoker":
+        {
+            "projectsPageHeader": "Poker Vidéo",
+            "infoPageHeader": "Poker Vidéo",
+            "infoPageDescription": "Un petit jeu de hasard CLI amusant qui ne manquera pas de provoquer une dépendance à la vraie chose. S'il vous plaît, ne développez pas une dépendance à la vraie chose.",
+            "infoPageButtonText": "Télécharger (803KB)"
+        }
+    },
+    
+    "contact":
+    {
+        "bannerText": "Contact",
+        "form":
+        {
+            "fullNamePlaceholder": "Nom*",
+            "emailAddressPlaceholder": "Addresse courriel*",
+            "messagePlaceholder": "Composer un message",
+            "submitButtonText": "Envoyer"
+        }
+    }
+}

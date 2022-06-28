@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COVID-19 Simulator</title>
+        <script src="../src/hamburger-menu.js"></script>
+	<link rel="stylesheet" href="../styles.css">
+    </head>
+    <body>
+        <nav>
+            <div class="nav-logo">
+                <img src="../assets/corona-symbol.png">
+                <h1>COVID-19 Simulator</h1>
+            </div>
+            <div class="nav-links">
+                <a class="home-link" href="#">Home</a>
+                <a class="login-link" href="../index.html">Logout</a>
+            </div>
+            <div class="hamburger-menu" onclick="UpdateMenu()">
+                <svg viewBox="0 0 100 80" width="40" height="40">
+                    <rect width="100" height="20"></rect>
+                    <rect y="30" width="100" height="20"></rect>
+                    <rect y="60" width="100" height="20"></rect>
+                  </svg>
+            
+                  <div class="hm-dropdown">
+                    <a class="hm-link" href="../index.html">Logout</a>
+                </div>
+            </div>
+        </nav>
+        <main id = "sim-main">
+        <canvas tabindex='1'></canvas>
+        
+        <section>
+            <h2>Real-Time Data:</h2>
+
+            <p>Total time elapsed:</p>
+            <p id="time-elapsed"></p>
+
+            <p>Current number of active cases: </p>
+            <p id="sick-indiv"></p>
+
+            <p>Time elapsed till peak infection: </p>
+            <p id="peak-infect-time"></p>
+
+            <p>Peak infection count: </p>
+            <p id="peak-infect-count"></p>
+        </section>
+
+        <form id = "simulator-form" onsubmit="CheckInput(event)">
+            <h1>SIMULATION SETTINGS</h1>
+
+            <p>Simulation size</p>
+            <input type = "radio" id = "Small" name = "Size" value = "Small" required>
+            <label for="Small">Small</label><br>
+            <input type = "radio" id = "Medium" name = "Size" value = "Medium" required>
+            <label for="Medium">Medium</label><br>
+            <input type = "radio" id = "Large" name = "Size" value = "Large" required>
+            <label for="Large">Large</label><br><br>
+
+            <label for="Radius">Bubble Radius (2 - 50):</label><br>
+            <input type="number" id="Radius" name="Radius" min="2" max="50" required><br><br>
+
+            <label for="Qty">Bubble Quantity (3 - 500):</label><br>
+            <input type="number" id="Qty" name="Qty" min="3" max="500" required><br><br>
+
+            <label for="StaticQty">Still Bubble Quantity (2 - 500):</label><br>
+            <input type="number" id="StaticQty" name="StaticQty" min="2" max="500" required><br><br>
+
+            <label for="SickQty">Initial ratio of sick people (1 - 100%):</label><br>
+            <input type="number" id="SickQty" name="SickQty" min="1" max="100" required><br><br>
+
+            <label for="Speed">Simulation Speed (between 0 and 5):</label><br>
+            <input type="number" id="Speed" name="Speed" min="0" max="5" required><br><br>
+
+            <input type="submit" value="Start"  id = "sim-submit">
+        </form>
+	    </main>
+
+	<script src="utilities.js"></script>
+	<script src="bubble-collision.js"></script>
+    <script src="main.js"></script>
+    <script src="userform.js"></script>
+    <script src="real-time-display.js"></script>
+
+        <footer>
+            <div class="footer-info">
+                <p>Developed by 
+                    <br>Ethan Briffett
+                    <br>Phil Aube
+                    <br>Tarik Bikhandafne
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
