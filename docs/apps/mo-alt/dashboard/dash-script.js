@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", PreparePage)
 
 //Top status
 let topStatusDisplay;
+let statusBlinkerDisplay;
 
 //Top stat displays
 let networkHashrateDisplay;
@@ -253,6 +254,7 @@ function PreparePage()
     SetEventListeners();
     GetDisplays();
     InitializeBlockDropdownMenu();
+    InitiateBlinker();
 
     let displays = document.getElementsByClassName("display");
     for (let d of displays)
@@ -446,6 +448,7 @@ function GetDisplays()
 {
     //Top status
     topStatusDisplay = document.getElementsByClassName("dashboardStatusDisplay")[0];
+    statusBlinkerDisplay = document.getElementsByClassName("statusBlinkerDisplay")[0];
 
     //Top stats
     networkHashrateDisplay = document.getElementsByClassName("networkHashrateDisplay")[0];
@@ -516,23 +519,51 @@ async function RefreshStats()
     let userUrl = baseUrl;
     userUrl += "user/" + addr;
 
-    let worldApiObj = await FetchJson(worldUrl);
-    let networkStatsObj = await FetchJson(networkStatsUrl);
-    let minerStatsObj = await FetchJson(minerStatsUrl);
-    let minerStatsAllWorkersObj = await FetchJson(minerStatsAllWorkersUrl);
-    let poolStatsObj = await FetchJson(poolStatsUrl);
-    //let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
-    //let altBlocksObj = await FetchJson(altBlocksUrl);
-    let userObj = await FetchJson(userUrl);
+    let worldApiObj;
+    try
+    {
+        worldApiObj = await FetchJson(worldUrl);
+    }
+    catch(err)
+    {
+        console.log("LocalMonero API call failed")
+    }
+
+    let didApiCallSucceed = true;
+
+    let networkStatsObj;
+    let minerStatsObj;
+    let minerStatsAllWorkersObj;
+    let poolStatsObj;
+    let userObj;
+    try
+    {
+        networkStatsObj = await FetchJson(networkStatsUrl);
+        minerStatsObj = await FetchJson(minerStatsUrl);
+        minerStatsAllWorkersObj = await FetchJson(minerStatsAllWorkersUrl);
+        poolStatsObj = await FetchJson(poolStatsUrl);
+        //let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
+        //let altBlocksObj = await FetchJson(altBlocksUrl);
+        userObj = await FetchJson(userUrl);
+    }
+    catch(err)
+    {
+        console.log("MoneroOcean API call failed.")
+        didApiCallSucceed = false;
+    }
 
     UpdateStatusBar(minerStatsAllWorkersObj);
-    UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
-    UpdateMinerHashrates(minerStatsObj);
-    UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
-    UpdateBalances(minerStatsObj, userObj, poolStatsObj);
-    UpdateExchangeRates(poolStatsObj);
-    UpdateMinerData(minerStatsAllWorkersObj)
-    UpdateBlockData()
+
+    if(didApiCallSucceed)
+    {
+        UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
+        UpdateMinerHashrates(minerStatsObj);
+        UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
+        UpdateBalances(minerStatsObj, userObj, poolStatsObj);
+        UpdateExchangeRates(poolStatsObj);
+        UpdateMinerData(minerStatsAllWorkersObj)
+        UpdateBlockData()
+    }
 }
 
 function UpdateStatusBar(allWorkers)
@@ -542,9 +573,10 @@ function UpdateStatusBar(allWorkers)
     {
         topStatusDisplay.innerHTML = "ERROR";
         topStatusDisplay.style.color = "red";
+        statusBlinkerDisplay.style.display = "none"
         return;
     }
-    
+    statusBlinkerDisplay.style.display = "block"
     let workerCount = Object.keys(allWorkers).length - 1;
 
     if (workerCount < 1)
@@ -781,6 +813,21 @@ function UnixTSToDate(unix_timestamp)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     let date = new Date(unix_timestamp).toLocaleTimeString("en-us", options)
     return date;
+}
+
+function InitiateBlinker()
+{
+    let interval = 1000
+    let char = '🟢'
+
+    setInterval( () =>
+    {
+        if (statusBlinkerDisplay.innerHTML == char)
+            statusBlinkerDisplay.innerHTML = "";
+        else
+            statusBlinkerDisplay.innerHTML = char;
+
+    }, interval )
 }
 
 function ChangeTheme()

@@ -259,6 +259,8 @@ body
 {
     margin-top: 5px;
     display: flex;
+    align-items: center;
+    height: 20px;
 }
 
 .topItems
