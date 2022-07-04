@@ -139,6 +139,11 @@
             "infoPageHeader": "Poker Vidéo",
             "infoPageDescription": "Un petit jeu de hasard CLI amusant qui ne manquera pas de provoquer une dépendance à la vraie chose. S'il vous plaît, ne développez pas une dépendance à la vraie chose.",
             "infoPageButtonText": "Télécharger (803KB)"
+        },
+
+        "zgEdits": 
+        {
+            "projectsPageHeader": "Portfolio Zach G. Media"
         }
     },
     

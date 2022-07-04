@@ -139,6 +139,11 @@
             "infoPageHeader": "Video Poker",
             "infoPageDescription": "A fun little CLI gambling game that is sure to cause an addiction to the real thing. Please don't develop an addiction to the real thing.",
             "infoPageButtonText": "Download (803KB)"
+        },
+
+        "zgEdits": 
+        {
+            "projectsPageHeader": "Zach. G Media Portfolio"
         }
     },
 
