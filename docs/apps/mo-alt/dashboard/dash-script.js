@@ -199,6 +199,10 @@ const MONERO_ADDR_LENGTH = 95;
 const MONERO_INTEGR_ADDR_LENGTH = 106;
 document.addEventListener("DOMContentLoaded", PreparePage)
 
+//Top API status
+let topApiStatusDisplay;
+let topApiStatusBlinkerDisplay;
+
 //Top status
 let topStatusDisplay;
 let statusBlinkerDisplay;
@@ -446,6 +450,10 @@ function SetEventListeners()
 
 function GetDisplays()
 {
+    //Top API status
+    topApiStatusDisplay = document.getElementsByClassName("dashboardApiStatusDisplay")[0]
+    topApiStatusBlinkerDisplay = document.getElementsByClassName("apiStatusBlinkerDisplay")[0]
+
     //Top status
     topStatusDisplay = document.getElementsByClassName("dashboardStatusDisplay")[0];
     statusBlinkerDisplay = document.getElementsByClassName("statusBlinkerDisplay")[0];
@@ -513,21 +521,8 @@ async function RefreshStats()
     let minerStatsAllWorkersUrl = minerStatsUrl + "/allWorkers"
     let poolStatsUrl = "https://api.moneroocean.stream/pool/stats";
     let networkStatsUrl = "https://api.moneroocean.stream/network/stats";
-    let worldUrl = "https://localmonero.co/blocks/api/get_stats";
-    //let xmrBlocksUrl = "https://api.moneroocean.stream/pool/blocks";
-    //let altBlocksUrl = "https://api.moneroocean.stream/pool/altblocks";
     let userUrl = baseUrl;
     userUrl += "user/" + addr;
-
-    let worldApiObj;
-    try
-    {
-        worldApiObj = await FetchJson(worldUrl);
-    }
-    catch(err)
-    {
-        console.log("LocalMonero API call failed")
-    }
 
     let didApiCallSucceed = true;
 
@@ -542,8 +537,6 @@ async function RefreshStats()
         minerStatsObj = await FetchJson(minerStatsUrl);
         minerStatsAllWorkersObj = await FetchJson(minerStatsAllWorkersUrl);
         poolStatsObj = await FetchJson(poolStatsUrl);
-        //let xmrBlocksObj = await FetchJson(xmrBlocksUrl);
-        //let altBlocksObj = await FetchJson(altBlocksUrl);
         userObj = await FetchJson(userUrl);
     }
     catch(err)
@@ -556,7 +549,7 @@ async function RefreshStats()
 
     if(didApiCallSucceed)
     {
-        UpdateTopStats(networkStatsObj, poolStatsObj, worldApiObj)
+        UpdateTopStats(networkStatsObj, poolStatsObj)
         UpdateMinerHashrates(minerStatsObj);
         UpdateConnectedMiners(poolStatsObj, minerStatsAllWorkersObj);
         UpdateBalances(minerStatsObj, userObj, poolStatsObj);
@@ -571,33 +564,45 @@ function UpdateStatusBar(allWorkers)
     //return prematurely in the event of an error occuring
     if (!allWorkers)
     {
-        topStatusDisplay.innerHTML = "ERROR";
+        //Set the API connection status
+        topApiStatusDisplay.innerHTML = "NETWORK ERROR"
+        topApiStatusDisplay.style.color = "red"
+        topApiStatusBlinkerDisplay.style.display = "none"
+
+        //Set the miner status to unknown if API cannot be reached
+        topStatusDisplay.innerHTML = "UNKNOWN";
         topStatusDisplay.style.color = "red";
         statusBlinkerDisplay.style.display = "none"
         return;
     }
-    statusBlinkerDisplay.style.display = "block"
+
+    topApiStatusDisplay.style.color = "lightgreen"
+    topApiStatusDisplay.innerHTML = "CONNECTION OK"
+    topApiStatusBlinkerDisplay.style.display = "block"
+
     let workerCount = Object.keys(allWorkers).length - 1;
 
     if (workerCount < 1)
     {
         topStatusDisplay.style.color = "yellow"
         topStatusDisplay.innerHTML = "NOT MINING";
+        statusBlinkerDisplay.style.display = "none"
     }
     else
     {
         topStatusDisplay.style.color = "lightgreen";
         topStatusDisplay.innerHTML = "MINERS ONLINE";
+        statusBlinkerDisplay.style.display = "block"
     }
 }
 
-function UpdateTopStats(netObj, poolObj, worldApiObj)
-{
+function UpdateTopStats(netObj, poolObj)
+{   
     poolHashrateDisplay.innerHTML = ParseHashrate(poolObj.pool_statistics.portHash[18081]) + "&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp" + ParseHashrate(poolObj.pool_statistics.hashRate);
     poolBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalAltBlocksFound;
     poolXMRBlocksFoundDisplay.innerHTML = poolObj.pool_statistics.totalBlocksFound;
     blockchainHeightDisplay.innerHTML = netObj.main_height;
-    networkHashrateDisplay.innerHTML = ParseHashrate(worldApiObj.hashrate);
+    networkHashrateDisplay.innerHTML = ParseHashrate(netObj.difficulty / COINS[18081].time);
 }
 
 function UpdateMinerHashrates(obj)
@@ -826,6 +831,11 @@ function InitiateBlinker()
             statusBlinkerDisplay.innerHTML = "";
         else
             statusBlinkerDisplay.innerHTML = char;
+
+        if (topApiStatusBlinkerDisplay.innerHTML == char)
+            topApiStatusBlinkerDisplay.innerHTML = "";
+        else
+            topApiStatusBlinkerDisplay.innerHTML = char;
 
     }, interval )
 }
