@@ -255,18 +255,10 @@ body
     margin-right: 10px;
 }
 
-.statusDivOuter
-{
-    display: flex;
-}
-
 .statusDiv
 {
     margin-top: 5px;
     display: flex;
-    align-items: center;
-    height: 20px;
-    width: 250px;
 }
 
 .topItems
@@ -741,16 +733,6 @@ body
     .signOutButton
     {
         width: 55%;
-    }
-
-    .statusDivOuter
-    {
-        flex-direction: column;
-    }
-
-    .statusDiv
-    {
-        width: unset;
     }
 
     .topItems
