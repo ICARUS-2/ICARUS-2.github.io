@@ -53,7 +53,7 @@
             "projectsPageHeader": "Site <<Hella Good Pizza>>",
             "infoPageHeader": "Site <<Hella Good Pizza>>",
             "infoPageDescription": "Un site Web de pizzeria de test qui illustre les quatre principales opérations C-R-U-D dans une base de données relationnelle, ainsi que les rôles d'utilisateur, les autorisations et l'authentification. Écrit en utilisant .NET Core MVC avec Entity Framework Core pour gérer les interactions de base de données. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a> comme projet final pour le cours de programmation Web III de l'automne 2021.",
-            "infoPageButtonText": "Dépot Github"
+            "infoPageButtonText": "Dépot GitHub"
         },
         
         "meadeWillisSite":
@@ -83,6 +83,14 @@
             "infoPageHeader": "Simulateur COVID-19",
             "infoPageDescription": "Un simulateur ajustable destiné à montrer comment le COVID-19 et d'autres virus se propagent au sein d'une population. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Créé en tant que projet final pour le cours d'interfaces utilisateur de l'hiver 2020.",
             "infoPageButtonText": "Aller à l'Application"
+        },
+
+        "employeeManagementSystem":
+        {
+            "projectsPageHeader": "Système de Gestion des Employés",
+            "infoPageHeader": "Système de Gestion des Employés",
+            "infoPageDescription": "Une application Web pour gérer des employés, développée à l'aide de MEAN Stack (Mongo, Express, Angular, Node). Permet à l'utilisateur de créer, afficher, modifier, supprimer et congédier des employés dans la base de données.",
+            "infoPageButtonText": "Dépot GitHub"
         },
 
         "tnnfBudgetViewer":
@@ -129,7 +137,7 @@
         {
             "projectsPageHeader": "WaveDodger III - SlimeDodger",
             "infoPageHeader": "WaveDodger III - SlimeDodger",
-            "infoPageDescription": "Le troisième jeu de la série WaveDodger, implémenté en Javascript. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> pour le projet final du cours de programmation de jeux de l'automne 2021. Bibliothèque de codes fournie par <a href='https://github.com/VikramSinghMTL' class='unstyledLink'>VikramSinghMTL</a>",
+            "infoPageDescription": "Le troisième jeu de la série WaveDodger, implémenté en Javascript. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> pour le projet final du cours de programmation de jeux de l'automne 2021. Bibliothèque de codes fournie par <a href='https://github.com/VikramSinghMTL' class='unstyledLink'>VikramSinghMTL.</a>",
             "infoPageButtonText": "Jouer"
         },
 

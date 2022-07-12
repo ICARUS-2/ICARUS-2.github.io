@@ -85,6 +85,14 @@
             "infoPageButtonText": "Go to Site"
         },
 
+        "employeeManagementSystem":
+        {
+            "projectsPageHeader": "Employee Management System",
+            "infoPageHeader": "Employee Management System",
+            "infoPageDescription": "A simple web application for managing information about employees, developed using MEAN Stack (Mongo, Express, Angular, Node). Allows the user to create, view, update, delete, and terminate employees in the database.",
+            "infoPageButtonText": "GitHub Repository"
+        },
+
         "tnnfBudgetViewer":
         {
             "projectsPageHeader": "TNNF BudgetViewer",
