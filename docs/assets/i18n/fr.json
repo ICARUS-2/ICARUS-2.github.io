@@ -34,9 +34,9 @@
 
         "moneroOceanCustomUi": 
         {
-            "projectsPageHeader" : "IU Alternative MoneroOcean",
+            "projectsPageHeader" : "IU MoneroOcean",
             "infoPageDescription": "Une interface utilisateur de tableau de bord personnalisable qui permet aux mineurs de MoneroOcean d'afficher leurs statistiques, leurs rapports de transaction, leurs blocs et bien plus encore à partir de l'API REST de MoneroOcean! Inclut la possibilité de changer de seuil et de thème.",
-            "infoPageHeader" : "IU Alternative MoneroOcean",
+            "infoPageHeader" : "IU MoneroOcean",
             "infoPageButtonText": "Aller à l'Application"
         },
 
