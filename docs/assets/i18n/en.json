@@ -36,7 +36,7 @@
         {
             "projectsPageHeader" : "MoneroOcean Custom UI",
             "infoPageHeader" : "MoneroOcean Custom UI",
-            "infoPageDescription": "A customizable dashboard UI that allows MoneroOcean miners to view their stats, transaction reports, blocks, and more from the MoneroOcean REST API! Includes the ability to change threshold and theme.",
+            "infoPageDescription": "A customizable dashboard UI that allows MoneroOcean miners to view their stats, transaction reports, blocks, and more from the MoneroOcean REST API! Includes the ability to change threshold and theme.<br><br>Version 2 is now out, fully rebuilt with React.js!",
             "infoPageButtonText": "Go to Dashboard"
         },
 
