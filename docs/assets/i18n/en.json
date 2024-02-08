@@ -85,6 +85,14 @@
             "infoPageButtonText": "GitHub Repository"
         },
 
+        "matteStorefront":
+        {
+            "projectsPageHeader": "Matte Storefront",
+            "infoPageHeader": "Matte Storefront",
+            "infoPageDescription" : "A web-based storefront designed as a wrapper for Shopify product pages implemented in .NET MVC. Allows a site administrator to manage users, products, promotional/marketing emails, product categories and much more.",
+            "infoPageButtonText" : "Download Source (1.97MB)"
+        },
+
         "tnnfBudgetViewer":
         {
             "projectsPageHeader": "TNNF BudgetViewer",

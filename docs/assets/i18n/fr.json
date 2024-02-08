@@ -85,6 +85,14 @@
             "infoPageButtonText": "Dépot GitHub"
         },
 
+        "matteStorefront":
+        {
+            "projectsPageHeader": "Vitrine Matte",
+            "infoPageHeader": "Vitrine Matte",
+            "infoPageDescription" : "Une vitrine web conçue comme un wrapper pour les pages de produits Shopify, programmée avec .NET MVC. Permet à un administrateur de site de gérer les utilisateurs, les produits, les e-mails promotionnels/marketing, les catégories des produits, et beaucoup plus.",
+            "infoPageButtonText" : "Télécharger Code Source (1.9MB)"
+        },
+
         "tnnfBudgetViewer":
         {
             "projectsPageHeader": "TNNF BudgetViewer",
