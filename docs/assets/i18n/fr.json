@@ -93,6 +93,14 @@
             "infoPageButtonText" : "Télécharger Code Source (1.9MB)"
         },
 
+        "myvcApp":
+        {
+            "projectsPageHeader": "Application MYVC",
+            "infoPageHeader": "Application MYVC",
+            "infoPageDescription" : "Une application .NET full stack développée pour une organization fictive de volleyball pour le cours COMP 353 (Bases de Données) Hiver 2025 de Concordia. Permet a l'organization de gérer les emplacements, membres inscrits, sessions de jeu, etc. Comprend l'intégration Swagger pour la documentation API concise.",
+            "infoPageButtonText": "Dépot GitHub"
+        },
+
         "tnnfBudgetViewer":
         {
             "projectsPageHeader": "TNNF BudgetViewer",
