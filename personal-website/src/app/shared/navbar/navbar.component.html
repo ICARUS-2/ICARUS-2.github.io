@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-md">
+    <a routerLink="/" class="navbar-brand">Ethan Briffett</a>
+
+    <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#toggleMobileMenu" 
+        aria-controls="toggleMobileMenu" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="toggleMobileMenu">
+        <ul class="navbar-nav ms-auto text-end">
+            <li><a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{'nav.homeLink' | translate}}</a></li>
+            <li><a routerLink="/projects" class="nav-link" routerLinkActive="active">{{'nav.projectsLink' | translate}}</a></li>
+            <li><a href="https://github.com/ICARUS-2" class="nav-link" target="_blank">GitHub</a></li>
+            <li><a routerLink="/contact" class="nav-link" routerLinkActive="active">Contact</a></li>
+            <li id="langSelectListItem">
+                <select #langselect (change)="onLanguageChanged()" name="" id="langSelect" class="nav-link">
+                    <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang == currentLang">{{lang}}</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+</nav>

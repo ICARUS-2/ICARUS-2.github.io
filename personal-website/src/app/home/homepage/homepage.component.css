@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px)
+{
+    .leftSideParagraphs
+    {
+        width: 100% !important;
+    }
+
+    .mainDescParallax
+    {
+        display: none;
+    }
+}

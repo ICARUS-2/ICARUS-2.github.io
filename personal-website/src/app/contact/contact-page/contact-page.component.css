@@ -1,0 +1,52 @@
+.formItem
+{
+    background-color: white;
+    margin: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 3px solid black;
+    color: #052432 ;
+    width: 100%;
+}
+
+input.formItem
+{
+    height: 60px;
+}
+
+textarea.formItem
+{
+    height: 300px;
+}
+
+#linkedIn
+{
+  text-decoration: none;
+}
+
+#linkedIn:hover
+{
+  color: lightgray
+}
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #052432 ;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #052432 ;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #052432 ;
+  }
+
+  @media screen and (max-width: 760px)
+  {
+    #contactForm
+    {
+        width: 100% !important;
+    }
+  }

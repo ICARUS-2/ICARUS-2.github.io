@@ -1,0 +1,61 @@
+nav
+{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.navbar-brand
+{
+    font-size: xx-large;
+}
+
+.nav-link
+{
+    font-size: large;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    color: lightgray !important;
+    border: 3px solid transparent !important;
+}
+
+.nav-link.active
+{
+    color: white !important;
+    border-top: 3px solid #007bff !important;
+}
+
+.nav-link:hover
+{
+    color:  #84bdfa !important;
+}
+
+.navbar-toggler-icon
+{
+    background-image: url('../../../assets/img/nav/hamburger-menu.webp');
+}
+
+nav, .navbar-collapse, .navbar-brand, .navbar-nav, .nav-link, .navbar-toggler, .navbar-toggler-icon
+{
+    /*background-color: rgb(30, 12, 79) !important;*/
+    background-color: #052432 !important;
+    color: white
+}
+
+#langSelect
+{
+    height: 49px;
+    padding-top: 6px;
+}
+
+@media screen and (max-width: 760px)
+{
+    #langSelect
+    {
+        display: unset;
+    }
+
+    #langSelectListItem
+    {
+        background-color: #052432 !important;
+    }
+}

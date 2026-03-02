@@ -1,0 +1,42 @@
+<app-triangular-banner imgSrc="../../assets/img/home/view2.webp" headerText="{{ 'home.bannerText' | translate }}"></app-triangular-banner>
+
+<div class="container" style="max-width: 80%;">
+    <h1 class="thinHeader" innerHTML="{{ 'home.aboutMeHeader' | translate }}"></h1>
+    <div style="display: flex; justify-content: space-between; width: 100%;" class="mainDescriptionParagraphs">
+        <div style="width: 50%; padding-right: 10px;" class="leftSideParagraphs">
+            <p class="descriptionParagraph">
+                {{'home.aboutMeDescription' | translate}}
+            </p>
+
+            <p class="descriptionParagraph">
+                {{'home.aboutMeDescription2' | translate}}
+            </p>
+
+            <app-main-button routerLink="/projects" text="{{'home.seeMyProjectsButton' | translate}}"></app-main-button>
+            <app-main-button routerLink="/contact" text="{{'home.workWithMeButton' | translate}}"></app-main-button>
+        </div>
+
+        <div style="margin-top: 50px"></div>
+
+        <div style="width: 50%; padding-left: 10px;" class="mainDescParallax">
+            <app-parallax bgImg="url(../../../assets/img/home/code.webp)" height="200px"></app-parallax>
+        </div>
+    </div>
+    
+    <div style="margin-top: 100px"></div>
+    
+    <h1 class="thinHeader">Technologies</h1>
+    <p class="descriptionParagraph">
+        {{'home.technologiesDescription' | translate}}
+    </p>
+
+    <app-list-item-pair item1="C#" item2="WPF"></app-list-item-pair>
+    <app-list-item-pair item1="ASP.NET MVC" item2="Xamarin.Forms"></app-list-item-pair>
+    <app-list-item-pair item1="SQL, Entity Framework" item2="HTML, CSS, JS, TS"></app-list-item-pair>
+    <app-list-item-pair item1="MongoDB" item2="Express"></app-list-item-pair>
+    <app-list-item-pair item1="Node" item2="Angular/React"></app-list-item-pair>
+    <app-list-item-pair item1="Java" item2="Android Studio"></app-list-item-pair>
+    <app-list-item-pair item1="Bash/PowerShell" item2="Python"></app-list-item-pair>
+    
+    <div style="margin-top: 150px"></div>
+</div>

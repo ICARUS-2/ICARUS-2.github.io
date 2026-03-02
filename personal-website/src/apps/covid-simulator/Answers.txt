@@ -1,0 +1,22 @@
+1.
+a. Why is it important ?
+We believe showcasing a simulation would be valuable to teach the importance of socail distancing.
+b. What can I do with it ?
+With this site, you can see the effects of how quick or slow the virus spreads depending on differing enviromental conditions and the social distancing measures taken.
+c. Who is it for ?
+Governemental agencies and technical advisors. It is paramount that our leaders understand the impact of social distancing as broadly as possible. With this simulation, we hope to further this understanding.
+
+2. Quick-Start Guide:
+
+a. Click the "login" button to go to the login page.
+b. Login.
+c. You are now on the simulation page.
+d. The page has an enviroment with lots of bubbles that represent individuals. Red bubbles are infected, blue are healthy. (Grey are immune)
+e. bubbles will be immobile and move around. if a (sick)red bubble bumps into a (healthy)blue bubble, the blue bubble will turn red. (optional: after a time, the red bubbles will turn (immune)grey.
+f. Control the following variables:
+	-page size: controls how big the enviroment is.
+	-radius: controls size of individual bubbles.
+	-# of bubbles: controls number of bubbles (up to 500 bubbles).
+	-# of static: controls number of immobile bubbles.
+	-ratio: initial ratio of sick and healthy bubbles.
+	-speed: how fast the bubbles can go.
