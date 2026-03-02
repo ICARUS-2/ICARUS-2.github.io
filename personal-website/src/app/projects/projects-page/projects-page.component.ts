@@ -6,9 +6,10 @@ import { LangChangeEvent } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-projects-page',
-  templateUrl: './projects-page.component.html',
-  styleUrls: ['./projects-page.component.css']
+    selector: 'app-projects-page',
+    templateUrl: './projects-page.component.html',
+    styleUrls: ['./projects-page.component.css'],
+    standalone: false
 })
 export class ProjectsPageComponent implements OnInit, OnDestroy{
 

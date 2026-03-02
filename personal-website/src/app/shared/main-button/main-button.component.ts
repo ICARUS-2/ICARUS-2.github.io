@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-main-button',
-  templateUrl: './main-button.component.html',
-  styleUrls: ['./main-button.component.css']
+    selector: 'app-main-button',
+    templateUrl: './main-button.component.html',
+    styleUrls: ['./main-button.component.css'],
+    standalone: false
 })
 export class MainButtonComponent implements OnInit {
 

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-zoom-card-link',
-  templateUrl: './zoom-card-link.component.html',
-  styleUrls: ['./zoom-card-link.component.css']
+    selector: 'app-zoom-card-link',
+    templateUrl: './zoom-card-link.component.html',
+    styleUrls: ['./zoom-card-link.component.css'],
+    standalone: false
 })
 export class ZoomCardLinkComponent implements OnInit {
 
