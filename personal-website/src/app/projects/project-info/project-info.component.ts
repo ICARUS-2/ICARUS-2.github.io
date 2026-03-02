@@ -8,9 +8,10 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-project-info',
-  templateUrl: './project-info.component.html',
-  styleUrls: ['./project-info.component.css']
+    selector: 'app-project-info',
+    templateUrl: './project-info.component.html',
+    styleUrls: ['./project-info.component.css'],
+    standalone: false
 })
 export class ProjectInfoComponent implements OnInit, OnDestroy {
 

@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-main-button-href',
-  templateUrl: './main-button-href.component.html',
-  styleUrls: ['./main-button-href.component.css']
+    selector: 'app-main-button-href',
+    templateUrl: './main-button-href.component.html',
+    styleUrls: ['./main-button-href.component.css'],
+    standalone: false
 })
 export class MainButtonHrefComponent implements OnInit {
   @Input() href: string=""
