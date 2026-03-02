@@ -32,6 +32,14 @@
             "infoPageButtonText": ""
         },
 
+        "chonse2":
+        {
+            "projectsPageHeader": "CHONSE2",
+            "infoPageHeader": "CHONSE2",
+            "infoPageDescription": "AI-driven chess platform enabling Stockfish-powered game analysis, board editing, play vs AI and more!",
+            "infoPageButtonText": "Go to Site"
+        },
+
         "moneroOceanCustomUi": 
         {
             "projectsPageHeader" : "MoneroOcean Custom UI",
@@ -59,30 +67,6 @@
         "meadeWillisSite":
         {
             "projectsPageHeader": "Intern Project - Meade Willis Site"
-        },
-
-        "bitcoinClock":
-        {
-            "projectsPageHeader": "Bitcoin Clock",
-            "infoPageHeader": "Bitcoin Clock",
-            "infoPageDescription": "A clock that displays the time estimation of Bitcoin's block reward halving. Other data such as blocks until halvening, blockchain height, current/future block rewards, and price are also shown. Made with <a href='https://brandonlwhite.github.io/sevenSeg.js/' class='unstyledLink'>SevenSeg.js</a>.",
-            "infoPageButtonText": "Go to Site"
-        },
-
-        "covidSimulator":
-        {
-            "projectsPageHeader": "COVID-19 Simulator",
-            "infoPageHeader": "COVID-19 Simulator",
-            "infoPageDescription": "An adjustable simulator meant to show how COVID-19 and other viruses spread among a population. Developed in collaboration with <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> and <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Created as the final project for Winter 2020 User Interfaces course.",
-            "infoPageButtonText": "Go to Site"
-        },
-
-        "employeeManagementSystem":
-        {
-            "projectsPageHeader": "Employee Management System",
-            "infoPageHeader": "Employee Management System",
-            "infoPageDescription": "A simple web application for managing information about employees, developed using MEAN Stack (Mongo, Express, Angular, Node). Allows the user to create, view, update, delete, and terminate employees in the database.",
-            "infoPageButtonText": "GitHub Repository"
         },
 
         "matteStorefront":

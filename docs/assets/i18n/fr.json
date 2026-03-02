@@ -32,6 +32,14 @@
             "infoPageButtonText": ""
         },
 
+        "chonse2":
+        {
+            "projectsPageHeader": "CHONSE2",
+            "infoPageHeader": "CHONSE2",
+            "infoPageDescription": "Plateforme d'échecs pilotée par l'IA permettant l'analyse des matches grâce à Stockfish, l'édition de l'échiquier, jouer contre l'IA et plus!",
+            "infoPageButtonText": "Aller au Site"
+        },
+
         "moneroOceanCustomUi": 
         {
             "projectsPageHeader" : "IU MoneroOcean",
@@ -59,30 +67,6 @@
         "meadeWillisSite":
         {
             "projectsPageHeader": "Projet de Stage: Site Meade Willis"
-        },
-
-        "bitcoinClock":
-        {
-            "projectsPageHeader": "Horloge Bitcoin",
-            "infoPageHeader": "Horloge Bitcoin",
-            "infoPageDescription": "Une horloge qui montre le temps jusqu'au 'halving' de Bitcoin. D'autres données telles que les blocs jusqu'àu 'halving', la hauteur de la blockchain, les récompenses de bloc actuelles/futures et le prix sont également affichées. fait avec <a href='https://brandonlwhite.github.io/sevenSeg.js/' class='unstyledLink'>SevenSeg.js</a>.",
-            "infoPageButtonText": "Aller à l'Application"
-        },
-
-        "covidSimulator":
-        {
-            "projectsPageHeader": "Simulateur COVID-19",
-            "infoPageHeader": "Simulateur COVID-19",
-            "infoPageDescription": "Un simulateur ajustable destiné à montrer comment le COVID-19 et d'autres virus se propagent au sein d'une population. Développé en collaboration avec <a href='https://github.com/overflow-gitch' class='unstyledLink'>overflow-gitch</a> et <a href='https://github.com/philaube' class='unstyledLink'>philaube</a>. Créé en tant que projet final pour le cours d'interfaces utilisateur de l'hiver 2020.",
-            "infoPageButtonText": "Aller à l'Application"
-        },
-
-        "employeeManagementSystem":
-        {
-            "projectsPageHeader": "Système de Gestion des Employés",
-            "infoPageHeader": "Système de Gestion des Employés",
-            "infoPageDescription": "Une application Web pour gérer des employés, développée à l'aide de MEAN Stack (Mongo, Express, Angular, Node). Permet à l'utilisateur de créer, afficher, modifier, supprimer et congédier des employés dans la base de données.",
-            "infoPageButtonText": "Dépot GitHub"
         },
 
         "matteStorefront":
