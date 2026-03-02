@@ -17,44 +17,38 @@ import { ProjectInfoComponent } from './projects/project-info/project-info.compo
 import { MainButtonHrefComponent } from './shared/main-button-href/main-button-href.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 export function HttpLoaderFactory(http: HttpClient)
 {
     return new TranslateHttpLoader(http)
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    TriangularBannerComponent,
-    HomepageComponent,
-    ParallaxComponent,
-    ListItemComponent,
-    ListItemPairComponent,
-    ProjectsPageComponent,
-    ContactPageComponent,
-    MainButtonComponent,
-    ZoomCardLinkComponent,
-    ProjectInfoComponent,
-    MainButtonHrefComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [
-    Title
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavbarComponent,
+        TriangularBannerComponent,
+        HomepageComponent,
+        ParallaxComponent,
+        ListItemComponent,
+        ListItemPairComponent,
+        ProjectsPageComponent,
+        ContactPageComponent,
+        MainButtonComponent,
+        ZoomCardLinkComponent,
+        ProjectInfoComponent,
+        MainButtonHrefComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })], providers: [
+        Title,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
