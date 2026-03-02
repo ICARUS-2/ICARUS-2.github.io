@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px)
+{
+    .listItemPair
+    {
+        flex-direction: column;
+    }
+
+    .listItemPair app-list-item
+    {
+        width: 100% !important;
+    }
+}

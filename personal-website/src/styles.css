@@ -1,0 +1,61 @@
+*
+{
+    background-color: rgb(20,20,20);
+    margin: 0;
+    padding: 0%;
+    box-sizing: border-box;
+    color: white
+}
+/*html, body { height: 100%; overflow-x: hidden;}*/
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+html
+{
+    scroll-behavior: auto !important;
+}
+
+.thinHeader
+{
+    font-weight: 300;
+}
+
+.descriptionParagraph
+{
+    color: lightgray;
+    font-size: 18px;
+}
+
+.colorBlue
+{
+    color: #13b8e6;
+}
+
+.zoom {
+    padding: 50px;
+
+    transition: transform .2s;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1); 
+}
+
+.unstyledLink
+{
+    background-color: transparent;
+    color: white;
+}
+
+.unstyledLink:visited
+{
+    color: white;
+}
+
+app-root {
+    display: block;
+ }

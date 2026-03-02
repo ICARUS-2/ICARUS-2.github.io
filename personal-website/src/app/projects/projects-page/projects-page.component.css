@@ -1,0 +1,28 @@
+@media screen and (max-width: 1200px)
+{
+    .projectsSection
+    {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column;
+    }
+
+    .projectsContainer
+    {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 500px)
+{
+    .projectsSection
+    {
+        padding-right: 1.7%;
+    }
+}

@@ -1,0 +1,992 @@
+/*CSS reset*/
+*
+{
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    font-family: Helvetica;
+    box-sizing: border-box;
+    font-size: 100%;
+    /*font-family: 'Courier New', Courier, monospace;*/
+    
+}
+
+.homepagemain
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.circleImgDiv
+{
+    display: flex;
+    flex-direction: row;
+    color:white;
+    justify-content: center;
+    align-items: center;
+}
+
+.circleImg
+{
+    width: 20%;
+    height: 20%;
+    margin-right: 10px;
+}
+
+.MoneroOceanText a
+{
+    text-decoration: none;
+}
+
+.MoneroOceanText a:visited
+{
+    color: white;
+}
+
+.MoneroOceanText a:hover
+{
+    color: rgb(210, 210, 210);
+}
+
+.navtag
+{
+    display: flex;
+    background-color: rgb(30, 30, 30);
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+    height: 75px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 150%;
+}
+
+.navbar
+{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    text-decoration: none;
+    width: 60%;
+    justify-content: center;
+}
+
+.signInControls
+{
+    width: 20%;
+}
+
+.signOutButton
+{
+    display: none;
+}
+
+.placeholder
+{
+    width: 100%;
+}
+
+.navlink
+{
+    text-decoration: none;
+    padding: 20px;
+}
+
+.navlinkitem :hover
+{
+    color: rgb(210, 210, 210);
+}
+
+body
+{
+    background-color: rgb(15, 0, 50);
+}
+
+/*INDEX*/
+.indexPageMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.loginHref
+{
+    background-color: rgb(0, 4, 240);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color:white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: none;
+}
+
+
+.loginHref:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+/*LOGIN PAGE*/
+
+.loginpageMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    font-size: 30px;
+}
+
+.signInHeader
+{
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+}
+
+.placeholder, .signOutButton
+{
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 3px;
+    border-radius: 5px;
+    color:white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+}
+
+.placeholder:hover, .signOutButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.loginForm
+{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 100%;
+}
+
+.loginBox
+{
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 3px;
+    font-size: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+}
+
+.loginBox:focus
+{
+    outline: none;
+}
+
+.loginButton
+{
+    text-decoration: none;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 15%;
+    height: 60px;
+    color: white;
+    margin-top: 20px;
+}
+
+.loginButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.loginInfoBox
+{
+    margin-top: 30px;
+}
+
+.needAWallet
+{
+    color: white;
+    font-size: 20px;
+}
+
+.moneroDownloadLink
+{
+    color: white;
+}
+
+.moneroDownloadLink:hover
+{
+    color: lightgreen
+}
+
+/*DASHBOARD*/
+.errorReturnButton
+{
+    display: none;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.dashboardPageMain
+{
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.statusDivOuter
+{
+    display: flex;
+}
+
+.statusDiv
+{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 250px;
+}
+
+.topItems
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.topStatHeader
+{
+    justify-self: flex-start;
+    font-weight: bolder;
+}
+
+.topStat
+{
+    width: 19%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.coinReportLink
+{
+    color: white;
+}
+
+.dashboardItem
+{
+    margin-top: 20px;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    font-size: 125%;
+    padding: 25px;
+    border-radius: 5px;
+    color: white;
+}
+
+.middleItems
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.middleStatHeader
+{
+    font-weight: bolder;
+}
+
+.balanceHeader
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.exchangeRatesHeader
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.transactionReportButton, .updateThresholdButton, .seeExchangeRatesButton,
+.connectedMinersChartButton, .minerHashratesChartButton
+{
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    padding: 15px;
+}
+
+.transactionReportButton:hover, .updateThresholdButton:hover, .seeExchangeRatesButton:hover,
+.connectedMinersChartButton:hover, .minerHashratesChartButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.leftSection, .rightSection
+{
+    width: 50%;
+}
+
+.rightSection
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hashrateAndActiveMiners
+{
+    display: flex;
+    height: 200px;
+    justify-content: space-between;
+}
+
+.minerHashrates, .connectedMiners
+{
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.minerHashratesHeader, .connectedMinersHeader
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.blockData
+{
+    width: 97%;
+}
+
+.balances, .exchangeRates
+{
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+}
+
+.horizontalStatPair
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.balanceStatsDiv, .exchangeRatesStatsDiv
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.verticalStatPair
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.optionButton, .seeBlockReportButton
+{
+    text-decoration: none;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 20%;
+    height: 60px;
+    color: white;
+    margin-top: 20px;
+}
+
+.optionButton:hover, .seeBlockReportButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.blockTable
+{
+    font-size: 20px;
+    table-layout: fixed;
+}
+
+.blockTable td
+{
+    padding-right: 10px;
+    padding-bottom: 20px;
+    color: lightgreen;
+    width: 20%;
+}
+
+.blockDataOptions
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.blockButton
+{
+    margin-right: 5px;
+}
+
+.blockDataButtons
+{
+    display: flex;
+    align-items: center;
+}
+
+.blockDropdownMenu
+{
+    height: 30px;
+    margin-right: 5px;
+}
+
+.minerTable
+{
+    color: lightgreen;
+    width: 100%;
+}
+
+.minerTable td
+{
+    width: 33%;
+    padding-bottom: 15px;
+}
+
+.selectThemeDiv, .selectRefreshDiv, .selectCurrencyDiv
+{
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.themeButton, .refreshRateButton, .currencyButton
+{
+    width: 30px;
+    height: 30px;
+}
+
+.spaceBetweenBalanceHeaders
+{
+    display: none;
+}
+
+/*TRANSACTION REPORT*/
+.txReportMain, .coinReportMain, .blockReportMain
+{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.txReportTopButtons, .coinReportTopButtons, .exchangeRatesTopButtons
+{
+    display: flex;
+}
+
+/*BACK AND FETCH BUTTONS*/
+.txReportBackButton, .txReportRefreshButton, .coinReportBackButton, 
+.coinReportRefreshButton, .updatePayoutBackButton, .exchangeRatesBackButton,
+.connectedMinerChartBackButton, .connectedMinerChartFetchButton, .minerHashratesChartBackButton,
+.minerHashratesChartFetchButton, .blockReportBackButton
+{
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(15, 0, 50);
+    border: solid rgb(77, 0, 255) 2px;
+    padding: 15px;
+    margin: 10px;
+}
+
+.txReportBackButton:hover, .txReportRefreshButton:hover, .coinReportBackButton:hover,
+.coinReportRefreshButton:hover, .updatePayoutBackButton:hover, .exchangeRatesBackButton:hover,
+.connectedMinerChartBackButton:hover, .connectedMinerChartFetchButton:hover, .minerHashratesChartBackButton:hover,
+.minerHashratesChartFetchButton:hover, .blockReportBackButton:hover
+{
+    background-color: rgb(77, 0, 255);
+}
+
+.txReportTable, .coinReportTable
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 1000px;
+
+    table-layout: fixed;
+}
+
+.txReportTable td
+{
+    width: 33%;
+    padding-bottom: 15px;
+}
+
+.coinReportTable td
+{
+    padding-bottom: 15px;
+}
+
+.coinReportTable td:nth-child(1)
+{
+    width: 10%;
+    padding-bottom: 15px;
+}
+
+/*UPDATE PAYOUT*/
+.updatePayoutMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.currentPayoutThreshold
+{
+    font-size: 35px;
+}
+
+.thresholdHeader
+{
+    margin-top: 50px;
+}
+
+/*EXCHANGE RATES*/
+.exchangeRatesPageMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.exchangeRatesTable
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 1000px;
+
+    table-layout: fixed;
+}
+
+.exchangeRatesBlankTableRow
+{
+    height: 20px !important; /* overwrites any other rules */
+    background-color: #FFFFFF;
+}
+
+/*CONNECTED MINER CHART / MINER HASHRATE CHART*/
+.connectedMinerChartPageMain, .minerHashratesChartPageMain
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+}
+
+.connectedMinerChartCanvas, .minerHashratesChartCanvas
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    width: 1000px;
+    height: 500px;
+}
+
+.connectedMinerChartHeaderContainer, .minerHashratesChartHeaderContainer
+{
+    display: flex;
+}
+
+.connectedMinerChartTopButtons, .minerHashratesChartTopButtons
+{
+    display: flex;
+}
+
+/*BLOCK PAYMENT REPORT*/
+
+.blockReportTable
+{
+    color: lightgreen;
+    background-color: rgb(15, 0, 105);
+    border: solid rgb(77, 0, 255) 2px;
+    border-radius: 5px;
+    table-layout: fixed;
+}
+
+.blockReportTable td
+{
+    padding: 20px;
+}
+
+.blockReportTableControls
+{
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+}
+
+@media only screen and (max-width : 1150px) 
+{
+    /*GENERAL AND HOMEPAGE/NAV*/
+    *
+    {
+        font-size: 100%;
+    }
+
+    html, body 
+    {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .navtag
+    {
+        flex-direction: column;
+        justify-content: center;
+        height: 120px;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        font-size: 150%;
+        max-width: 1000px;
+    }
+
+    .navbar
+    {
+        width: 100%;
+        align-items: center;
+    }
+
+    .circleImg
+    {
+        display: none;
+    }
+
+    .loginButton
+    {
+        width: 150px;
+    }
+
+    .indexPageMain
+    {
+        max-width: 1000px;
+        height: 200px
+    }
+    
+    /*DASHBOARD*/
+    .signInControls
+    {
+        display: flex;
+        flex-direction: row;
+        width: 75%;
+    }
+
+    .signOutButton
+    {
+        width: 55%;
+    }
+
+    .statusDivOuter
+    {
+        flex-direction: column;
+    }
+
+    .statusDiv
+    {
+        width: unset;
+    }
+
+    .topItems
+    {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .topStat
+    {
+        flex-direction: row;
+        padding: 0px;
+        width: 100%;
+        margin: 5px;
+        justify-content: space-between;
+    }
+
+    .middleItems
+    {
+        flex-direction: column;
+    }
+
+    .leftSection, .rightSection
+    {
+        width: 100%;
+    }
+
+    .hashrateAndActiveMiners
+    {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .rightSection
+    {
+        justify-content: center;
+    } 
+
+    .blockData
+    {
+        width: 100%;
+    }
+
+    .optionButton, .seeBlockReportButton
+    {
+        width: 40%;
+    }
+
+    .minerHashrates, .connectedMiners
+    {
+        width: 100%;
+    }
+    
+    .blockTable
+    {
+        font-size: 16px;
+    }
+
+    .selectThemeInner, .selectRefreshInner, .selectCurrencyInner
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .selectThemeDiv, .selectRefreshDiv, .selectCurrencyDiv
+    {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+
+    .balanceHeader
+    {
+        flex-direction: column;
+    }
+
+    /*TRANSACTION REPORT*/
+    .txReportMain
+    {
+        color: white;
+        width: 97%;
+        margin: 0 auto;
+    }
+
+    .txReportTable
+    {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /*COIN REPORT*/
+    .coinReportMain
+    {
+        color: white;
+        width: 97%;
+        margin: 0 auto;
+    }
+
+    .coinReportTable
+    {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    /*EXCHANGE RATES*/
+    .exchangeRatesTable
+    {
+        width: 100%;
+        font-size: 25px;
+    }
+
+    /*BLOCK DATA REPORT*/
+    .blockReportTable
+    {
+        width: 100%;
+    }
+
+    .blockReportTable td
+    {
+        padding-left: 10px;
+        padding-right: 20px;
+        font-size: 12px;
+    }
+
+    .blockReportTable td:nth-child(1)
+    {
+        width: 45px;
+    }
+}
+
+@media only screen and (max-width: 850px)
+{
+    .coinReportTable td:nth-child(6)
+    {
+        display: none;
+    }
+} 
+
+@media only screen and (max-width: 800px) 
+{
+    /*DASHBOARD*/
+    .balanceStatsDiv
+    {
+        flex-direction: column;
+    }
+
+    .balances
+    {
+        height: 230px;
+    }   
+
+    .bDiv
+    {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 700px)
+{
+    /*COIN REPORT*/
+
+    .coinReportTable td:nth-child(1)
+    {
+        width: 13%;
+    }
+
+    .coinReportTable td:nth-child(2)
+    {
+        width: 34%;
+    }
+
+    .coinReportTable td:nth-child(5)
+    {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px)
+{
+
+    /*BALANCES*/
+
+    .spaceBetweenBalances
+    {
+        display: none;
+    }
+
+    .spaceBetweenBalanceHeaders
+    {
+        display: inline;
+    }
+
+    .balances, .exchangeRates
+    {
+        height: unset;
+    }   
+
+    .bDiv
+    {
+        flex-direction: column;
+        align-items: left;
+    }
+
+    /*BLOCK DATA*/
+
+    .blockDataOptions
+    {
+        padding-left:5%
+    }
+
+    .blockData
+    {
+        padding-left: unset;
+        padding-right: unset;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .blockTable
+    {
+        padding-right: 0px;
+        padding-left: 2%;
+        padding-right: 2%;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .blockTable td:nth-child(1)
+    {
+        width: 12%;
+    }
+
+    .blockTable td:nth-child(3)
+    {
+        width: 25%;
+    }
+}

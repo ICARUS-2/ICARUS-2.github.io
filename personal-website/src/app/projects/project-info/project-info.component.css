@@ -1,0 +1,10 @@
+
+@media screen and (max-width: 768px)
+{
+    .projectInfoInner
+    {
+        margin-left: 0 !important;
+        max-height: unset !important;
+        width: 90% !important;
+    }
+}
