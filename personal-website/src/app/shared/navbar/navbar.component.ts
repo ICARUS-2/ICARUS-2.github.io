@@ -24,12 +24,12 @@ export class NavbarComponent implements OnInit {
 
   onLanguageChanged()
   {
-      let langSelect = document.getElementById("langSelect")
-      
-      //@ts-ignore
-      this.translate.use(langSelect.value)
-      
-      //@ts-ignore
-      LocalStorageHelper.setLang(langSelect.value)
+    let langSelect = document.getElementById("langSelect")
+    
+    //@ts-ignore
+    this.translate.use(langSelect.value)
+    
+    //@ts-ignore
+    LocalStorageHelper.setLang(langSelect.value)
   }
 }
