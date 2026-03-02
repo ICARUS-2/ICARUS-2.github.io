@@ -22,6 +22,14 @@ const routes: Routes = [
     "/projects"                            //Router link
   )},*/
 
+  //CHONSE2
+  {path: "projects/chonse2", component: ProjectInfoComponent, data: new ProjectInfoModel(
+    "../../../assets/img/projects/chonse2.webp", //Background image
+    "projects.chonse2",
+    "https://icarus-2.github.io/chonse2",
+    ""
+  )},
+
   //MoneroOcean Custom UI
   {path: "projects/moneroocean-custom-ui", component: ProjectInfoComponent, data: new ProjectInfoModel(
     "../../../assets/img/projects/moneroocean-customui.webp", //Background image

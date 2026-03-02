@@ -32,6 +32,14 @@
             "infoPageButtonText": ""
         },
 
+        "chonse2":
+        {
+            "projectsPageHeader": "CHONSE2",
+            "infoPageHeader": "CHONSE2",
+            "infoPageDescription": "AI-driven chess platform enabling Stockfish-powered game analysis, board editing, play vs AI and more!",
+            "infoPageButtonText": "Go to Site"
+        },
+
         "moneroOceanCustomUi": 
         {
             "projectsPageHeader" : "MoneroOcean Custom UI",

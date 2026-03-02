@@ -32,6 +32,14 @@
             "infoPageButtonText": ""
         },
 
+        "chonse2":
+        {
+            "projectsPageHeader": "CHONSE2",
+            "infoPageHeader": "CHONSE2",
+            "infoPageDescription": "Plateforme d'échecs pilotée par l'IA permettant l'analyse des matches grâce à Stockfish, l'édition de l'échiquier, jouer contre l'IA et plus!",
+            "infoPageButtonText": "Aller au Site"
+        },
+
         "moneroOceanCustomUi": 
         {
             "projectsPageHeader" : "IU MoneroOcean",
