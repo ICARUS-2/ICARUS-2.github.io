@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import LocalStorageHelper from './../../../helpers/LocalStorageHelper';
 
@@ -7,6 +7,7 @@ import LocalStorageHelper from './../../../helpers/LocalStorageHelper';
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NavbarComponent implements OnInit {

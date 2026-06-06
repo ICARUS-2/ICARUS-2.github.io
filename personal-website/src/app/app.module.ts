@@ -17,7 +17,7 @@ import { ProjectInfoComponent } from './projects/project-info/project-info.compo
 import { MainButtonHrefComponent } from './shared/main-button-href/main-button-href.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 export function HttpLoaderFactory(http: HttpClient)
 {
@@ -49,6 +49,6 @@ export function HttpLoaderFactory(http: HttpClient)
             }
         })], providers: [
         Title,
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class AppModule { }

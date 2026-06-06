@@ -1,16 +1,16 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import TitleHelper from 'src/helpers/TitleHelper';
-import  ProjectInfoModel from 'src/models/ProjectInfoModel';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import TitleHelper from '../../../helpers/TitleHelper';
 
 @Component({
     selector: 'app-project-info',
     templateUrl: './project-info.component.html',
     styleUrls: ['./project-info.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProjectInfoComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import TitleHelper from './../../../helpers/TitleHelper';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
     selector: 'app-projects-page',
     templateUrl: './projects-page.component.html',
     styleUrls: ['./projects-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProjectsPageComponent implements OnInit, OnDestroy{

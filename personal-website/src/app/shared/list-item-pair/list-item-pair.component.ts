@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-list-item-pair',
     templateUrl: './list-item-pair.component.html',
     styleUrls: ['./list-item-pair.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ListItemPairComponent implements OnInit {

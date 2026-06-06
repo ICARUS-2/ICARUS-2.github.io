@@ -4,7 +4,7 @@ import { HomepageComponent } from './home/homepage/homepage.component';
 import { ProjectsPageComponent } from './projects/projects-page/projects-page.component';
 import { ContactPageComponent } from './contact/contact-page/contact-page.component';
 import { ProjectInfoComponent } from './projects/project-info/project-info.component';
-import ProjectInfoModel from 'src/models/ProjectInfoModel';
+import ProjectInfoModel from '../models/ProjectInfoModel';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},

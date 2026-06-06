@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import TitleHelper from './../../../helpers/TitleHelper';
 
@@ -6,6 +6,7 @@ import TitleHelper from './../../../helpers/TitleHelper';
     selector: 'app-contact-page',
     templateUrl: './contact-page.component.html',
     styleUrls: ['./contact-page.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ContactPageComponent implements OnInit {

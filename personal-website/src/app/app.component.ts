@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import LocalStorageHelper from './../helpers/LocalStorageHelper';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AppComponent implements OnInit{
